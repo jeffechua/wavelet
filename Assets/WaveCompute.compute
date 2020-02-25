@@ -1,0 +1,37 @@
+﻿#pragma kernel Reset
+#pragma kernel ComputeVelocity
+#pragma kernel ComputeDisplacement
+
+RWStructuredBuffer<int> forceWait;
+RWTexture2DArray<float> System;
+Texture2D<float3> IC;
+float c2;
+float dt;
+
+[numthreads(8,8,1)]
+void Reset (uint3 id : SV_DispatchThreadID)
+{
+	System[uint3(id.x,id.y,0)] = IC[id.xy].r;
+	System[uint3(id.x,id.y,1)] = 0;
+	System[uint3(id.x,id.y,2)] = 1 - IC[id.xy].g;
+}
+
+[numthreads(8,8,1)]
+void ComputeVelocity (uint3 id : SV_DispatchThreadID)
+{
+	uint2 p = id.xy + uint2(1,1);
+    System[uint3(id.x,id.y,1)] = (System[uint3(id.x,id.y,1)] + c2 *
+									 (System[uint3(id.x-1,id.y,0)] +
+                                      System[uint3(id.x+1,id.y,0)] +
+                                      System[uint3(id.x,id.y-1,0)] +
+                                      System[uint3(id.x,id.y+1,0)] -
+								      4*System[uint3(id.x,id.y,0)]) * dt) *
+								  System[uint3(id.x,id.y,2)];
+}
+
+[numthreads(8,8,1)]
+void ComputeDisplacement (uint3 id : SV_DispatchThreadID)
+{
+	id.xy = id.xy + uint2(1,1);
+    System[uint3(id.x,id.y,0)] = System[uint3(id.x,id.y,0)] + System[uint3(id.x,id.y,1)] * dt;
+}
