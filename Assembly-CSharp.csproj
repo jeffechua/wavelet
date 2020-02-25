@@ -63,11 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Draw.cs" />
-    <Compile Include="Assets\FreeDraw\Scripts\Drawable.cs" />
-    <Compile Include="Assets\FreeDraw\Scripts\DrawingSettings.cs" />
-    <Compile Include="Assets\WaveEngine.cs" />
-    <None Include="Assets\WaveCompute.compute" />
+    <Compile Include="Assets\WaveEngine\WaveEngine.cs" />
+    <None Include="Assets\WaveEngine\SystemRender.shader" />
+    <None Include="Assets\WaveEngine\WaveCompute.compute" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/jefferson/Dropbox/Wavelet/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
