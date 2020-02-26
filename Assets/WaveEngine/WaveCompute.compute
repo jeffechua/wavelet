@@ -1,6 +1,7 @@
 ﻿#pragma kernel Reset
 #pragma kernel ComputeVelocity
 #pragma kernel ComputeDisplacement
+#pragma kernel Test
 
 //RWStructuredBuffer<int> forceWait;
 
@@ -10,6 +11,7 @@ Texture2D<float4> Sources;
 float c2Scale;
 float dampScale;
 float frequencyScale;
+float intensityScale;
 float dt;
 float t;
 
@@ -45,10 +47,17 @@ void ComputeDisplacement (uint3 id : SV_DispatchThreadID)
 		System[uint3(id.x,id.y,0)] = 0;
 		System[uint3(id.x,id.y,1)] = 0;
 	} else {
-		if(Sources[id.xy].r < 0.01) {
+		if(Sources[id.xy].a < 0.01) {
 			System[uint3(id.x,id.y,0)] = System[uint3(id.x,id.y,0)] + System[uint3(id.x,id.y,1)] * dt;
 		} else {
-			System[uint3(id.x,id.y,0)] = Sources[id.xy].r * sin(t * Sources[id.xy].g * frequencyScale + Sources[id.xy].b);
+			System[uint3(id.x,id.y,0)] = Sources[id.xy].r *
+										 sin(t * Sources[id.xy].g * frequencyScale + Sources[id.xy].b * 6.28318530718);
 		}
 	}
+}
+
+[numthreads(1,1,1)]
+void Test (uint3 id : SV_DispatchThreadID) {
+	int time = round(t / dt);
+	System[uint3(time*10, time*10, 0)] = 10;
 }

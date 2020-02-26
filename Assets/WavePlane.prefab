@@ -135,7 +135,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f88046c18a7ea4c04b27804cad79cb0c, type: 2}
+  - {fileID: 2100000, guid: a8576fc16d7af4afb9da08e0a109f596, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f593347786c84d39aae46df879b1a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t: 0
   waveCompute: {fileID: 7200000, guid: 8c18c058cb61b4e668d11c6769ddff2f, type: 3}
-  systemRender: {fileID: 2100000, guid: a8576fc16d7af4afb9da08e0a109f596, type: 2}
   mediumCamera: {fileID: 390294536432032746}
   sourcesCamera: {fileID: 390294537949008919}
   systemTexture: {fileID: 0}
@@ -178,9 +178,10 @@ MonoBehaviour:
   pixelSize: 0.02
   cScale: 0.4
   dampScale: 10
+  intensityScale: 1
   frequencyScale: 20
   dt: 0.025
-  f: 5
+  f: 10
 --- !u!1 &390294537949008918
 GameObject:
   m_ObjectHideFlags: 0

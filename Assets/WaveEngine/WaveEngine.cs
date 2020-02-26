@@ -4,34 +4,36 @@ using System;
 
 public class WaveEngine : MonoBehaviour {
 
+	public static WaveEngine s_instance;
+
+	public float t;
+
 	public ComputeShader waveCompute;
-	public Material systemRender;
 
 	public Camera mediumCamera, sourcesCamera;
-	public RenderTexture systemTexture, mediumTexture, sourcesTexture;
+	public RenderTexture systemTexture, mediumTexture, sourcesTexture; // Do not assign
 
-	RenderTexture systemDisplayTextureIntermediate;
 	RenderTexture systemDisplayTexture;
 
+	// Simulation parameters
 	public float pixelSize;
 	int width, height;
-
 	public float cScale;
 	public float dampScale;
+	public float intensityScale;
 	public float frequencyScale;
 	public float dt;
 	public int f;
 
-	float Sim_cScale { get => cScale / pixelSize; }
-	float t;
 
-	int resetKernel, dispKernel, veloKernel;
+	float Sim_cScale { get => cScale / pixelSize; }
+
+	int resetKernel, dispKernel, veloKernel, testKernel;
 	uint tgsX, tgsY, tgsZ;
 
-	//ComputeBuffer forceWaitBuffer1;
-	//ComputeBuffer forceWaitBuffer2;
-
 	void Awake() {
+
+		s_instance = this;
 
 		width = Mathf.RoundToInt(transform.localScale.x / pixelSize);
 		height = Mathf.RoundToInt(transform.localScale.y / pixelSize);
@@ -60,6 +62,7 @@ public class WaveEngine : MonoBehaviour {
 		resetKernel = waveCompute.FindKernel("Reset");
 		dispKernel = waveCompute.FindKernel("ComputeDisplacement");
 		veloKernel = waveCompute.FindKernel("ComputeVelocity");
+		testKernel = waveCompute.FindKernel("Test");
 		waveCompute.GetKernelThreadGroupSizes(dispKernel, out tgsX, out tgsY, out tgsZ);
 
 		waveCompute.SetTexture(resetKernel, "System", systemTexture);
@@ -71,45 +74,40 @@ public class WaveEngine : MonoBehaviour {
 		waveCompute.SetTexture(veloKernel, "System", systemTexture);
 		waveCompute.SetTexture(veloKernel, "Medium", mediumTexture);
 
-		// Set up ComputeBuffers to force waits
-		//forceWaitBuffer1 = new ComputeBuffer(1, 4);
-		//forceWaitBuffer2 = new ComputeBuffer(1, 4);
-		//waveCompute.SetBuffer(dispKernel, "forceWait", forceWaitBuffer1);
-		//waveCompute.SetBuffer(veloKernel, "forceWait", forceWaitBuffer2);
+		waveCompute.SetTexture(testKernel, "System", systemTexture);
 
 		// Set up display texture
-		systemDisplayTextureIntermediate = new RenderTexture(width, height, 0, RenderTextureFormat.RFloat);
-		systemDisplayTextureIntermediate.Create();
 		systemDisplayTexture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGBFloat);
 		systemDisplayTexture.Create();
 		GetComponent<MeshRenderer>().material.SetTexture("_MainTex", systemDisplayTexture);
 
 	}
 
-	void Update() {
+	void FixedUpdate() {
+
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			waveCompute.Dispatch(resetKernel, width / (int)tgsX, height / (int)tgsY, 1);
 		}
-		//int[] forceWaitResult = new int[1];
+
+		// Set some simulation and rendering parameters
 		waveCompute.SetFloat("c2Scale", Sim_cScale * Sim_cScale);
 		waveCompute.SetFloat("dampScale", dampScale);
+		waveCompute.SetFloat("intensityScale", intensityScale);
 		waveCompute.SetFloat("frequencyScale", frequencyScale);
 		waveCompute.SetFloat("dt", dt);
+		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", intensityScale);
+
+		// Simulate
 		for (int i = 0; i < f; i++) {
 			waveCompute.SetFloat("t", t);
 			waveCompute.Dispatch(veloKernel, width / (int)tgsX, height / (int)tgsY, 1);
-			//forceWaitBuffer1.GetData(forceWaitResult);
 			waveCompute.Dispatch(dispKernel, width / (int)tgsX, height / (int)tgsY, 1);
-			//forceWaitBuffer2.GetData(forceWaitResult);
 			t += dt;
 		}
-		Graphics.Blit(systemTexture, systemDisplayTextureIntermediate, 0, 0);
-		Graphics.Blit(systemDisplayTextureIntermediate, systemDisplayTexture, systemRender);
-	}
 
-	private void OnDestroy() {
-		//forceWaitBuffer1.Dispose();
-		//forceWaitBuffer2.Dispose();
+		// Render
+		Graphics.Blit(systemTexture, systemDisplayTexture, 0, 0);
+
 	}
 
 }
