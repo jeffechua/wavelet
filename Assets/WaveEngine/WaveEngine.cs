@@ -7,35 +7,29 @@ public class WaveEngine : MonoBehaviour {
 	public ComputeShader waveCompute;
 	public Material systemRender;
 
-	public Camera mediumCamera;
-	public Camera sourcesCamera;
-	public RenderTexture systemTexture;
-	public RenderTexture mediumTexture;
-	public RenderTexture sourcesTexture;
+	public Camera mediumCamera, sourcesCamera;
+	public RenderTexture systemTexture, mediumTexture, sourcesTexture;
 
 	RenderTexture systemDisplayTextureIntermediate;
 	RenderTexture systemDisplayTexture;
 
 	public float pixelSize;
-	int width;
-	int height;
+	int width, height;
 
 	public float cScale;
 	public float dampScale;
 	public float frequencyScale;
-	float Sim_cScale { get => cScale / pixelSize; }
-
 	public float dt;
 	public int f;
 
+	float Sim_cScale { get => cScale / pixelSize; }
 	float t;
 
-	int resetKernel;
-	int dispKernel;
-	int veloKernel;
+	int resetKernel, dispKernel, veloKernel;
+	uint tgsX, tgsY, tgsZ;
 
-	ComputeBuffer forceWaitBuffer1;
-	ComputeBuffer forceWaitBuffer2;
+	//ComputeBuffer forceWaitBuffer1;
+	//ComputeBuffer forceWaitBuffer2;
 
 	void Awake() {
 
@@ -66,6 +60,7 @@ public class WaveEngine : MonoBehaviour {
 		resetKernel = waveCompute.FindKernel("Reset");
 		dispKernel = waveCompute.FindKernel("ComputeDisplacement");
 		veloKernel = waveCompute.FindKernel("ComputeVelocity");
+		waveCompute.GetKernelThreadGroupSizes(dispKernel, out tgsX, out tgsY, out tgsZ);
 
 		waveCompute.SetTexture(resetKernel, "System", systemTexture);
 
@@ -77,10 +72,10 @@ public class WaveEngine : MonoBehaviour {
 		waveCompute.SetTexture(veloKernel, "Medium", mediumTexture);
 
 		// Set up ComputeBuffers to force waits
-		forceWaitBuffer1 = new ComputeBuffer(1, 4);
-		forceWaitBuffer2 = new ComputeBuffer(1, 4);
-		waveCompute.SetBuffer(dispKernel, "forceWait", forceWaitBuffer1);
-		waveCompute.SetBuffer(veloKernel, "forceWait", forceWaitBuffer2);
+		//forceWaitBuffer1 = new ComputeBuffer(1, 4);
+		//forceWaitBuffer2 = new ComputeBuffer(1, 4);
+		//waveCompute.SetBuffer(dispKernel, "forceWait", forceWaitBuffer1);
+		//waveCompute.SetBuffer(veloKernel, "forceWait", forceWaitBuffer2);
 
 		// Set up display texture
 		systemDisplayTextureIntermediate = new RenderTexture(width, height, 0, RenderTextureFormat.RFloat);
@@ -93,21 +88,19 @@ public class WaveEngine : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			waveCompute.Dispatch(resetKernel, width / 8, height / 8, 1);
+			waveCompute.Dispatch(resetKernel, width / (int)tgsX, height / (int)tgsY, 1);
 		}
-		mediumCamera.Render();
-		sourcesCamera.Render();
+		//int[] forceWaitResult = new int[1];
+		waveCompute.SetFloat("c2Scale", Sim_cScale * Sim_cScale);
+		waveCompute.SetFloat("dampScale", dampScale);
+		waveCompute.SetFloat("frequencyScale", frequencyScale);
+		waveCompute.SetFloat("dt", dt);
 		for (int i = 0; i < f; i++) {
-			int[] forceWaitResult = new int[1];
-			waveCompute.SetFloat("c2Scale", Sim_cScale * Sim_cScale);
-			waveCompute.SetFloat("dampScale", dampScale);
-			waveCompute.SetFloat("frequencyScale", frequencyScale);
-			waveCompute.SetFloat("dt", dt);
 			waveCompute.SetFloat("t", t);
-			waveCompute.Dispatch(veloKernel, width / 8, height / 8, 1);
-			forceWaitBuffer1.GetData(forceWaitResult);
-			waveCompute.Dispatch(dispKernel, width / 8, height / 8, 1);
-			forceWaitBuffer2.GetData(forceWaitResult);
+			waveCompute.Dispatch(veloKernel, width / (int)tgsX, height / (int)tgsY, 1);
+			//forceWaitBuffer1.GetData(forceWaitResult);
+			waveCompute.Dispatch(dispKernel, width / (int)tgsX, height / (int)tgsY, 1);
+			//forceWaitBuffer2.GetData(forceWaitResult);
 			t += dt;
 		}
 		Graphics.Blit(systemTexture, systemDisplayTextureIntermediate, 0, 0);
@@ -115,8 +108,8 @@ public class WaveEngine : MonoBehaviour {
 	}
 
 	private void OnDestroy() {
-		forceWaitBuffer1.Dispose();
-		forceWaitBuffer2.Dispose();
+		//forceWaitBuffer1.Dispose();
+		//forceWaitBuffer2.Dispose();
 	}
 
 }

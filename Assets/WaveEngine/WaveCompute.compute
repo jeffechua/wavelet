@@ -2,7 +2,7 @@
 #pragma kernel ComputeVelocity
 #pragma kernel ComputeDisplacement
 
-RWStructuredBuffer<int> forceWait;
+//RWStructuredBuffer<int> forceWait;
 
 RWTexture2DArray<float> System;
 Texture2D<float4> Medium;
@@ -13,7 +13,7 @@ float frequencyScale;
 float dt;
 float t;
 
-[numthreads(8,8,1)]
+[numthreads(16,16,1)]
 void Reset (uint3 id : SV_DispatchThreadID)
 {
 	System[uint3(id.x,id.y,0)] = 0;
@@ -21,14 +21,10 @@ void Reset (uint3 id : SV_DispatchThreadID)
 }
 
 float GetDisplacementFrom (uint x, uint y, uint x0, uint y0) {
-	return Medium[uint2(x, y)].b > 0.75 ?
-				System[uint3(x, y, 0)] :
-				(Medium[uint2(x, y)].b > 0.25 ?
-					System[uint3(x0, y0, 0)] :
-					0);
+	return Medium[uint2(x, y)].b < 0.25 ? System[uint3(x0, y0, 0)] : System[uint3(x, y, 0)];
 }
 
-[numthreads(8,8,1)]
+[numthreads(16,16,1)]
 void ComputeVelocity (uint3 id : SV_DispatchThreadID)
 {
 	// dv/dt = div^2(y) - µv
@@ -39,17 +35,20 @@ void ComputeVelocity (uint3 id : SV_DispatchThreadID)
 							GetDisplacementFrom(id.x, id.y+1, id.x, id.y) -
 						    4 * System[uint3(id.x,id.y,0)]);
 	float damping = - Medium[id.xy].r * System[uint3(id.x,id.y,1)] * dampScale;
-    System[uint3(id.x,id.y,1)] = (System[uint3(id.x,id.y,1)] +
-									(damping + laplacian) * dt);
+    System[uint3(id.x,id.y,1)] = System[uint3(id.x,id.y,1)] + (damping + laplacian) * dt;
 }
 
-[numthreads(8,8,1)]
+[numthreads(16,16,1)]
 void ComputeDisplacement (uint3 id : SV_DispatchThreadID)
 {
-    System[uint3(id.x,id.y,0)] =
-			(Medium[id.xy].b < 0.75) ? 0 :
-				(Sources[id.xy].r < 0.01 ?
-					System[uint3(id.x,id.y,0)] + System[uint3(id.x,id.y,1)] * dt :
-					Sources[id.xy].r * sin(t * Sources[id.xy].g * frequencyScale + Sources[id.xy].b));
-	System[uint3(id.x,id.y,1)] = (Medium[id.xy].b < 0.75) ? 0 : System[uint3(id.x,id.y,1)]; // For some reason putting this in ComputeVelocity makes everything explode. Investigate.
+	if(Medium[id.xy].b < 0.75) {
+		System[uint3(id.x,id.y,0)] = 0;
+		System[uint3(id.x,id.y,1)] = 0;
+	} else {
+		if(Sources[id.xy].r < 0.01) {
+			System[uint3(id.x,id.y,0)] = System[uint3(id.x,id.y,0)] + System[uint3(id.x,id.y,1)] * dt;
+		} else {
+			System[uint3(id.x,id.y,0)] = Sources[id.xy].r * sin(t * Sources[id.xy].g * frequencyScale + Sources[id.xy].b);
+		}
+	}
 }
