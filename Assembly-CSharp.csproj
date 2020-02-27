@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Pulsar.cs" />
+    <Compile Include="Assets\SizePulsar.cs" />
     <Compile Include="Assets\WaveEngine\WaveEngine.cs" />
     <None Include="Assets\WaveEngine\SystemRender.shader" />
     <None Include="Assets\WaveEngine\WaveCompute.compute" />
