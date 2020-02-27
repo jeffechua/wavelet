@@ -224,7 +224,7 @@ PrefabInstance:
     - target: {fileID: 6541670686202690099, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6541670686202690099, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
@@ -271,8 +271,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: LensedGun Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81d83257ca194492ea7808e462705aca, type: 3}
 --- !u!1001 &390294537298641136
 PrefabInstance:

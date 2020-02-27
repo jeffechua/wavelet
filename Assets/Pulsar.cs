@@ -20,7 +20,7 @@ public class Pulsar : MonoBehaviour {
 
 	void Pulse() {
 		startTime = WaveEngine.s_instance.t;
-		material.color = new Color(intensity, Mathf.PI / pulseLength / WaveEngine.s_instance.frequencyScale, -((startTime / pulseLength / 2) % 1));
+		material.color = new Color(intensity, Mathf.PI / pulseLength / WaveEngine.s_instance.sourceFrequencyScale, -((startTime / pulseLength / 2) % 1));
 	}
 
 	void Update() {

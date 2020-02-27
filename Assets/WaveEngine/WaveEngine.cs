@@ -6,32 +6,44 @@ public class WaveEngine : MonoBehaviour {
 
 	public static WaveEngine s_instance;
 
-	public float t;
-
 	public ComputeShader waveCompute;
 
+	// Working and rendering assets
 	public Camera mediumCamera, sourcesCamera;
 	public RenderTexture systemTexture, mediumTexture, sourcesTexture; // Do not assign
-
 	RenderTexture systemDisplayTexture;
 
 	// Simulation parameters
 	public float pixelSize;
 	int width, height;
+
+	public int frequency;
+	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime); }
+	float Dt { get => 1.0f / frequency; }
+
+	int ShaderSpace_t;
+	public float t { get => ShaderSpace_t * Dt; }
+
+	// Simulation parameters
 	public float cScale;
-	public float dampScale;
-	public float intensityScale;
-	public float frequencyScale;
-	public float dt;
-	public int f;
+	public float dampingScale;
+	public float sourceIntensityScale;
+	public float sourceFrequencyScale;
 
+	float ShaderSpace_cScale { get => cScale / pixelSize * Dt; }
+	float ShaderSpace_dampingScale { get => dampingScale * Dt; }
+	float ShaderSpace_sourceFrequencyScale { get => sourceFrequencyScale * Dt * 2 * Mathf.PI; }
 
-	float Sim_cScale { get => cScale / pixelSize; }
-
+	// Compute shader data
 	int resetKernel, dispKernel, veloKernel, testKernel;
 	uint tgsX, tgsY, tgsZ;
 
 	void Awake() {
+
+		if(Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) >0.01) {
+			print("Warning: true simulation frequency per game frame is not a whole number. Rounding.");
+		}
+
 
 		s_instance = this;
 
@@ -87,22 +99,23 @@ public class WaveEngine : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			waveCompute.Dispatch(resetKernel, width / (int)tgsX, height / (int)tgsY, 1);
+			ShaderSpace_t = 0;
 		}
 
 		// Set some simulation and rendering parameters
-		waveCompute.SetFloat("c2Scale", Sim_cScale * Sim_cScale);
-		waveCompute.SetFloat("dampScale", dampScale);
-		waveCompute.SetFloat("intensityScale", intensityScale);
-		waveCompute.SetFloat("frequencyScale", frequencyScale);
-		waveCompute.SetFloat("dt", dt);
-		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", intensityScale);
+		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
+		waveCompute.SetFloat("dampingScale", ShaderSpace_dampingScale);
+		waveCompute.SetFloat("intensityScale", sourceIntensityScale);
+		waveCompute.SetFloat("frequencyScale", ShaderSpace_sourceFrequencyScale);
+		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", sourceIntensityScale);
 
 		// Simulate
-		for (int i = 0; i < f; i++) {
-			waveCompute.SetFloat("t", t);
+		for (int i = 0; i < FrameFrequency; i++) {
+			print(Mathf.Sin(ShaderSpace_sourceFrequencyScale * ShaderSpace_t));
+			waveCompute.SetInt("t", ShaderSpace_t);
 			waveCompute.Dispatch(veloKernel, width / (int)tgsX, height / (int)tgsY, 1);
 			waveCompute.Dispatch(dispKernel, width / (int)tgsX, height / (int)tgsY, 1);
-			t += dt;
+			ShaderSpace_t++;
 		}
 
 		// Render

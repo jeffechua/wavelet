@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f593347786c84d39aae46df879b1a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  t: 0
   waveCompute: {fileID: 7200000, guid: 8c18c058cb61b4e668d11c6769ddff2f, type: 3}
   mediumCamera: {fileID: 390294536432032746}
   sourcesCamera: {fileID: 390294537949008919}
@@ -176,12 +175,11 @@ MonoBehaviour:
   mediumTexture: {fileID: 0}
   sourcesTexture: {fileID: 0}
   pixelSize: 0.02
-  cScale: 0.4
-  dampScale: 10
-  intensityScale: 1
-  frequencyScale: 20
-  dt: 0.025
-  f: 5
+  frequency: 250
+  cScale: 2.5
+  dampingScale: 75
+  sourceIntensityScale: 1
+  sourceFrequencyScale: 20
 --- !u!1 &390294537949008918
 GameObject:
   m_ObjectHideFlags: 0

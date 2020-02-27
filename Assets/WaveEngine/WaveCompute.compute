@@ -9,11 +9,10 @@ RWTexture2DArray<float> System;
 Texture2D<float4> Medium;
 Texture2D<float4> Sources;
 float c2Scale;
-float dampScale;
+float dampingScale;
 float frequencyScale;
 float intensityScale;
-float dt;
-float t;
+int t;
 
 [numthreads(16,16,1)]
 void Reset (uint3 id : SV_DispatchThreadID)
@@ -36,8 +35,8 @@ void ComputeVelocity (uint3 id : SV_DispatchThreadID)
 							GetDisplacementFrom(id.x, id.y-1, id.x, id.y) +
 							GetDisplacementFrom(id.x, id.y+1, id.x, id.y) -
 						    4 * System[uint3(id.x,id.y,0)]);
-	float damping = - Medium[id.xy].r * System[uint3(id.x,id.y,1)] * dampScale;
-    System[uint3(id.x,id.y,1)] = System[uint3(id.x,id.y,1)] + (damping + laplacian) * dt;
+	float damping = - Medium[id.xy].r * System[uint3(id.x,id.y,1)] * dampingScale;
+    System[uint3(id.x,id.y,1)] = System[uint3(id.x,id.y,1)] + damping + laplacian;
 }
 
 [numthreads(16,16,1)]
@@ -48,16 +47,15 @@ void ComputeDisplacement (uint3 id : SV_DispatchThreadID)
 		System[uint3(id.x,id.y,1)] = 0;
 	} else {
 		if(Sources[id.xy].a < 0.01) {
-			System[uint3(id.x,id.y,0)] = System[uint3(id.x,id.y,0)] + System[uint3(id.x,id.y,1)] * dt;
+			System[uint3(id.x,id.y,0)] = System[uint3(id.x,id.y,0)] + System[uint3(id.x,id.y,1)];
 		} else {
 			System[uint3(id.x,id.y,0)] = Sources[id.xy].r *
-										 sin(t * Sources[id.xy].g * frequencyScale + Sources[id.xy].b * 6.28318530718);
+										 sin(Sources[id.xy].g * frequencyScale * t + Sources[id.xy].b * 6.28318530718);
 		}
 	}
 }
 
 [numthreads(1,1,1)]
 void Test (uint3 id : SV_DispatchThreadID) {
-	int time = round(t / dt);
-	System[uint3(time*10, time*10, 0)] = 10;
+	System[uint3(t*10, t*10, 0)] = 1000;
 }
