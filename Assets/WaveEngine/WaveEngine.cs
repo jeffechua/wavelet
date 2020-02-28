@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System;
 
 public class WaveEngine : MonoBehaviour {
 
@@ -16,6 +14,8 @@ public class WaveEngine : MonoBehaviour {
 	// Simulation parameters
 	public float pixelSize;
 	int width, height;
+
+	public float speedFactor;
 
 	public int frequency;
 	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime); }
@@ -40,10 +40,8 @@ public class WaveEngine : MonoBehaviour {
 
 	void Awake() {
 
-		if(Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) >0.01) {
+		if (Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) > 0.01)
 			print("Warning: true simulation frequency per game frame is not a whole number. Rounding.");
-		}
-
 
 		s_instance = this;
 
@@ -110,8 +108,7 @@ public class WaveEngine : MonoBehaviour {
 		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", sourceIntensityScale);
 
 		// Simulate
-		for (int i = 0; i < FrameFrequency; i++) {
-			print(Mathf.Sin(ShaderSpace_sourceFrequencyScale * ShaderSpace_t));
+		for (int i = 0; i < FrameFrequency * speedFactor; i++) {
 			waveCompute.SetInt("t", ShaderSpace_t);
 			waveCompute.Dispatch(veloKernel, width / (int)tgsX, height / (int)tgsY, 1);
 			waveCompute.Dispatch(dispKernel, width / (int)tgsX, height / (int)tgsY, 1);

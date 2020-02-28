@@ -32,7 +32,7 @@ PrefabInstance:
     - target: {fileID: 8921747814230559475, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: m_Name
-      value: LensedGun Variant
+      value: Gun Lensed
       objectReference: {fileID: 0}
     - target: {fileID: 8921747814230559476, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}

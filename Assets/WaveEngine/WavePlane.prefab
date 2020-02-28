@@ -175,6 +175,7 @@ MonoBehaviour:
   mediumTexture: {fileID: 0}
   sourcesTexture: {fileID: 0}
   pixelSize: 0.02
+  speedFactor: 0.5
   frequency: 250
   cScale: 2.5
   dampingScale: 75

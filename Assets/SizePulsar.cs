@@ -27,7 +27,7 @@ public class SizePulsar : MonoBehaviour
 
 		float t = WaveEngine.s_instance.t - refTime;
 		if (cyclic || t < pulseLength + pulseGap) {
-			float cycleCoordinate = Mathf.Clamp(t % (pulseLength + pulseGap) / pulseLength, 0, 1);
+			float cycleCoordinate = Mathf.Clamp01(t % (pulseLength + pulseGap) / pulseLength);
 			transform.localScale = Vector3.Lerp(restSize, maxSize, Mathf.Sin(cycleCoordinate * Mathf.PI));
 		}
 
