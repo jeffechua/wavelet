@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum PulsarState { Inactive, PrePulse, MidPulse }
 
@@ -60,24 +59,16 @@ public class BasePulsar : MonoBehaviour {
 		}
 
 	}
-}
 
-public class Pulsar : BasePulsar {
-
-	public float intensity;
-	Material material;
-
-	void Start() {
-		material = GetComponent<SpriteRenderer>().material;
-		material.color = Color.black;
+	public Material material {
+		get {
+			if (_material == null) {
+				SpriteRenderer maybeSR = GetComponent<SpriteRenderer>();
+				_material = maybeSR ? maybeSR.material : GetComponent<LineRenderer>().material;
+			}
+			return _material;
+		}
 	}
-
-	protected override void StartPulse(float t) {
-		material.color = new Color(intensity, 0.5f / pulseLength / WaveEngine.instance.sourceFrequencyScale, -((pulseStartTime / pulseLength / 2) % 1));
-	}
-
-	protected override void EndPulse(float t) {
-		material.color = Color.black;
-	}
+	Material _material;
 
 }

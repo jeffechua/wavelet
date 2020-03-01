@@ -17,6 +17,16 @@ PrefabInstance:
       propertyPath: m_Parameters.widthMultiplier
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3155944679091046876, guid: 81d83257ca194492ea7808e462705aca,
+        type: 3}
+      propertyPath: speed
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155944679091046876, guid: 81d83257ca194492ea7808e462705aca,
+        type: 3}
+      propertyPath: shootDelay
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4041413279586437435, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
       propertyPath: m_Parameters.widthMultiplier
@@ -45,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 6541670686202690099, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6541670686202690099, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
