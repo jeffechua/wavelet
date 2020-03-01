@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    public static Player instance;
+
 	public float pushPower;
     public float velocityHalfLife;
 	public float walkSpeed;
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 

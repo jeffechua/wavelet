@@ -211,11 +211,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1325626445258653081, guid: 8d1de3082a7d0434aa992643eaeae9b7,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.5019608
-      objectReference: {fileID: 0}
     - target: {fileID: 2840032871514530235, guid: 8d1de3082a7d0434aa992643eaeae9b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -254,7 +249,7 @@ PrefabInstance:
     - target: {fileID: 2840032871514530235, guid: 8d1de3082a7d0434aa992643eaeae9b7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2840032871514530235, guid: 8d1de3082a7d0434aa992643eaeae9b7,
         type: 3}
@@ -274,7 +269,7 @@ PrefabInstance:
     - target: {fileID: 2840032871514530236, guid: 8d1de3082a7d0434aa992643eaeae9b7,
         type: 3}
       propertyPath: m_Name
-      value: LensedGun Variant Variant
+      value: Gun Lensed HalfF
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d1de3082a7d0434aa992643eaeae9b7, type: 3}
@@ -328,7 +323,7 @@ PrefabInstance:
     - target: {fileID: 6541670686202690099, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6541670686202690099, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
@@ -348,7 +343,7 @@ PrefabInstance:
     - target: {fileID: 6541670686202690100, guid: 81d83257ca194492ea7808e462705aca,
         type: 3}
       propertyPath: m_Name
-      value: LensedGun Variant
+      value: Gun Lensed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81d83257ca194492ea7808e462705aca, type: 3}
@@ -449,7 +444,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2112718334
 Rigidbody2D:
@@ -483,6 +478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WavePlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 390294536819933475, guid: e1e8e998e582648a596e7f17e965804a,
+        type: 3}
+      propertyPath: speedFactor
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 390294536819933478, guid: e1e8e998e582648a596e7f17e965804a,
         type: 3}
@@ -522,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 390294536819933478, guid: e1e8e998e582648a596e7f17e965804a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 390294536819933478, guid: e1e8e998e582648a596e7f17e965804a,
         type: 3}
@@ -611,7 +611,7 @@ PrefabInstance:
     - target: {fileID: 2484870087939041847, guid: 54d64718195ed41afbccbb62868d9f3b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2484870087939041847, guid: 54d64718195ed41afbccbb62868d9f3b,
         type: 3}
@@ -680,7 +680,7 @@ PrefabInstance:
     - target: {fileID: 8921747814230559476, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8921747814230559476, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
@@ -710,6 +710,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pulsar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794211257199665701, guid: 0027f709c3da74cdbb59e63f60d5e25d,
+        type: 3}
+      propertyPath: pulseLength
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7375300386688324168, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
@@ -749,7 +754,7 @@ PrefabInstance:
     - target: {fileID: 7375300386688324168, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7375300386688324168, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}

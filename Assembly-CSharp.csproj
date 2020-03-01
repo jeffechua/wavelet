@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AmplitudePulsar.cs" />
+    <Compile Include="Assets\BinaryPulsar.cs" />
     <Compile Include="Assets\Enemy.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Pulsar.cs" />

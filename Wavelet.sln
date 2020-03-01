@@ -23,7 +23,6 @@ Global
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$0.TextStylePolicy = $2
 		$2.NoTabsAfterNonTabs = True
-		$2.EolMarker = Unix
 		$2.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $3
 		$3.NewLinesForBracesInTypes = False

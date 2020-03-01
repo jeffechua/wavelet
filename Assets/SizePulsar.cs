@@ -1,36 +1,22 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class SizePulsar : MonoBehaviour
-{
-    public Vector3 restSize;
+public class SizePulsar : BasePulsar {
+
+	public Vector3 restSize;
 	public Vector3 maxSize;
 
-	public bool manualActivate;
-	public bool cyclic;
-	public float pulseLength;
-	public float pulseGap; // use if cyclic
-
-	float refTime;
-
-	private void Start() {
+	void Start() {
 		transform.localScale = restSize;
 	}
 
-	void Update() {
+	protected override void Pulsing(float t) {
+		transform.localScale = Vector3.Lerp(restSize, maxSize, Mathf.Sin(t * Mathf.PI));
+	}
 
-		if (manualActivate) {
-			refTime = WaveEngine.s_instance.t;
-			manualActivate = false;
-		}
-
-		float t = WaveEngine.s_instance.t - refTime;
-		if (cyclic || t < pulseLength + pulseGap) {
-			float cycleCoordinate = Mathf.Clamp01(t % (pulseLength + pulseGap) / pulseLength);
-			transform.localScale = Vector3.Lerp(restSize, maxSize, Mathf.Sin(cycleCoordinate * Mathf.PI));
-		}
-
+	protected override void EndPulse(float t) {
+		transform.localScale = restSize;
 	}
 
 }

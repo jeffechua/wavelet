@@ -97,5 +97,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Lensed HalfF
       objectReference: {fileID: 0}
+    - target: {fileID: 8053823955636413969, guid: 81d83257ca194492ea7808e462705aca,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81d83257ca194492ea7808e462705aca, type: 3}

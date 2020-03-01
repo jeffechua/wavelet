@@ -2,7 +2,7 @@
 
 public class WaveEngine : MonoBehaviour {
 
-	public static WaveEngine s_instance;
+	public static WaveEngine instance;
 
 	public ComputeShader waveCompute;
 
@@ -43,7 +43,7 @@ public class WaveEngine : MonoBehaviour {
 		if (Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) > 0.01)
 			print("Warning: true simulation frequency per game frame is not a whole number. Rounding.");
 
-		s_instance = this;
+		instance = this;
 
 		width = Mathf.RoundToInt(transform.localScale.x / pixelSize);
 		height = Mathf.RoundToInt(transform.localScale.y / pixelSize);
