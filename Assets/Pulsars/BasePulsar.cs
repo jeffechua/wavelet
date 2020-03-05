@@ -9,7 +9,7 @@ public class BasePulsar : MonoBehaviour {
 	public bool manualActivate;
 	public bool autoActivate;
 	public float activationLag;
-	protected float pulseStartTime;
+	protected float pulseStartTime = -10000;
 	public PulsarState state;
 
 	public pulseDel pulseStartDel;

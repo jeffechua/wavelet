@@ -37,6 +37,8 @@ public class WaveEngine : MonoBehaviour {
 	// Compute shader data
 	int resetKernel, dispKernel, veloKernel, testKernel;
 	uint tgsX, tgsY, tgsZ;
+	public int xGroups { get => Mathf.CeilToInt((float)width / tgsX); }
+	public int yGroups { get => Mathf.CeilToInt((float)height / tgsY); }
 
 	void Awake() {
 
@@ -96,7 +98,7 @@ public class WaveEngine : MonoBehaviour {
 	void FixedUpdate() {
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			waveCompute.Dispatch(resetKernel, width / (int)tgsX, height / (int)tgsY, 1);
+			waveCompute.Dispatch(resetKernel, xGroups, yGroups, 1);
 			ShaderSpace_t = 0;
 		}
 
@@ -110,8 +112,8 @@ public class WaveEngine : MonoBehaviour {
 		// Simulate
 		for (int i = 0; i < FrameFrequency * speedFactor; i++) {
 			waveCompute.SetInt("t", ShaderSpace_t);
-			waveCompute.Dispatch(veloKernel, width / (int)tgsX, height / (int)tgsY, 1);
-			waveCompute.Dispatch(dispKernel, width / (int)tgsX, height / (int)tgsY, 1);
+			waveCompute.Dispatch(veloKernel, xGroups, yGroups, 1);
+			waveCompute.Dispatch(dispKernel, xGroups, yGroups, 1);
 			ShaderSpace_t++;
 		}
 

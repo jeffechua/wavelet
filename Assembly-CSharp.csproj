@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Enemy.cs" />
     <Compile Include="Assets\LaggedTrailer.cs" />
+    <Compile Include="Assets\Lens.cs" />
     <Compile Include="Assets\LockableTrailer.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Pulsars\AmplitudePulsar.cs" />
