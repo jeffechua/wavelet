@@ -174,10 +174,10 @@ MonoBehaviour:
   systemTexture: {fileID: 0}
   mediumTexture: {fileID: 0}
   sourcesTexture: {fileID: 0}
-  pixelSize: 0.02
-  speedFactor: 0.5
+  pixelSize: 0.025
+  speedFactor: 1
   frequency: 250
-  cScale: 2.5
+  cScale: 3.5
   dampingScale: 75
   sourceIntensityScale: 1
   sourceFrequencyScale: 20

@@ -688,6 +688,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GunLensed
       objectReference: {fileID: 0}
+    - target: {fileID: 6124460990513184100, guid: 2da7c16fdeaee41c78a716c1db4cc48d,
+        type: 3}
+      propertyPath: autoMove
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2da7c16fdeaee41c78a716c1db4cc48d, type: 3}
 --- !u!1001 &1907717183
@@ -697,6 +702,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1201353707284498069, guid: f4d01e8ffd7ed429eb412c96c2bcc64a,
+        type: 3}
+      propertyPath: autoMove
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7037038203743335802, guid: f4d01e8ffd7ed429eb412c96c2bcc64a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -917,11 +927,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WavePlane
-      objectReference: {fileID: 0}
-    - target: {fileID: 390294536819933475, guid: e1e8e998e582648a596e7f17e965804a,
-        type: 3}
-      propertyPath: speedFactor
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 390294536819933478, guid: e1e8e998e582648a596e7f17e965804a,
         type: 3}
