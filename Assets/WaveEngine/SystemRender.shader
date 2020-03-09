@@ -25,7 +25,6 @@
 
             float4 frag (v2f_img i) : SV_Target
             {
-                // sample the texture
                 float val = tex2D(_MainTex, i.uv).r * _IntensityScale;
 				val = abs(val) < _Threshold ? val * _STMult : sign(val);
                 return val > 0 ? float4(val, 0, 0, 1) : float4(0, 0, -val, 1);

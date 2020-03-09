@@ -105,7 +105,6 @@ public class WaveEngine : MonoBehaviour {
 		// Set some simulation and rendering parameters
 		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
 		waveCompute.SetFloat("dampingScale", ShaderSpace_dampingScale);
-		waveCompute.SetFloat("intensityScale", sourceIntensityScale);
 		waveCompute.SetFloat("frequencyScale", ShaderSpace_sourceFrequencyScale);
 		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", sourceIntensityScale);
 

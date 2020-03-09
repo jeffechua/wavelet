@@ -513,11 +513,6 @@ PrefabInstance:
       propertyPath: activationLag
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5513381544974640813, guid: 0027f709c3da74cdbb59e63f60d5e25d,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.5882353
-      objectReference: {fileID: 0}
     - target: {fileID: 7375300386688324168, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -659,7 +654,7 @@ PrefabInstance:
     - target: {fileID: 5513381544974640813, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.5882353
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7375300386688324168, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}

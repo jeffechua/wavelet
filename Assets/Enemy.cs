@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
 	bool shooting;
 	float lastShotTime;
 
-	public CompositePulsar pulsar;
+	public BasePulsar pulsar;
 
 	void Start() {
 		pulsar.pulseStartDel += delegate {

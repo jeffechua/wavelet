@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 16
   width: 0.1
-  slitSize: 0.2
-  gapSize: 0.2
-  numSlits: 10
+  slitSize: 0.1
+  gapSize: 0.1
+  numSlits: 5
   apply: 1
