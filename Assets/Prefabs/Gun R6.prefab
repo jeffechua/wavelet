@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4506277096267620861}
   - component: {fileID: 476517070922428170}
-  - component: {fileID: 2873180265227306613}
   m_Layer: 0
   m_Name: Source
   m_TagString: Untagged
@@ -163,24 +162,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2873180265227306613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2832187397825067049}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1929cb2056ddf4fbe9ad6995aa370b87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pulseLength: 0.16
-  manualActivate: 0
-  autoActivate: 0
-  activationLag: 0
-  state: 0
-  intensity: 1
 --- !u!1 &5769328709854277985
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4558121591054265323}
+  - component: {fileID: 5487418198966658455}
   - component: {fileID: 4189148558807310697}
   m_Layer: 0
   m_Name: Mechanical
@@ -216,6 +198,27 @@ Transform:
   m_Father: {fileID: 8921747814230559476}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5487418198966658455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769328709854277985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d27df6e48a7428d98cc290edbb19bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pulseLength: 0.6
+  manualActivate: 0
+  autoActivate: 0
+  activationLag: 0
+  state: 0
+  enableables:
+  - {fileID: 8921747815182352206}
+  - {fileID: 8921747815306194108}
+  - {fileID: 8921747815801734802}
 --- !u!114 &4189148558807310697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,10 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fbabf996fb746c3bf1f80b3232d4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.6
+  pulseLength: 0.4
   manualActivate: 0
   autoActivate: 0
-  activationLag: 0.2
+  activationLag: 0.1
   state: 0
   restSize: {x: 1, y: 1, z: 1}
   maxSize: {x: 3, y: 1, z: 1}
@@ -363,10 +366,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fbabf996fb746c3bf1f80b3232d4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.6
+  pulseLength: 0.4
   manualActivate: 0
   autoActivate: 0
-  activationLag: 0.2
+  activationLag: 0.1
   state: 0
   restSize: {x: 1, y: 1, z: 1}
   maxSize: {x: 3, y: 1, z: 1}
@@ -460,10 +463,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8921747814230559476}
+  - component: {fileID: 5859933161924115848}
   - component: {fileID: 780510854241548571}
   - component: {fileID: 1830853051049581042}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Gun R6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -485,6 +489,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5859933161924115848
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8921747814230559475}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!114 &780510854241548571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e4dd1c3ca424437bf3c1e928211567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 1
+  pulseLength: 0.6
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
@@ -525,7 +545,8 @@ MonoBehaviour:
   subPulsars:
   - {fileID: 4189148558807310697}
   - {fileID: 4501636677991235142}
-  - {fileID: 5860640150547355510}
+  - {fileID: 7292547984710725011}
+  - {fileID: 5487418198966658455}
 --- !u!1 &8921747815182352206
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8921747815681682906}
   - component: {fileID: 5682463821564450518}
-  - component: {fileID: 5860640150547355510}
+  - component: {fileID: 7292547984710725011}
   m_Layer: 9
   m_Name: Source
   m_TagString: Untagged
@@ -770,7 +791,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5860640150547355510
+--- !u!114 &7292547984710725011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -779,18 +800,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 8921747815681682905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa52c536dad543869228b180a91e3a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 078a7fb8afbe64eb2845930044995188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 1
+  pulseLength: 0.5
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
   state: 0
-  r: 1
-  g: 0
-  b: 0
-  a: 0
+  restColor: {r: 0, g: 0, b: 0, a: 0}
+  gradient:
+    serializedVersion: 2
+    key0: {r: 0, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 1, b: 1, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 13107
+    ctime2: 52428
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
 --- !u!1 &8921747815801734802
 GameObject:
   m_ObjectHideFlags: 0

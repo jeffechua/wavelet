@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
+using System;
 
 public enum PulsarState { Inactive, PrePulse, MidPulse }
-
-public delegate void pulseDel(float t);
 
 public class BasePulsar : MonoBehaviour {
 	public float pulseLength;
@@ -12,18 +11,30 @@ public class BasePulsar : MonoBehaviour {
 	protected float pulseStartTime = -10000;
 	public PulsarState state;
 
-	public pulseDel pulseStartDel;
-	public pulseDel pulsingDel;
-	public pulseDel pulseEndDel;
+	public Action<float> OnPulseStart;
+	public Action<float> OnPulsing;
+	public Action<float> OnPulseEnd;
 
 	protected virtual void StartPulse(float t) { }
 	protected virtual void Pulsing(float t) { }
 	protected virtual void EndPulse(float t) { }
 
 	protected void Awake() {
-		pulseStartDel += StartPulse;
-		pulsingDel += Pulsing;
-		pulseEndDel += EndPulse;
+		OnPulseStart += StartPulse;
+		OnPulsing += Pulsing;
+		OnPulseEnd += EndPulse;
+	}
+
+	protected virtual void Start() {
+		WaveEngine.instance.OnReset += Reset;
+	}
+
+	protected virtual void OnDestroy() {
+		WaveEngine.instance.OnReset -= Reset;
+	}
+
+	protected virtual void Reset() {
+		pulseStartTime = -10000;
 	}
 
 	public void Pulse() {
@@ -47,14 +58,14 @@ public class BasePulsar : MonoBehaviour {
 
 		// Behavior
 		if (state == PulsarState.PrePulse && t >= 0) {
-			pulseStartDel(t);
+			OnPulseStart(t);
 			state = PulsarState.MidPulse;
 		}
 		if (state == PulsarState.MidPulse && t <= 1) {
-			pulsingDel(t);
+			OnPulsing(t);
 		}
 		if (state == PulsarState.MidPulse && t >= 1) {
-			pulseEndDel(t);
+			OnPulseEnd(t);
 			state = PulsarState.Inactive;
 		}
 

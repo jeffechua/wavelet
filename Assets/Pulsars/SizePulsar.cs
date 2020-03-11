@@ -7,7 +7,8 @@ public class SizePulsar : BasePulsar {
 	public Vector3 restSize;
 	public Vector3 maxSize;
 
-	void Start() {
+	protected override void Start() {
+		base.Start();
 		transform.localScale = restSize;
 	}
 

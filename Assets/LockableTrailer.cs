@@ -24,10 +24,10 @@ public class LockableTrailer : MonoBehaviour {
 		parent = transform.parent;
 		Enemy parentEnemy = parent.GetComponent<Enemy>();
 		if (parentEnemy) {
-			parentEnemy.pulsar.pulseStartDel += delegate {
+			parentEnemy.pulsar.OnPulseStart += delegate {
 				locked = true;
 			};
-			parentEnemy.pulsar.pulseEndDel += delegate {
+			parentEnemy.pulsar.OnPulseEnd += delegate {
 				locked = false;
 				unlockTime = WaveEngine.instance.t;
 			};
@@ -41,7 +41,7 @@ public class LockableTrailer : MonoBehaviour {
 			targetPos = parent.position;
 			targetRot = parent.rotation;
 		}
-		transform.position = Vector2.Lerp(transform.position, targetPos + (Vector2)(targetRot * offset), Time.deltaTime * trailSpeed);
+		transform.position = Vector2.Lerp(transform.position, targetPos + (Vector2)(targetRot * offset), Time.deltaTime * trailSpeed * WaveEngine.instance.timeScale);
 		transform.rotation = Quaternion.Lerp(transform.rotation, rotOffset * targetRot, Time.deltaTime * trailSpeed);
 	}
 }

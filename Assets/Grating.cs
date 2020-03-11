@@ -21,7 +21,7 @@ public class Grating : MonoBehaviour {
 
 	public void Apply() {
 
-		float slittedHeight = slitSize * numSlits + gapSize * (numSlits + 1);
+		float slittedHeight = slitSize * numSlits + gapSize * (numSlits - 1);
 		if (height < slittedHeight) height = slittedHeight;
 
 		float totalLineDistance = height + 2 * numSlits;
@@ -35,17 +35,17 @@ public class Grating : MonoBehaviour {
 			float currentDisplacement = 1.0f * i * (gapSize + slitSize);
 			float currentLineDistance = (height - slittedHeight) / 2 + i * (gapSize + 1 + slitSize + 1);
 
-			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - gapSize, 0, 0));
-			keyFrames.Add(new Keyframe((currentLineDistance + gapSize) / totalLineDistance, 1));
+			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement, 0, 0));
+			keyFrames.Add(new Keyframe((currentLineDistance) / totalLineDistance, 1));
 
-			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - gapSize - 0.00001f, 0, -1)); // Need the 0.01 for it to render properly
-			keyFrames.Add(new Keyframe((currentLineDistance + gapSize + 1) / totalLineDistance, 0));
+			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - 0.00001f, 0, -1)); // Need the 0.01 for it to render properly
+			keyFrames.Add(new Keyframe((currentLineDistance + 1) / totalLineDistance, 0));
 
-			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - gapSize - slitSize + 0.00001f, 0, -1));
-			keyFrames.Add(new Keyframe((currentLineDistance + gapSize + 1 + slitSize) / totalLineDistance, 0));
+			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - slitSize + 0.00001f, 0, -1));
+			keyFrames.Add(new Keyframe((currentLineDistance + 1 + slitSize) / totalLineDistance, 0));
 
-			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - gapSize - slitSize, 0, 0));
-			keyFrames.Add(new Keyframe((currentLineDistance + gapSize + 1 + slitSize + 1) / totalLineDistance, 1));
+			positions.Add(new Vector3(slittedHeight / 2 - currentDisplacement - slitSize, 0, 0));
+			keyFrames.Add(new Keyframe((currentLineDistance + 1 + slitSize + 1) / totalLineDistance, 1));
 		}
 		positions.Add(new Vector3(-height / 2, 0, 0));
 

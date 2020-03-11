@@ -2,7 +2,8 @@
 
 public class BinaryPulsar : BasePulsar {
 
-	void Start() {
+	protected override void Start() {
+		base.Start();
 		material.color = new Color(material.color.r, material.color.g, material.color.b, 0);
 	}
 	protected override void StartPulse(float t) {

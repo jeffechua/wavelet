@@ -496,7 +496,7 @@ PrefabInstance:
     - target: {fileID: 3794211257199665701, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
       propertyPath: pulseLength
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3794211257199665701, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
@@ -511,7 +511,17 @@ PrefabInstance:
     - target: {fileID: 3794211257199665701, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
       propertyPath: activationLag
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513381544974640813, guid: 0027f709c3da74cdbb59e63f60d5e25d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513381544974640813, guid: 0027f709c3da74cdbb59e63f60d5e25d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 7375300386688324168, guid: 0027f709c3da74cdbb59e63f60d5e25d,
         type: 3}
@@ -578,8 +588,7 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3794211257199665701, guid: 0027f709c3da74cdbb59e63f60d5e25d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0027f709c3da74cdbb59e63f60d5e25d, type: 3}
 --- !u!1 &970219232
 GameObject:
@@ -1677,6 +1686,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1176851565611476320, guid: be018c6fa9cea422ea8e1dc360af464b,
+        type: 3}
+      propertyPath: slitSize
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176851565611476320, guid: be018c6fa9cea422ea8e1dc360af464b,
+        type: 3}
+      propertyPath: gapSize
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176851565611476320, guid: be018c6fa9cea422ea8e1dc360af464b,
+        type: 3}
+      propertyPath: numSlits
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1176851565611476321, guid: be018c6fa9cea422ea8e1dc360af464b,
         type: 3}
       propertyPath: m_Name

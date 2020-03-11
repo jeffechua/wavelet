@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CurveAmplitudePulsar : BasePulsar {
+
+	// Note that all amplitude pulsars modify material color
+	// Therefore, the sprite/line color should be used to specify operating parameters,
+	// and the gradient used as a multiplying factor.
+
 	public Color restColor;
 	public Gradient gradient;
 	Color originalColor;
 
-	void Start() {
+	protected override void Start() {
+		base.Start();
 		originalColor = material.color;
 		material.color = Multiply(originalColor, restColor);
 	}

@@ -119,7 +119,6 @@ public class Lens : MonoBehaviour {
 	// Start is called before the first frame update
 	void DrawLens(LensData lens) {
 		lensData = lens;
-		print(lens.ToString());
 		int vertexCount = (int)(lens.H * 10);
 		Vector3[] positions = new Vector3[vertexCount];
 		Keyframe[] widths = new Keyframe[vertexCount];

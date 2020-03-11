@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class WaveEngine : MonoBehaviour {
 
@@ -15,7 +16,7 @@ public class WaveEngine : MonoBehaviour {
 	public float pixelSize;
 	int width, height;
 
-	public float speedFactor;
+	public float timeScale = 1;
 
 	public int frequency;
 	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime); }
@@ -39,6 +40,9 @@ public class WaveEngine : MonoBehaviour {
 	uint tgsX, tgsY, tgsZ;
 	public int xGroups { get => Mathf.CeilToInt((float)width / tgsX); }
 	public int yGroups { get => Mathf.CeilToInt((float)height / tgsY); }
+
+	// Events
+	public Action OnReset = delegate {};
 
 	void Awake() {
 
@@ -100,6 +104,7 @@ public class WaveEngine : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			waveCompute.Dispatch(resetKernel, xGroups, yGroups, 1);
 			ShaderSpace_t = 0;
+			OnReset();
 		}
 
 		// Set some simulation and rendering parameters
@@ -109,7 +114,7 @@ public class WaveEngine : MonoBehaviour {
 		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", sourceIntensityScale);
 
 		// Simulate
-		for (int i = 0; i < FrameFrequency * speedFactor; i++) {
+		for (int i = 0; i < FrameFrequency * timeScale; i++) {
 			waveCompute.SetInt("t", ShaderSpace_t);
 			waveCompute.Dispatch(veloKernel, xGroups, yGroups, 1);
 			waveCompute.Dispatch(dispKernel, xGroups, yGroups, 1);
