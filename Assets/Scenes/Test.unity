@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 2112718335}
   - component: {fileID: 2112718334}
   - component: {fileID: 2112718331}
+  - component: {fileID: 2112718336}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -499,6 +500,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2112718336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112718330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4792ac3582f4ce59bf2f88a6c32413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recomputeEachFrame: 1
+  radius: 0.5
+  tsPosition: {x: 0, y: 0}
+  tsRadius: 0
+  damageIntegral: 0
 --- !u!1001 &390294537298641136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -565,16 +583,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 390294536819933478, guid: e1e8e998e582648a596e7f17e965804a,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 390294536819933478, guid: e1e8e998e582648a596e7f17e965804a,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1e8e998e582648a596e7f17e965804a, type: 3}

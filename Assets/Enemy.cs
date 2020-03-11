@@ -48,10 +48,8 @@ public class Enemy : MonoBehaviour {
 		const int ilim = 10;
 		while (i < ilim && CastOverlaps(out Collider2D hit)) {
 			i++;
-			if (hit.OverlapPoint(transform.position)) {
-				print(":((");
+			if (hit.OverlapPoint(transform.position))
 				break;
-			}
 			Vector2 displacement = (Vector2)transform.position - hit.ClosestPoint(transform.position);
 			transform.position += (Vector3)displacement.normalized * (preferredPersonalSpace - displacement.magnitude);
 		}

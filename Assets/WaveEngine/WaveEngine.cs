@@ -5,12 +5,17 @@ public class WaveEngine : MonoBehaviour {
 
 	public static WaveEngine instance;
 
+	// Rendering parameters
+	public float amplitudeScale;
+	public float amplitudeThreshold;
+	public float subThresholdMultiplier;
+
+	// Main compute shader
 	public ComputeShader waveCompute;
 
 	// Working and rendering assets
 	public Camera mediumCamera, sourcesCamera;
-	public RenderTexture systemTexture, mediumTexture, sourcesTexture; // Do not assign
-	RenderTexture systemDisplayTexture;
+	public RenderTexture systemTexture, mediumTexture, sourcesTexture, systemDisplayTexture; // Do not assign
 
 	// Simulation parameters
 	public float pixelSize;
@@ -22,13 +27,13 @@ public class WaveEngine : MonoBehaviour {
 	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime); }
 	float Dt { get => 1.0f / frequency; }
 
-	int ShaderSpace_t;
-	public float t { get => ShaderSpace_t * Dt; }
+	int _shaderSpace_t;
+	public int shaderSpace_t { get => _shaderSpace_t; }
+	public float t { get => _shaderSpace_t * Dt; }
 
 	// Simulation parameters
 	public float cScale;
 	public float dampingScale;
-	public float sourceIntensityScale;
 	public float sourceFrequencyScale;
 
 	float ShaderSpace_cScale { get => cScale / pixelSize * Dt; }
@@ -103,7 +108,7 @@ public class WaveEngine : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			waveCompute.Dispatch(resetKernel, xGroups, yGroups, 1);
-			ShaderSpace_t = 0;
+			_shaderSpace_t = 0;
 			OnReset();
 		}
 
@@ -111,14 +116,16 @@ public class WaveEngine : MonoBehaviour {
 		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
 		waveCompute.SetFloat("dampingScale", ShaderSpace_dampingScale);
 		waveCompute.SetFloat("frequencyScale", ShaderSpace_sourceFrequencyScale);
-		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", sourceIntensityScale);
+		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", amplitudeScale);
+		GetComponent<MeshRenderer>().material.SetFloat("_Threshold", amplitudeThreshold);
+		GetComponent<MeshRenderer>().material.SetFloat("_STMult", subThresholdMultiplier);
 
 		// Simulate
 		for (int i = 0; i < FrameFrequency * timeScale; i++) {
-			waveCompute.SetInt("t", ShaderSpace_t);
+			waveCompute.SetInt("t", _shaderSpace_t);
 			waveCompute.Dispatch(veloKernel, xGroups, yGroups, 1);
 			waveCompute.Dispatch(dispKernel, xGroups, yGroups, 1);
-			ShaderSpace_t++;
+			_shaderSpace_t++;
 		}
 
 		// Render
