@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class OrbiterEnemy : MonoBehaviour {
 
 	public float preferredPersonalSpace;
 	public float preferredOrbitalRadius;
@@ -51,9 +51,8 @@ public class Enemy : MonoBehaviour {
 			if (hit.OverlapPoint(transform.position))
 				break;
 			Vector2 displacement = (Vector2)transform.position - hit.ClosestPoint(transform.position);
-			transform.position += (Vector3)displacement.normalized * (preferredPersonalSpace - displacement.magnitude);
+			transform.position += (Vector3)displacement.normalized * (preferredPersonalSpace*1.0001f - displacement.magnitude);
 		}
-		if (ilim == i) print(":(");
 
 
 		// Movement
@@ -87,17 +86,17 @@ public class Enemy : MonoBehaviour {
 			const int jlim = 10;
 			while (j < jlim && CastObstructions(direction, distance, out RaycastHit2D hit)) {
 				j++;
-				float impactAngle = Vector2.Angle(tangentialComponent, -hit.normal);
-				if (impactAngle < 60) {        // If hit is almost perpendicular to collidee, flip orbit
-					orbiticity *= -1;          // and set move distance to 0 so if we're in a corner we don't jitter
-					distance = 0;			   // and break. We don't translate this frame.
-					break;
-				} else if (impactAngle < 90) { // Else if hit is glancing, deflect to skim along contact surface.
+				if (Vector2.Angle(tangentialComponent, -hit.normal) < 60) {
+					orbiticity *= -1;   // If our sidewalking is almost perpendicular to surface, flip orbit
+					distance = 0;       // and set move distance to 0 so that if we're in a corner we don't jitter
+					break;              // and then break. We don't translate this frame.
+				} else if (Vector2.Angle(direction, -hit.normal) < 90) { // Else if hit is sensible, deflect to skim along contact surface.
 					Vector2 newAxis = Vector2.Perpendicular(hit.normal); // (can be deflected up to ilim times)
 					direction = newAxis * (Vector2.Angle(newAxis, tangentialComponent) > 90 ? -1 : 1);
-				} else {
-					// If impactAngle > 90, and we weren't caught by the CastOverlaps, we're probably actually inside
-					// another collider, so just keep going and pretend nothing's wrong.
+				} else { // If hit is not sensible, be sad.
+					print(":(");
+					distance = 0;
+					break;
 				}
 				break;
 			}

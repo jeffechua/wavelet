@@ -22,7 +22,7 @@ public class LockableTrailer : MonoBehaviour {
 		offset = transform.localPosition;
 		rotOffset = transform.localRotation;
 		parent = transform.parent;
-		Enemy parentEnemy = parent.GetComponent<Enemy>();
+		OrbiterEnemy parentEnemy = parent.GetComponent<OrbiterEnemy>();
 		if (parentEnemy) {
 			parentEnemy.pulsar.OnPulseStart += delegate {
 				locked = true;

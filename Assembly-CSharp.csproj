@@ -63,12 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DamageHitbox.cs" />
-    <Compile Include="Assets\Enemy.cs" />
-    <Compile Include="Assets\Grating.cs" />
-    <Compile Include="Assets\LaggedTrailer.cs" />
-    <Compile Include="Assets\Lens.cs" />
-    <Compile Include="Assets\LockableTrailer.cs" />
+    <Compile Include="Assets\Mob Base Scripts\DamageHitbox.cs" />
+    <Compile Include="Assets\Mob Base Scripts\HP.cs" />
+    <Compile Include="Assets\Mob Base Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Mob Design Scripts\LaggedTrailer.cs" />
+    <Compile Include="Assets\Mob Design Scripts\LockableTrailer.cs" />
+    <Compile Include="Assets\Mob Design Scripts\OrbiterEnemy.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Pulsars\BasePulsar.cs" />
     <Compile Include="Assets\Pulsars\BinaryMultiEnablementPulsar.cs" />
@@ -78,7 +78,10 @@
     <Compile Include="Assets\Pulsars\SineAmplitudePulsar.cs" />
     <Compile Include="Assets\Pulsars\SinePulsar.cs" />
     <Compile Include="Assets\Pulsars\SizePulsar.cs" />
+    <Compile Include="Assets\Utilities.cs" />
     <Compile Include="Assets\WaveEngine\WaveEngine.cs" />
+    <Compile Include="Assets\World Design Scripts\Grating.cs" />
+    <Compile Include="Assets\World Design Scripts\Lens.cs" />
     <None Include="Assets\WaveEngine\SystemRender.shader" />
     <None Include="Assets\WaveEngine\WaveCompute.compute" />
     <Reference Include="Unity.Timeline.Editor">

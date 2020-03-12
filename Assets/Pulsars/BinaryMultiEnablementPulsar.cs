@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class BinaryMultiEnablementPulsar : BasePulsar
 {
-	public List<GameObject> enableables;
+	public List<Component> enableables;
+	public List<bool> defaultEnabled;
 
 	protected override void Start() {
 		base.Start();
-		foreach (GameObject enableable in enableables)
-			enableable.SetActive(false);
+		for (int i = 0; i < enableables.Count; i++)
+			Utilities.TrySetEnabled(enableables[i], defaultEnabled[i]);
 	}
 	protected override void StartPulse(float t) {
-		foreach(GameObject enableable in enableables)
-			enableable.SetActive(true);
+		for (int i = 0; i < enableables.Count; i++)
+			Utilities.TrySetEnabled(enableables[i], !defaultEnabled[i]);
 	}
 	protected override void EndPulse(float t) {
-		foreach (GameObject enableable in enableables)
-			enableable.SetActive(false);
+		for (int i = 0; i < enableables.Count; i++)
+			Utilities.TrySetEnabled(enableables[i], defaultEnabled[i]);
 	}
 }
