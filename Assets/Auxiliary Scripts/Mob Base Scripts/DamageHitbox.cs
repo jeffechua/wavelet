@@ -36,12 +36,14 @@ public class DamageHitbox : RoomObject {
 			Vector2 max = Vector2.Min(captureRect.max, boundingRect.max);
 			Rect rect = new Rect(min, max-min);
 			// Read from that rect to avoid reading out of bounds
-			snapshot.ReadPixels(rect, 0, 0);
-			Color[] pixels = snapshot.GetPixels(0, 0, (int)rect.width, (int)rect.height);
+			if (rect.width < 0 || rect.height < 0) {
+				_damageIntegral = 0;
+			} else {
+				snapshot.ReadPixels(rect, 0, 0);
+				Color[] pixels = snapshot.GetPixels(0, 0, (int)rect.width, (int)rect.height);
+				_damageIntegral = pixels.Aggregate<Color, float>(0, (sum, color) => sum + DamageFunction(color.r));
+			}
 			RenderTexture.active = null;
-
-			_damageIntegral = pixels.Aggregate<Color, float>(0, (sum, color) => sum + DamageFunction(color.r));
-
 			return _damageIntegral;
 
 		}

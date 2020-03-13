@@ -48,8 +48,9 @@ public class WaveEngine : RoomObject {
 		if (Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) > 0.01)
 			print("Warning: true simulation frequency per game frame is not a whole number. Rounding.");
 
-		width = Mathf.RoundToInt(transform.localScale.x / pixelSize);
-		height = Mathf.RoundToInt(transform.localScale.y / pixelSize);
+		width = Mathf.RoundToInt(room.size.x / pixelSize);
+		height = Mathf.RoundToInt(room.size.y / pixelSize);
+		transform.localScale = new Vector3(room.size.x, room.size.y, 1);
 
 		// Create and initialize working RenderTextures
 		systemTexture = new RenderTexture(width, height, 0, RenderTextureFormat.RFloat);
