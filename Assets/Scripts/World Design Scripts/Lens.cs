@@ -22,6 +22,8 @@ public readonly struct LensData {
 	public readonly float R;
 	public readonly bool isReal;
 
+	const float convergenceCriterion = 0.025f;
+
 	public float invN { get => 1 / n; }
 
 	public LensData(float f, float n, float H, float t, float R) {
@@ -76,7 +78,7 @@ public readonly struct LensData {
 		}
 
 		int j = 0;
-		while (Mathf.Abs(lower.Item1 - higher.Item1) > WaveEngine.instance.pixelSize && j < 500) {
+		while (Mathf.Abs(lower.Item1 - higher.Item1) > convergenceCriterion && j < 500) {
 			float t_m = (lower.Item1 + higher.Item1) / 2;
 			LensData n_m = fHt(f, H, t_m);
 			if (Mathf.Sign(lower.Item2.n - n) == Mathf.Sign(n_m.n - n)) {

@@ -17,7 +17,7 @@ public class HealthBar : MonoBehaviour
     {
         fullWidth = bar.transform.localScale.x;
         offset = transform.position - hp.transform.position;
-        transform.SetParent(null);
+        transform.SetParent(hp.transform.parent);
     }
 
     // Update is called once per frame

@@ -125,6 +125,11 @@ PrefabInstance:
       propertyPath: subPulsars.Array.data[5]
       value: 
       objectReference: {fileID: 1052163849}
+    - target: {fileID: 5085120223264149951, guid: a4ad35d65a09d44a4af25a77cf0369da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5487418198966658455, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: pulseLength

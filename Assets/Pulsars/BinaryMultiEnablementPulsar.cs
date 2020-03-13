@@ -7,8 +7,7 @@ public class BinaryMultiEnablementPulsar : BasePulsar
 	public List<Component> enableables;
 	public List<bool> defaultEnabled;
 
-	protected override void Start() {
-		base.Start();
+	protected void Start() {
 		for (int i = 0; i < enableables.Count; i++)
 			Utilities.TrySetEnabled(enableables[i], defaultEnabled[i]);
 	}

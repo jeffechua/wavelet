@@ -3,7 +3,7 @@ using System;
 
 public enum PulsarState { Inactive, PrePulse, MidPulse }
 
-public class BasePulsar : MonoBehaviour {
+public class BasePulsar : RoomObject {
 	public float pulseLength;
 	public bool manualActivate;
 	public bool autoActivate;
@@ -25,21 +25,13 @@ public class BasePulsar : MonoBehaviour {
 		OnPulseEnd += EndPulse;
 	}
 
-	protected virtual void Start() {
-		WaveEngine.instance.OnReset += Reset;
-	}
-
-	protected virtual void OnDestroy() {
-		WaveEngine.instance.OnReset -= Reset;
-	}
-
 	protected virtual void Reset() {
 		pulseStartTime = -10000;
 	}
 
 	public void Pulse() {
 		if (state != PulsarState.Inactive) return;
-		pulseStartTime = WaveEngine.instance.t + activationLag;
+		pulseStartTime = room.waveEngine.t + activationLag;
 		state = PulsarState.PrePulse;
 	}
 
@@ -52,7 +44,7 @@ public class BasePulsar : MonoBehaviour {
 		}
 
 		// Normalized time past activation
-		float t = pulseLength == 0 ? 0 : (WaveEngine.instance.t - pulseStartTime) / pulseLength;
+		float t = pulseLength == 0 ? 0 : (room.waveEngine.t - pulseStartTime) / pulseLength;
 
 		if (autoActivate && state == PulsarState.Inactive) Pulse();
 

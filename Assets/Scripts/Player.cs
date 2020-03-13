@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
 
+		if(Input.GetKeyDown(KeyCode.Space)) {
+            BroadcastMessage("Reset");
+		}
+
         /* a = -µv + F/m
          * Therefore v = (1 - exp(-µt)) * F/µm
          * v_max = F/µm

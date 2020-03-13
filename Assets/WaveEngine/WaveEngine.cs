@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class WaveEngine : MonoBehaviour {
-
-	public static WaveEngine instance;
+public class WaveEngine : RoomObject {
 
 	// Rendering parameters
 	public float amplitudeScale;
@@ -20,8 +18,6 @@ public class WaveEngine : MonoBehaviour {
 	// Simulation parameters
 	public float pixelSize;
 	int width, height;
-
-	public float timeScale = 1;
 
 	public int frequency;
 	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime); }
@@ -46,15 +42,11 @@ public class WaveEngine : MonoBehaviour {
 	public int xGroups { get => Mathf.CeilToInt((float)width / tgsX); }
 	public int yGroups { get => Mathf.CeilToInt((float)height / tgsY); }
 
-	// Events
-	public Action OnReset = delegate {};
 
 	void Awake() {
 
 		if (Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) > 0.01)
 			print("Warning: true simulation frequency per game frame is not a whole number. Rounding.");
-
-		instance = this;
 
 		width = Mathf.RoundToInt(transform.localScale.x / pixelSize);
 		height = Mathf.RoundToInt(transform.localScale.y / pixelSize);
@@ -104,13 +96,12 @@ public class WaveEngine : MonoBehaviour {
 
 	}
 
-	void FixedUpdate() {
+	void Reset() {
+		waveCompute.Dispatch(resetKernel, xGroups, yGroups, 1);
+		_shaderSpace_t = 0;
+	}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			waveCompute.Dispatch(resetKernel, xGroups, yGroups, 1);
-			_shaderSpace_t = 0;
-			OnReset();
-		}
+	void FixedUpdate() {
 
 		// Set some simulation and rendering parameters
 		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
@@ -121,7 +112,7 @@ public class WaveEngine : MonoBehaviour {
 		GetComponent<MeshRenderer>().material.SetFloat("_STMult", subThresholdMultiplier);
 
 		// Simulate
-		for (int i = 0; i < FrameFrequency * timeScale; i++) {
+		for (int i = 0; i < FrameFrequency * room.timeScale; i++) {
 			waveCompute.SetInt("t", _shaderSpace_t);
 			waveCompute.Dispatch(veloKernel, xGroups, yGroups, 1);
 			waveCompute.Dispatch(dispKernel, xGroups, yGroups, 1);

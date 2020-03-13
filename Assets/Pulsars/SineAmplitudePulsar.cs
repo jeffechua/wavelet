@@ -7,8 +7,7 @@ public class SineAmplitudePulsar : BasePulsar {
 	public bool b;
 	public bool a;
 
-	protected override void Start() {
-		base.Start();
+	protected void Start() {
 		material.color = new Color(r ? 0 : material.color.r,
 								   g ? 0 : material.color.g,
 								   b ? 0 : material.color.b,

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LockableTrailer : MonoBehaviour {
+public class LockableTrailer : RoomObject {
 
 	public float afterlockDelay;
 	public float trailSpeed;
@@ -29,19 +29,19 @@ public class LockableTrailer : MonoBehaviour {
 			};
 			parentEnemy.pulsar.OnPulseEnd += delegate {
 				locked = false;
-				unlockTime = WaveEngine.instance.t;
+				unlockTime = room.waveEngine.t;
 			};
 		}
-		transform.SetParent(null);
+		transform.SetParent(parent.parent);
 	}
 
 	// Update is called once per frame
 	void FixedUpdate() {
-		if (!locked && WaveEngine.instance.t - unlockTime > afterlockDelay) {
+		if (!locked && room.waveEngine.t - unlockTime > afterlockDelay) {
 			targetPos = parent.position;
 			targetRot = parent.rotation;
 		}
-		transform.position = Vector2.Lerp(transform.position, targetPos + (Vector2)(targetRot * offset), Time.deltaTime * trailSpeed * WaveEngine.instance.timeScale);
+		transform.position = Vector2.Lerp(transform.position, targetPos + (Vector2)(targetRot * offset), Time.deltaTime * trailSpeed * room.timeScale);
 		transform.rotation = Quaternion.Lerp(transform.rotation, rotOffset * targetRot, Time.deltaTime * trailSpeed);
 	}
 }

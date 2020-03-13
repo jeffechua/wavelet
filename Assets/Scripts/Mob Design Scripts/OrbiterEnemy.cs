@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbiterEnemy : MonoBehaviour {
+public class OrbiterEnemy : RoomObject {
 
 	public float preferredPersonalSpace;
 	public float preferredOrbitalRadius;
@@ -20,12 +20,11 @@ public class OrbiterEnemy : MonoBehaviour {
 	public BasePulsar pulsar;
 
 	void Start() {
-		WaveEngine.instance.OnReset += Reset;
 		pulsar.OnPulseStart += delegate {
 			shooting = true;
 		};
 		pulsar.OnPulseEnd += delegate {
-			lastShotTime = WaveEngine.instance.t;
+			lastShotTime = room.waveEngine.t;
 			shooting = false;
 			redirecting = true;
 		};
@@ -62,7 +61,7 @@ public class OrbiterEnemy : MonoBehaviour {
 
 		if (autoShoot) {
 			if (radiusCast.collider == null || radiusCast.distance >= ((Vector2)(playerPos - transform.position)).magnitude) {
-				if (WaveEngine.instance.t - lastShotTime > shootDelay) {
+				if (room.waveEngine.t - lastShotTime > shootDelay) {
 					pulsar.Pulse();
 				}
 			}
@@ -79,7 +78,7 @@ public class OrbiterEnemy : MonoBehaviour {
 			Vector2 tangentialComponent = Vector2.Perpendicular(playerward) * orbiticity;
 			Vector2 direction = radialComponent + tangentialComponent;
 			direction = direction.normalized;
-			float distance = Time.deltaTime * speed * WaveEngine.instance.timeScale;
+			float distance = Time.deltaTime * speed * room.timeScale;
 
 			// I plead guilty to all charges of awful control flow
 			int j = 0;
@@ -105,7 +104,7 @@ public class OrbiterEnemy : MonoBehaviour {
 			float targetAngle = Vector2.SignedAngle(Vector2.down, playerward);
 			if (redirecting) {
 				float currentAngle = Vector2.SignedAngle(Vector2.down, -transform.up);
-				float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * WaveEngine.instance.timeScale * 10);
+				float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * room.timeScale * 10);
 				transform.rotation = Quaternion.Euler(0, 0, newAngle);
 				if (Mathf.Abs(newAngle - targetAngle) < 1) redirecting = false;
 			} else {

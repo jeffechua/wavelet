@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageHitbox : MonoBehaviour {
+public class DamageHitbox : RoomObject {
 
 	public float radius;
 
@@ -13,19 +13,22 @@ public class DamageHitbox : MonoBehaviour {
 	public float damageIntegral {
 		get {
 
-			if (WaveEngine.instance.shaderSpace_t == lastUpdateTime)
-				return _damageIntegral;
-			lastUpdateTime = WaveEngine.instance.shaderSpace_t;
+			if (!room)
+				return 0;
 
-			Vector2Int tsPosition = Vector2Int.RoundToInt((transform.position - WaveEngine.instance.transform.position +
-				WaveEngine.instance.transform.localScale / 2) / WaveEngine.instance.pixelSize);
-			int tsRadius = Mathf.RoundToInt(radius / WaveEngine.instance.pixelSize);
+			if (room.waveEngine.shaderSpace_t == lastUpdateTime)
+				return _damageIntegral;
+			lastUpdateTime = room.waveEngine.shaderSpace_t;
+
+			Vector2Int tsPosition = Vector2Int.RoundToInt((transform.position - room.waveEngine.transform.position +
+				room.waveEngine.transform.localScale / 2) / room.waveEngine.pixelSize);
+			int tsRadius = Mathf.RoundToInt(radius / room.waveEngine.pixelSize);
 			int tsDiameter = tsRadius * 2 + 1;
 
 			if (snapshot == null || snapshot.height != tsRadius)
 				snapshot = new Texture2D(tsDiameter, tsDiameter, TextureFormat.RFloat, false);
 
-			RenderTexture.active = WaveEngine.instance.systemDisplayTexture;
+			RenderTexture.active = room.waveEngine.systemDisplayTexture;
 			// Take the intersect of the capture rect and the actual readable texture rect
 			Rect captureRect = new Rect(tsPosition - new Vector2(tsRadius, tsRadius), new Vector2(tsDiameter, tsDiameter));
 			Rect boundingRect = new Rect(0, 0, RenderTexture.active.width, RenderTexture.active.height);
@@ -45,7 +48,7 @@ public class DamageHitbox : MonoBehaviour {
 	}
 
 	public float DamageFunction(float val) {
-		if (Mathf.Abs(val) * WaveEngine.instance.amplitudeScale > WaveEngine.instance.amplitudeThreshold) {
+		if (Mathf.Abs(val) * room.waveEngine.amplitudeScale > room.waveEngine.amplitudeThreshold) {
 			return 1;
 		}
 		return 0;

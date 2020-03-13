@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class LaggedTrailer : MonoBehaviour {
+public class LaggedTrailer : RoomObject {
 
 	public float delay;
 
@@ -19,14 +19,14 @@ public class LaggedTrailer : MonoBehaviour {
 		offset = transform.localPosition;
 		angleOffset = transform.localRotation;
 		parent = transform.parent;
-		transform.SetParent(null);
+		transform.SetParent(parent.parent);
 	}
 
 	// Update is called once per frame
 	void FixedUpdate() {
 		posQueue.Enqueue(parent.position);
 		angleQueue.Enqueue(parent.rotation);
-		if (WaveEngine.instance.t > delay) {
+		if (room.waveEngine.t > delay) {
 			transform.position = posQueue.Dequeue();
 			transform.rotation = angleQueue.Dequeue();
 			transform.Translate(offset);

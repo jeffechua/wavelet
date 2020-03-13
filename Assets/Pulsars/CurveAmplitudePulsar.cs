@@ -12,8 +12,7 @@ public class CurveAmplitudePulsar : BasePulsar {
 	public Gradient gradient;
 	Color originalColor;
 
-	protected override void Start() {
-		base.Start();
+	protected void Start() {
 		originalColor = material.color;
 		material.color = Multiply(originalColor, restColor);
 	}
