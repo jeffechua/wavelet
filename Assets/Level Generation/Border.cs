@@ -30,22 +30,22 @@ public class Border : RoomObject
         { // S, E, N, W
             case 0:
                 length = room.size.x;
-                transform.position = Vector3.down * room.size.y / 2;
+                transform.localPosition = Vector3.down * room.size.y / 2;
                 break;
             case 1:
                 length = room.size.y;
-                transform.position = Vector3.right * room.size.x / 2;
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.localPosition = Vector3.right * room.size.x / 2;
+                transform.localRotation = Quaternion.Euler(0, 0, 90);
                 break;
             case 2:
                 length = room.size.x;
-                transform.position = Vector3.up * room.size.y / 2;
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                transform.localPosition = Vector3.up * room.size.y / 2;
+                transform.localRotation = Quaternion.Euler(0, 0, 180);
                 break;
             case 3:
                 length = room.size.y;
-                transform.position = Vector3.left * room.size.y / 2;
-                transform.rotation = Quaternion.Euler(0, 0, 270);
+                transform.localPosition = Vector3.left * room.size.x / 2;
+                transform.localRotation = Quaternion.Euler(0, 0, 270);
                 break;
             default:
                 throw new ArgumentException("Invalid border direction.");

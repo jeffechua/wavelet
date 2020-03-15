@@ -51,6 +51,7 @@ void ComputeDisplacement (uint3 id : SV_DispatchThreadID)
 		} else {
 			System[uint3(id.x,id.y,0)] = Sources[id.xy].r *
 										 sin(Sources[id.xy].g * frequencyScale * t + Sources[id.xy].b * 6.28318530718);
+			System[uint3(id.x,id.y,1)] = 0;
 		}
 	}
 }

@@ -1,0 +1,35 @@
+﻿# Metadata
+Room 1
+
+$# Room
+
+# width : height : timeScale
+  12    : 12     : 1
+
+$# WaveEngine
+
+# amp.scale : threshold : STMult : pxSize : frequency : cScale : dampScale : sourceFreq.scale 
+  5         : 0.5       : 0.5    : 0.025  : 500       : 7      : 75        : 60
+
+$# Borders
+
+# South
+ABSORB : 0.5 : True:
+# East
+ABSORB : 0.5 : True:
+# North
+ABSORB : 0.5 : True:
+# West
+ABSORB : 0.5 : True:
+
+$# Enemies
+
+# Name         : x  : y
+ Grater        :  4 :  4
+ Gun R6        :  4 : -4
+ OrbitalPulsar : -4 :  4
+ GunLensed R10 : -4 : -4
+
+$# World
+
+# Name   : x : y

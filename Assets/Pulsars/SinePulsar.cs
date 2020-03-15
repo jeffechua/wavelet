@@ -4,17 +4,18 @@ using UnityEngine;
 public class SinePulsar : BasePulsar {
 
 	public float intensity;
+	public bool polarity;
 
 	protected void Start() {
-		material.color = Color.black;
+		material.color = new Color(0, 0, 0, 0);
 	}
 
 	protected override void StartPulse(float t) {
-		material.color = new Color(intensity, 0.5f / pulseLength / room.waveEngine.sourceFrequencyScale, -((pulseStartTime / pulseLength / 2) % 1));
+		material.color = new Color(intensity, 0.5f / pulseLength / room.waveEngine.sourceFrequencyScale, -((0.5f * pulseStartTime / pulseLength) % 1) + (polarity ? 0.5f : 0f));
 	}
 
 	protected override void EndPulse(float t) {
-		material.color = Color.black;
+		material.color = new Color(0, 0, 0, 0);
 	}
 
 }

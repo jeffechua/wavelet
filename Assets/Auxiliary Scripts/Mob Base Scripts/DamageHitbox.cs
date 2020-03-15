@@ -6,7 +6,7 @@ public class DamageHitbox : RoomObject {
 
 	public float radius;
 
-	public Texture2D snapshot;
+	Texture2D snapshot;
 
 	int lastUpdateTime;
 	float _damageIntegral;

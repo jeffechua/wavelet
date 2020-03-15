@@ -36,13 +36,13 @@ public class Bragg : RoomObject {
 
 	// Update is called once per frame
 	void FixedUpdate() {
-		transform.Rotate(0, 0, angularVelocity * Time.deltaTime);
-		timeToNextResize -= Time.deltaTime * room.timeScale;
+		transform.Rotate(0, 0, angularVelocity * room.deltaTime);
+		timeToNextResize -= room.deltaTime;
 		if (timeToNextResize < 0) {
 			timeToNextResize = UnityEngine.Random.Range(timeBetweenResizeBounds.x, timeBetweenResizeBounds.y);
 			targetAtomicSeparation = UnityEngine.Random.Range(atomicSeparationBounds.x, atomicSeparationBounds.y);
 		}
-		atomicSeparation = Mathf.Lerp(atomicSeparation, targetAtomicSeparation, Time.deltaTime * room.timeScale * 10);
+		atomicSeparation = Mathf.Lerp(atomicSeparation, targetAtomicSeparation, room.deltaTime * 10);
 		Reparticle();
 	}
 }

@@ -1,7 +1,21 @@
 ﻿using UnityEngine;
 using System;
 
+[Serializable]
+public struct WaveEngineParams {
+	public float amplitudeScale;
+	public float amplitudeThreshold;
+	public float subThresholdMultiplier;
+	public float pixelSize;
+	public int frequency;
+	public float cScale;
+	public float dampingScale;
+	public float sourceFrequencyScale;
+}
+
 public class WaveEngine : RoomObject {
+
+	public static WaveEngine active;
 
 	// Rendering parameters
 	public float amplitudeScale;
@@ -20,8 +34,8 @@ public class WaveEngine : RoomObject {
 	int width, height;
 
 	public int frequency;
-	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime); }
-	float Dt { get => 1.0f / frequency; }
+	int FrameFrequency { get => Mathf.RoundToInt(frequency * Time.fixedDeltaTime * (room ? room.timeScale : 1)); }
+	float Dt { get => 1.0f / frequency; } // conversion factor between one shader space time unit and a room second.
 
 	int _shaderSpace_t;
 	public int shaderSpace_t { get => _shaderSpace_t; }
@@ -43,14 +57,48 @@ public class WaveEngine : RoomObject {
 	public int yGroups { get => Mathf.CeilToInt((float)height / tgsY); }
 
 
-	void Awake() {
+	void Awake () {
+		if(pixelSize != 0) {
+			Initialize();
+			SetActive();
+		}
+	}
 
-		if (Mathf.Abs((frequency * Time.fixedDeltaTime) - FrameFrequency) > 0.01)
-			print("Warning: true simulation frequency per game frame is not a whole number. Rounding.");
+	public void SetActive () {
+		active = this;
+		waveCompute.SetTexture(resetKernel, "System", systemTexture);
 
-		width = Mathf.RoundToInt(room.size.x / pixelSize);
-		height = Mathf.RoundToInt(room.size.y / pixelSize);
-		transform.localScale = new Vector3(room.size.x, room.size.y, 1);
+		waveCompute.SetTexture(dispKernel, "System", systemTexture);
+		waveCompute.SetTexture(dispKernel, "Medium", mediumTexture);
+		waveCompute.SetTexture(dispKernel, "Sources", sourcesTexture);
+
+		waveCompute.SetTexture(veloKernel, "System", systemTexture);
+		waveCompute.SetTexture(veloKernel, "Medium", mediumTexture);
+
+		waveCompute.SetTexture(testKernel, "System", systemTexture);
+	}
+
+	public void LoadParams (WaveEngineParams p, Vector2 size) {
+		amplitudeScale = p.amplitudeScale;
+		amplitudeThreshold = p.amplitudeThreshold;
+		subThresholdMultiplier = p.subThresholdMultiplier;
+		pixelSize = p.pixelSize;
+		frequency = p.frequency;
+		cScale = p.cScale;
+		dampingScale = p.dampingScale;
+		sourceFrequencyScale = p.sourceFrequencyScale;
+		transform.localScale = new Vector3(size.x, size.y, 1);
+	}
+
+	public void Initialize() {
+
+		if(systemTexture != null) {
+			print("Warning: wave engine has already been initialized. Aborting.");
+			return;
+		}
+		
+		width = Mathf.RoundToInt(transform.localScale.x / pixelSize);
+		height = Mathf.RoundToInt(transform.localScale.y / pixelSize);
 
 		// Create and initialize working RenderTextures
 		systemTexture = new RenderTexture(width, height, 0, RenderTextureFormat.RFloat);
@@ -79,17 +127,6 @@ public class WaveEngine : RoomObject {
 		testKernel = waveCompute.FindKernel("Test");
 		waveCompute.GetKernelThreadGroupSizes(dispKernel, out tgsX, out tgsY, out tgsZ);
 
-		waveCompute.SetTexture(resetKernel, "System", systemTexture);
-
-		waveCompute.SetTexture(dispKernel, "System", systemTexture);
-		waveCompute.SetTexture(dispKernel, "Medium", mediumTexture);
-		waveCompute.SetTexture(dispKernel, "Sources", sourcesTexture);
-
-		waveCompute.SetTexture(veloKernel, "System", systemTexture);
-		waveCompute.SetTexture(veloKernel, "Medium", mediumTexture);
-
-		waveCompute.SetTexture(testKernel, "System", systemTexture);
-
 		// Set up display texture
 		systemDisplayTexture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGBFloat);
 		systemDisplayTexture.Create();
@@ -104,6 +141,9 @@ public class WaveEngine : RoomObject {
 
 	void FixedUpdate() {
 
+		if (active != this)
+			return;
+
 		// Set some simulation and rendering parameters
 		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
 		waveCompute.SetFloat("dampingScale", ShaderSpace_dampingScale);
@@ -113,7 +153,7 @@ public class WaveEngine : RoomObject {
 		GetComponent<MeshRenderer>().material.SetFloat("_STMult", subThresholdMultiplier);
 
 		// Simulate
-		for (int i = 0; i < FrameFrequency * room.timeScale; i++) {
+		for (int i = 0; i < FrameFrequency; i++) {
 			waveCompute.SetInt("t", _shaderSpace_t);
 			waveCompute.Dispatch(veloKernel, xGroups, yGroups, 1);
 			waveCompute.Dispatch(dispKernel, xGroups, yGroups, 1);

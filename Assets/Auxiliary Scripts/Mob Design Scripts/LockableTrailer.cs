@@ -41,7 +41,7 @@ public class LockableTrailer : RoomObject {
 			targetPos = parent.position;
 			targetRot = parent.rotation;
 		}
-		transform.position = Vector2.Lerp(transform.position, targetPos + (Vector2)(targetRot * offset), Time.deltaTime * trailSpeed * room.timeScale);
-		transform.rotation = Quaternion.Lerp(transform.rotation, rotOffset * targetRot, Time.deltaTime * trailSpeed);
+		transform.position = Vector2.Lerp(transform.position, targetPos + (Vector2)(targetRot * offset), trailSpeed * room.deltaTime);
+		transform.rotation = Quaternion.Lerp(transform.rotation, rotOffset * targetRot, room.deltaTime * trailSpeed);
 	}
 }

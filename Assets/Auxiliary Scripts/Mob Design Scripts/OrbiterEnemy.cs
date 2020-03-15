@@ -12,6 +12,7 @@ public class OrbiterEnemy : RoomObject {
 
 	public bool autoShoot;
 	public bool autoMove;
+    public bool moveWhileShooting;
 
 	bool redirecting;
 	bool shooting;
@@ -56,7 +57,7 @@ public class OrbiterEnemy : RoomObject {
 
 		// Movement
 
-		if (shooting)
+		if (shooting && !moveWhileShooting)
 			return;
 
 		if (autoShoot) {
@@ -78,7 +79,7 @@ public class OrbiterEnemy : RoomObject {
 			Vector2 tangentialComponent = Vector2.Perpendicular(playerward) * orbiticity;
 			Vector2 direction = radialComponent + tangentialComponent;
 			direction = direction.normalized;
-			float distance = Time.deltaTime * speed * room.timeScale;
+			float distance = room.deltaTime * speed;
 
 			// I plead guilty to all charges of awful control flow
 			int j = 0;
@@ -104,7 +105,7 @@ public class OrbiterEnemy : RoomObject {
 			float targetAngle = Vector2.SignedAngle(Vector2.down, playerward);
 			if (redirecting) {
 				float currentAngle = Vector2.SignedAngle(Vector2.down, -transform.up);
-				float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * room.timeScale * 10);
+				float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, room.deltaTime * 10);
 				transform.rotation = Quaternion.Euler(0, 0, newAngle);
 				if (Mathf.Abs(newAngle - targetAngle) < 1) redirecting = false;
 			} else {

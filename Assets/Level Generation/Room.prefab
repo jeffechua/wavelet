@@ -43,27 +43,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067f9974e535345eeb7efc24ad82028d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spec: Grater,4,4; Gun R6,4,-4; GunLensed HalfF R10,-4,4; GunLensed R10,-4,-4
-  size: {x: 12, y: 12}
-  north:
-    type: 0
-    thickness: 0.5
-    door: 0
-  east:
-    type: 0
-    thickness: 0.5
-    door: 0
-  south:
-    type: 0
-    thickness: 0.5
-    door: 1
-  west:
-    type: 0
-    thickness: 0.5
-    door: 0
-  waveEngineTemplate: {fileID: 390294536819933474, guid: e1e8e998e582648a596e7f17e965804a,
+  doors: 00000000
+  path: 
+  size: {x: 0, y: 0}
+  timeScale: 0
+  weParams:
+    amplitudeScale: 0
+    amplitudeThreshold: 0
+    subThresholdMultiplier: 0
+    pixelSize: 0
+    frequency: 0
+    cScale: 0
+    dampingScale: 0
+    sourceFrequencyScale: 0
+  borders: []
+  enemies: []
+  things: []
+  waveEngineTemplate: {fileID: 5419665949261973593, guid: 667445ebadc814c2ab31d181d0003d82,
     type: 3}
   borderTemplate: {fileID: 4005915617901174254, guid: 39091e96580f64171b5f5cb134e0e771,
     type: 3}
   waveEngine: {fileID: 0}
-  timeScale: 1
