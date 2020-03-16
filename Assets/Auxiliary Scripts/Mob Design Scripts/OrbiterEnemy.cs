@@ -6,6 +6,7 @@ public class OrbiterEnemy : RoomObject {
 
 	public float preferredPersonalSpace;
 	public float preferredOrbitalRadius;
+	public Motivity motivity;
 	public float speed;
 	public float orbiticity;
 	public float shootDelay;
@@ -20,6 +21,10 @@ public class OrbiterEnemy : RoomObject {
 
 	public BasePulsar pulsar;
 
+	RaycastHit2D lineOfSight; // it's a RaycastHit2D from the player towards self and not a geometric line of sight, but 
+							  // line of sight logic is what it's being used for.
+	Rigidbody2D rb;
+
 	void Start() {
 		pulsar.OnPulseStart += delegate {
 			shooting = true;
@@ -29,6 +34,7 @@ public class OrbiterEnemy : RoomObject {
 			shooting = false;
 			redirecting = true;
 		};
+		rb = GetComponent<Rigidbody2D>();
 	}
 
 	void Reset() {
@@ -38,69 +44,45 @@ public class OrbiterEnemy : RoomObject {
 	// Update is called once per frame
 	void Update() {
 
-
 		Vector3 playerPos = Player.instance.transform.position;
-		RaycastHit2D radiusCast = Physics2D.Raycast(playerPos, transform.position - playerPos, Mathf.Infinity, LayerMask.GetMask("ViewBlocking"));
-
-
-		// Collision detection
-		int i = 0;
-		const int ilim = 10;
-		while (i < ilim && CastOverlaps(out Collider2D hit)) {
-			i++;
-			if (hit.OverlapPoint(transform.position))
-				break;
-			Vector2 displacement = (Vector2)transform.position - hit.ClosestPoint(transform.position);
-			transform.position += (Vector3)displacement.normalized * (preferredPersonalSpace*1.0001f - displacement.magnitude);
-		}
-
+		lineOfSight = Physics2D.Raycast(playerPos, transform.position - playerPos, Mathf.Infinity, LayerMask.GetMask("View Blocking"));
 
 		// Movement
 
-		if (shooting && !moveWhileShooting)
-			return;
-
-		if (autoShoot) {
-			if (radiusCast.collider == null || radiusCast.distance >= ((Vector2)(playerPos - transform.position)).magnitude) {
-				if (room.waveEngine.t - lastShotTime > shootDelay) {
+		if (autoShoot && !shooting)
+			if (lineOfSight.collider == null || lineOfSight.distance >= ((Vector2)(playerPos - transform.position)).magnitude)
+				if (room.waveEngine.t - lastShotTime > shootDelay)
 					pulsar.Pulse();
-				}
-			}
-		}
 
-		if (autoMove) {
-			float targetOrbitalRadius = radiusCast.collider == null ? preferredOrbitalRadius : Mathf.Min(radiusCast.distance, preferredOrbitalRadius);
 
-			Vector2 playerward = playerPos - transform.position;
+	}
+
+	void FixedUpdate() {
+
+		if (autoMove && (!shooting || moveWhileShooting) ) {
+			float targetOrbitalRadius = lineOfSight.collider == null ? preferredOrbitalRadius : Mathf.Min(lineOfSight.distance, preferredOrbitalRadius);
+
+			Vector2 playerward = Player.instance.transform.position - transform.position;
 			float radiusError = playerward.magnitude - targetOrbitalRadius;
 			playerward = playerward.normalized;
 
 			Vector2 radialComponent = playerward * radiusError;
 			Vector2 tangentialComponent = Vector2.Perpendicular(playerward) * orbiticity;
-			Vector2 direction = radialComponent + tangentialComponent;
-			direction = direction.normalized;
-			float distance = room.deltaTime * speed;
+			Vector2 direction = (radialComponent + tangentialComponent).normalized;
 
 			// I plead guilty to all charges of awful control flow
-			int j = 0;
-			const int jlim = 10;
-			while (j < jlim && CastObstructions(direction, distance, out RaycastHit2D hit)) {
-				j++;
-				if (Vector2.Angle(tangentialComponent, -hit.normal) < 60) {
-					orbiticity *= -1;   // If our sidewalking is almost perpendicular to surface, flip orbit
-					distance = 0;       // and set move distance to 0 so that if we're in a corner we don't jitter
-					break;              // and then break. We don't translate this frame.
-				} else if (Vector2.Angle(direction, -hit.normal) < 90) { // Else if hit is sensible, deflect to skim along contact surface.
-					Vector2 newAxis = Vector2.Perpendicular(hit.normal); // (can be deflected up to ilim times)
+			List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+			rb.GetContacts(contacts);
+			foreach (ContactPoint2D contact in contacts) {
+				if (Vector3.Angle(-contact.normal, tangentialComponent) < 60) { // If almost perpendicular strike (of sidewalking component),
+					orbiticity *= -1;                                           // switch direction.
+				} else if (Vector3.Angle(-contact.normal, direction) < 90) {  // otherwise, if we really are running into the wall,
+					Vector2 newAxis = Vector2.Perpendicular(contact.normal); // redirect to run along contact tangent.
 					direction = newAxis * (Vector2.Angle(newAxis, tangentialComponent) > 90 ? -1 : 1);
-				} else { // If hit is not sensible, be sad.
-					print(":(");
-					distance = 0;
-					break;
+					print(direction);
 				}
-				break;
 			}
-			transform.position += (Vector3)direction * distance;
+			motivity.Motivate(rb, direction);
 
 			float targetAngle = Vector2.SignedAngle(Vector2.down, playerward);
 			if (redirecting) {
@@ -113,28 +95,6 @@ public class OrbiterEnemy : RoomObject {
 			}
 		}
 
-
-	}
-
-	public bool CastOverlaps(out Collider2D next) {
-		Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, preferredPersonalSpace);
-		next = null;
-		foreach (Collider2D hit in hits) {
-			if (hit.transform != transform) {
-				next = hit;
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public bool CastObstructions(Vector2 direction, float distance, out RaycastHit2D closest) {
-		RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, preferredPersonalSpace, direction, distance);
-		closest = new RaycastHit2D();
-		foreach (RaycastHit2D hit in hits)
-			if (hit.transform != transform && (closest.collider == null || hit.distance < closest.distance))
-				closest = hit;
-		return closest.collider != null;
 	}
 
 }

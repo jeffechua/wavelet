@@ -82,6 +82,11 @@ public class Border : RoomObject
             collider1.size = new Vector2(wallLength, exteriorThickness);
             collider2.offset = new Vector2(center, -exteriorThickness / 2);
             collider2.size = new Vector2(wallLength, exteriorThickness);
+            GameObject door = new GameObject("Door");
+            door.layer = LayerMask.NameToLayer("Room Door");
+            door.transform.SetParent(transform);
+            door.transform.localPosition = new Vector2(0, -exteriorThickness / 2);
+            door.AddComponent<BoxCollider2D>().size = new Vector2(exteriorThickness, doorWidth);
         }
         else
         {

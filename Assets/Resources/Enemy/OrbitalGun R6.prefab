@@ -466,12 +466,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8921747814230559476}
   - component: {fileID: 5859933161924115848}
+  - component: {fileID: 2531125676488794521}
   - component: {fileID: 780510854241548571}
   - component: {fileID: 3184987136949932031}
   - component: {fileID: 21093158840381032}
   - component: {fileID: 1830853051049581042}
   m_Layer: 0
-  m_Name: Gun R6
+  m_Name: OrbitalGun R6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,13 +504,34 @@ CircleCollider2D:
   m_GameObject: {fileID: 8921747814230559475}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ed35f22e62c32442ea245612bff97930, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!50 &2531125676488794521
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8921747814230559475}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &780510854241548571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,11 +546,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preferredPersonalSpace: 0.5
   preferredOrbitalRadius: 4
+  motivity:
+    force: 0.5
+    velocityHalfLife: 0.05
+    walkSpeed: 2
+    currentSpeed: 0
   speed: 2
   orbiticity: 1
   shootDelay: 2
   autoShoot: 1
   autoMove: 1
+  moveWhileShooting: 0
   pulsar: {fileID: 1830853051049581042}
 --- !u!114 &3184987136949932031
 MonoBehaviour:
@@ -562,7 +590,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
-  snapshot: {fileID: 0}
 --- !u!114 &1830853051049581042
 MonoBehaviour:
   m_ObjectHideFlags: 0

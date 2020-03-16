@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LockableTrailer : RoomObject {
 
+	public BasePulsar controller;
+
 	public float afterlockDelay;
 	public float trailSpeed;
 
@@ -22,16 +24,13 @@ public class LockableTrailer : RoomObject {
 		offset = transform.localPosition;
 		rotOffset = transform.localRotation;
 		parent = transform.parent;
-		OrbiterEnemy parentEnemy = parent.GetComponent<OrbiterEnemy>();
-		if (parentEnemy) {
-			parentEnemy.pulsar.OnPulseStart += delegate {
-				locked = true;
-			};
-			parentEnemy.pulsar.OnPulseEnd += delegate {
-				locked = false;
-				unlockTime = room.waveEngine.t;
-			};
-		}
+		controller.OnPulseStart += delegate {
+			locked = true;
+		};
+		controller.OnPulseEnd += delegate {
+			locked = false;
+			unlockTime = room.waveEngine.t;
+		};
 		transform.SetParent(parent.parent);
 	}
 

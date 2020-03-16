@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 382bc99b94b6d4508b43c18127236d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.3
+  pulseLength: 0.45
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
@@ -113,6 +113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6217860780134268349}
   - component: {fileID: 1939748590451275782}
+  - component: {fileID: 314604353644303887}
   - component: {fileID: 6024950690067522272}
   - component: {fileID: 7380250767335675835}
   - component: {fileID: 5194081656119329151}
@@ -152,13 +153,34 @@ CircleCollider2D:
   m_GameObject: {fileID: 1388202776207866736}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ed35f22e62c32442ea245612bff97930, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
+--- !u!50 &314604353644303887
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388202776207866736}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &6024950690067522272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +195,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preferredPersonalSpace: 0.4
   preferredOrbitalRadius: 1
+  motivity:
+    force: 0.25
+    velocityHalfLife: 0.05
+    walkSpeed: 5
+    currentSpeed: 0
   speed: 5
   orbiticity: 5
   shootDelay: 1.5
@@ -224,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e4dd1c3ca424437bf3c1e928211567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.3
+  pulseLength: 0.45
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
@@ -245,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d27df6e48a7428d98cc290edbb19bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.4
+  pulseLength: 0.5
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
@@ -428,12 +455,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1929cb2056ddf4fbe9ad6995aa370b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.3
+  pulseLength: 0.45
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
   state: 0
   intensity: 0.25
+  polarity: 0
 --- !u!1001 &4150492441208628862
 PrefabInstance:
   m_ObjectHideFlags: 0

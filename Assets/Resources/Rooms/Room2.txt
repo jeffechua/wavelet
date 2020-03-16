@@ -24,13 +24,12 @@ ABSORB : 0.5 : True:
 
 $# Enemies
 
-# Name						: x  : y  : xscale : yscale
- Grater						:  4 :  4 : 1      : 1
- OrbitalGun R6				:  4 : -4 : 1      : 1
- OrbitalGunLensed HalfF R10 : -4 :  4 : 1      : 1
- OrbitalGunLensed R10       : -4 : -4 : 1      : 1
+# Name                 : x  : y  : xscale : yscale
+ Grater				   :  4 :  4 : 1      : 1
+ Chaser -1			   :  4 : -4 : 1      : 1
+ OrbitalPulsar		   : -4 :  4 : 1      : 1
+ OrbitalGunLensed R10  : -4 : -4 : 1      : 1
 
 $# World
- MovableGlass               : 2  : 0  : 2      : 1
 
 # Name   : x : y

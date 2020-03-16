@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1353837525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7251461479134997005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdd1c733c99114ef89c1723853050b76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  afterlockDelay: 1
-  trailSpeed: 2
 --- !u!114 &341043047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,6 +17,21 @@ MonoBehaviour:
   autoActivate: 0
   activationLag: 0.25
   state: 0
+--- !u!114 &1353837525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7251461479134997005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd1c733c99114ef89c1723853050b76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 341043047}
+  afterlockDelay: 1
+  trailSpeed: 2
 --- !u!114 &1052163849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,11 +113,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830853051049581042, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
-      propertyPath: pulseLength
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830853051049581042, guid: a4ad35d65a09d44a4af25a77cf0369da,
-        type: 3}
       propertyPath: subPulsars.Array.data[4]
       value: 
       objectReference: {fileID: 341043047}
@@ -143,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 8921747814230559475, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: m_Name
-      value: GunLensed HalfF R10
+      value: OrbitalGunLensed HalfF R10
       objectReference: {fileID: 0}
     - target: {fileID: 8921747814230559476, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
