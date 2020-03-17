@@ -23,6 +23,8 @@ public class OrbiterEnemy : RoomObject {
 
 	RaycastHit2D lineOfSight; // it's a RaycastHit2D from the player towards self and not a geometric line of sight, but 
 							  // line of sight logic is what it's being used for.
+	bool hasLineOfSight;
+
 	Rigidbody2D rb;
 
 	void Start() {
@@ -45,12 +47,13 @@ public class OrbiterEnemy : RoomObject {
 	void Update() {
 
 		Vector3 playerPos = Player.instance.transform.position;
-		lineOfSight = Physics2D.Raycast(playerPos, transform.position - playerPos, Mathf.Infinity, LayerMask.GetMask("View Blocking"));
+		lineOfSight = Physics2D.Raycast(transform.position, playerPos - transform.position, Mathf.Infinity, LayerMask.GetMask("View Blocker"));
+		hasLineOfSight = !lineOfSight.collider;
 
 		// Movement
 
 		if (autoShoot && !shooting)
-			if (lineOfSight.collider == null || lineOfSight.distance >= ((Vector2)(playerPos - transform.position)).magnitude)
+			if (hasLineOfSight)
 				if (room.waveEngine.t - lastShotTime > shootDelay)
 					pulsar.Pulse();
 
@@ -60,13 +63,12 @@ public class OrbiterEnemy : RoomObject {
 	void FixedUpdate() {
 
 		if (autoMove && (!shooting || moveWhileShooting) ) {
-			float targetOrbitalRadius = lineOfSight.collider == null ? preferredOrbitalRadius : Mathf.Min(lineOfSight.distance, preferredOrbitalRadius);
 
 			Vector2 playerward = Player.instance.transform.position - transform.position;
-			float radiusError = playerward.magnitude - targetOrbitalRadius;
+			float radiusError = playerward.magnitude - preferredOrbitalRadius;
 			playerward = playerward.normalized;
 
-			Vector2 radialComponent = playerward * radiusError;
+			Vector2 radialComponent = playerward * radiusError * (hasLineOfSight ? 1 : 0.5f);
 			Vector2 tangentialComponent = Vector2.Perpendicular(playerward) * orbiticity;
 			Vector2 direction = (radialComponent + tangentialComponent).normalized;
 
@@ -79,7 +81,6 @@ public class OrbiterEnemy : RoomObject {
 				} else if (Vector3.Angle(-contact.normal, direction) < 90) {  // otherwise, if we really are running into the wall,
 					Vector2 newAxis = Vector2.Perpendicular(contact.normal); // redirect to run along contact tangent.
 					direction = newAxis * (Vector2.Angle(newAxis, tangentialComponent) > 90 ? -1 : 1);
-					print(direction);
 				}
 			}
 			motivity.Motivate(rb, direction);

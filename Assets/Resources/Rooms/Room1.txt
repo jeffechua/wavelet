@@ -1,36 +1,35 @@
-﻿# Metadata
-Room 1
+﻿# Metadata;
+Room 1;
 
-$# Room
+$# Room;
+# width : height : timeScale;
+  12    : 12     : 1;
 
-# width : height : timeScale
-  12    : 12     : 1
+$# WaveEngine;
+# amp.scale : threshold : STMult : pxSize : frequency : cScale : dampScale : sourceFreq.scale ;
+  5         : 0.5       : 0.5    : 0.025  : 500       : 7      : 75        : 60				  ;
 
-$# WaveEngine
+$# Borders;
+# South;
+ABSORB : 0.5 : True ;
+# East;
+ABSORB : 0.5 : True ;
+# North;
+ABSORB : 0.5 : True ;
+# West;
+ABSORB : 0.5 : True ;
 
-# amp.scale : threshold : STMult : pxSize : frequency : cScale : dampScale : sourceFreq.scale 
-  5         : 0.5       : 0.5    : 0.025  : 500       : 7      : 75        : 60
+$# Enemies;
+# Name						: x  : y  : xscale : yscale : angle : label ;
+ Grater						:  4 :  4 : 1      : 1      ;
+ OrbitalGun R6				:  4 : -4 : 1      : 1      ;
+ OrbitalGunLensed HalfF R10 : -4 :  4 : 1      : 1      ;
+ OrbitalGunLensed R10       : -4 : -4 : 1      : 1      ;
 
-$# Borders
+$# World;
+# Name						: x  : y  : xscale : yscale : angle : label ;
+ MovableBlock               :  2 : 0  : 2      : 1      ;
+ MovableGlass               : -2 : 0  : 2      : 1      ;
 
-# South
-ABSORB : 0.5 : True:
-# East
-ABSORB : 0.5 : True:
-# North
-ABSORB : 0.5 : True:
-# West
-ABSORB : 0.5 : True:
-
-$# Enemies
-
-# Name						: x  : y  : xscale : yscale
- Grater						:  4 :  4 : 1      : 1
- OrbitalGun R6				:  4 : -4 : 1      : 1
- OrbitalGunLensed HalfF R10 : -4 :  4 : 1      : 1
- OrbitalGunLensed R10       : -4 : -4 : 1      : 1
-
-$# World
- MovableGlass               : 2  : 0  : 2      : 1
-
-# Name   : x : y
+$# Config;
+# Label      : Arguments;

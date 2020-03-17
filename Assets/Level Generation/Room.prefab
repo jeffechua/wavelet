@@ -47,19 +47,7 @@ MonoBehaviour:
   path: 
   size: {x: 0, y: 0}
   timeScale: 0
-  weParams:
-    amplitudeScale: 0
-    amplitudeThreshold: 0
-    subThresholdMultiplier: 0
-    pixelSize: 0
-    frequency: 0
-    cScale: 0
-    dampingScale: 0
-    sourceFrequencyScale: 0
-  borders: []
-  enemies: []
-  things: []
-  waveEngineTemplate: {fileID: 5419665949261973593, guid: 667445ebadc814c2ab31d181d0003d82,
+  waveEngineTemplate: {fileID: 831153319846738380, guid: 857bd70c4f58a4c37be39ac2026666ed,
     type: 3}
   borderTemplate: {fileID: 4005915617901174254, guid: 39091e96580f64171b5f5cb134e0e771,
     type: 3}

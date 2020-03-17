@@ -5,7 +5,8 @@ using UnityEngine;
 public class Border : RoomObject
 {
 
-    public LineRenderer inner;
+    public LineRenderer innerGraphical;
+    public LineRenderer innerMechanical;
     public LineRenderer outer;
     public const float doorWidth = 2f;
     public const float exteriorThickness = 0.5f;
@@ -17,10 +18,14 @@ public class Border : RoomObject
     {
 
         // Minor transform adjustments to graphical gameObjects
-        inner.transform.localPosition = new Vector3(0, param.thickness / 2, 0);
-        inner.widthMultiplier = param.thickness;
-        inner.material = borderTypeMaterials[(int)param.type];
-        inner.material.color = borderTypeColors[(int)param.type];
+        innerGraphical.transform.localPosition = new Vector3(0, param.thickness / 2, 0);
+        innerGraphical.widthMultiplier = param.thickness;
+        innerGraphical.material = borderTypeMaterials[(int)param.type];
+        innerGraphical.material.color = borderTypeColors[(int)param.type];
+        innerMechanical.transform.localPosition = new Vector3(0, param.thickness / 2, 0);
+        innerMechanical.widthMultiplier = param.thickness;
+        innerMechanical.material = borderTypeMaterials[(int)param.type];
+        innerMechanical.material.color = borderTypeColors[(int)param.type];
         outer.transform.localPosition = new Vector3(0, -exteriorThickness / 2, 0);
         outer.widthMultiplier = exteriorThickness;
 
@@ -68,7 +73,8 @@ public class Border : RoomObject
             new List<Vector2[]> {
                 new Vector2[2] { new Vector2(-length/2-exteriorThickness, 0), new Vector2(length/2+exteriorThickness, 0) }
             };
-        LineSegmenter.DrawTo(inner, innerSegments);
+        LineSegmenter.DrawTo(innerGraphical, innerSegments);
+        LineSegmenter.DrawTo(innerMechanical, innerSegments);
         LineSegmenter.DrawTo(outer, outerSegments);
 
         // Create colliders for exterior border

@@ -1,6 +1,24 @@
 ﻿using UnityEngine;
 using System;
 
+// Note on rendering:
+
+// FOR GRAPHICAL:
+
+// All things should be either
+// 1) z = 0, rendering in front of the wave plane
+// 2) z = 1, which should only be the wave plane, and
+// 3) z = 2, rendering behind the wave plane (mainly border, and things that block the border
+
+// In z=0, opaque things should be in sorting order 0. Transparent things then go either in front or behind.
+// The border should be in sorting order -10.
+
+// FOR MECHANICAL:
+
+// All things should have z=0
+// The border should have sorting order -1.
+
+
 [Serializable]
 public struct WaveEngineParams {
 	public float amplitudeScale;

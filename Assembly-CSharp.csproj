@@ -71,9 +71,11 @@
     <Compile Include="Assets\Auxiliary Scripts\Mob Design Scripts\OrbiterEnemy.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Player.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Utilities.cs" />
+    <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\EnablementProxy.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\Grating.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\Lens.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\LineSegmenter.cs" />
+    <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\Photoswitch.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\SegmentedLine.cs" />
     <Compile Include="Assets\Bosses\Bragg\Bragg.cs" />
     <Compile Include="Assets\Level Generation\Border.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Assets\Pulsars\SinePulsar.cs" />
     <Compile Include="Assets\Pulsars\SizePulsar.cs" />
     <Compile Include="Assets\WaveEngine\WaveEngine.cs" />
+    <None Include="Assets\Resources\Rooms\Room3.txt" />
     <None Include="Assets\Resources\Rooms\Room2.txt" />
     <None Include="Assets\WaveEngine\SystemRender.shader" />
     <None Include="Assets\Resources\Rooms\Room1.txt" />

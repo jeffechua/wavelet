@@ -12,12 +12,8 @@ public class Grating : MonoBehaviour {
 
 	public bool apply;
 
-	LineRenderer lr;
+	public LineRenderer[] lines;
 
-	// Start is called before the first frame update
-	void Start() {
-		lr = GetComponent<LineRenderer>();
-	}
 
 	public void Apply() {
 
@@ -35,12 +31,14 @@ public class Grating : MonoBehaviour {
 		}
 		positions.Add(new Vector2[2] { new Vector2(-height / 2, 0), new Vector2(-slittedHeight / 2, 0) });
 
-		LineSegmenter.DrawTo(lr, positions);
-		lr.widthMultiplier = width;
+		foreach (LineRenderer lr in lines) {
+			LineSegmenter.DrawTo(lr, positions);
+			lr.widthMultiplier = width;
+		}
 
 	}
 
-	// Update is called once per frame
+
 	void Update() {
 		if (apply) {
 			Apply();

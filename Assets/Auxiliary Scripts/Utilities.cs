@@ -5,10 +5,13 @@ using UnityEngine;
 public static class Utilities
 {
     // Start is called before the first frame update
-    public static void TrySetEnabled(Component component, bool enabled) {
+    public static bool TrySetEnabled(Component component, bool enabled) {
 		if (component is Behaviour)
 			((Behaviour)component).enabled = enabled;
-		if (component is Renderer)
+		else if (component is Renderer)
 			((Renderer)component).enabled = enabled;
+		else
+			return false;
+		return true;
 	}
 }
