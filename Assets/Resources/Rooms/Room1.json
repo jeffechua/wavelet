@@ -1,0 +1,68 @@
+﻿{
+    "name": "Room 1",
+    "width": 12,
+    "height": 12,
+    "timeScale": 1,
+    "weParams": {},
+    "borders": [
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        }
+    ],
+    "enemies": [
+        {
+            "templateName": "Grater",
+            "x": 4,
+            "y": 4
+        },
+        {
+            "templateName": "OrbitalGun R6",
+            "x": 4,
+            "y": -4
+        },
+        {
+            "templateName": "OrbitalGunLensed HalfF R10",
+            "x": -4,
+            "y": 4
+        },
+        {
+            "templateName": "OrbitalGunLensed R10",
+            "x": -4,
+            "y": -4
+        }
+    ],
+    "things": [
+        {
+            "templateName": "MovableBlockRect",
+            "x": 2,
+            "y": 0,
+            "xScale": 2,
+            "yScale": 1
+        },
+        {
+            "templateName": "MovableGlassWedge",
+            "x": -2,
+            "y": 0,
+            "xScale": 2,
+            "yScale": 2
+        }
+    ],
+    "configs": []
+}

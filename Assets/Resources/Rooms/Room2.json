@@ -1,0 +1,61 @@
+﻿{
+    "name": "Room 2",
+    "width": 12,
+    "height": 12,
+    "timeScale": 1,
+    "weParams": {},
+    "borders": [
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        }
+    ],
+    "enemies": [
+        {
+            "templateName": "Grater",
+            "x": 4,
+            "y": 4
+        },
+        {
+            "templateName": "Chaser -1",
+            "x": 4,
+            "y": -4
+        },
+        {
+            "templateName": "OrbitalPulsar",
+            "x": -4,
+            "y": 4
+        },
+        {
+            "templateName": "OrbitalGunLensed R10",
+            "x": -4,
+            "y": -4
+        }
+    ],
+    "things": [
+        {
+            "templateName": "Well",
+            "x": 0,
+            "y": 0,
+            "xScale": 12,
+            "yScale": 12
+        }
+    ],
+    "configs": []
+}

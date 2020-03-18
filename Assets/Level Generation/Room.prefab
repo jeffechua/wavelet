@@ -44,10 +44,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doors: 00000000
-  path: 
-  size: {x: 0, y: 0}
-  timeScale: 0
-  waveEngineTemplate: {fileID: 831153319846738380, guid: 857bd70c4f58a4c37be39ac2026666ed,
+  dataPath: 
+  data:
+    name: 
+    width: 0
+    height: 0
+    timeScale: 0
+    weParams:
+      amplitudeScale: 5
+      amplitudeThreshold: 0.5
+      subThresholdMultiplier: 0.5
+      pixelSize: 0.025
+      frequency: 500
+      cScale: 7
+      dampingScale: 75
+      sourceFrequencyScale: 60
+    borders: []
+    enemies: []
+    things: []
+    configs: []
+  waveEngineTemplate: {fileID: 5703889053411111336, guid: ffabced8df1b24d5cad80bbd2f370423,
     type: 3}
   borderTemplate: {fileID: 4005915617901174254, guid: 39091e96580f64171b5f5cb134e0e771,
     type: 3}

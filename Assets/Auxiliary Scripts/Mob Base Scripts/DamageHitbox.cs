@@ -13,7 +13,7 @@ public class DamageHitbox : RoomObject {
 	AsyncGPUReadbackRequest? currentRequest;
 
 	public float DamageFunction(float val) {
-		if (Mathf.Abs(val) * room.waveEngine.amplitudeScale > room.waveEngine.amplitudeThreshold) {
+		if (Mathf.Abs(val) * room.waveEngine.param.amplitudeScale > room.waveEngine.param.amplitudeThreshold) {
 			return 1;
 		}
 		return 0;
@@ -31,8 +31,8 @@ public class DamageHitbox : RoomObject {
 			return;
 
 		Vector2Int tsPosition = Vector2Int.RoundToInt((transform.position - room.waveEngine.transform.position +
-			room.waveEngine.transform.localScale / 2) / room.waveEngine.pixelSize);
-		int tsRadius = Mathf.RoundToInt(radius / room.waveEngine.pixelSize);
+			room.waveEngine.transform.localScale / 2) / room.waveEngine.param.pixelSize);
+		int tsRadius = Mathf.RoundToInt(radius / room.waveEngine.param.pixelSize);
 		int tsDiameter = tsRadius * 2 + 1;
 
 		// Take the intersect of the capture rect and the actual readable texture rect

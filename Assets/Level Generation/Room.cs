@@ -33,22 +33,48 @@ public interface Configurable {
 	void Configure(string[] args); // Note that first argument is gameObject-label.component-name
 }
 
+[Serializable]
 public enum BorderType { Closed = 0, Free = 1, Absorb = 2 }
 
 [Serializable]
-public struct BorderParams {
+public class BorderData {
 	public BorderType type;
 	public float thickness;
 	public bool door;
 }
 
 [Serializable]
-public struct ObjectParams {
+public class ObjectData {
+	public string templateName;
 	public GameObject template;
-	public Vector2 position;
-	public Vector2 scale;
-	public float angle;
+	public float x = 0;
+	public float y = 0;
+	public Vector2 position { get => new Vector2(x, y); }
+	public float xScale = 1;
+	public float yScale = 1;
+	public Vector2 scale { get => new Vector2(xScale, yScale); }
+	public float angle = 0;
 	public string label;
+}
+
+[Serializable]
+public struct ConfigData {
+	public string label;
+	public string component;
+	public string[] args;
+}
+
+[Serializable]
+public class RoomData {
+	public string name;
+	public float width;
+	public float height;
+	public float timeScale;
+	public WaveEngineParams weParams;
+	public BorderData[] borders;
+	public ObjectData[] enemies;
+	public ObjectData[] things;
+	public ConfigData[] configs;
 }
 
 public class Room : MonoBehaviour {
@@ -56,17 +82,13 @@ public class Room : MonoBehaviour {
 	public static Room active;
 
 	public bool[] doors;
-	public string path;
 
-	public Vector2 size;
-	public float timeScale;
-	public float deltaTime { get => Time.deltaTime * timeScale; }
+	public string dataPath;
+	public RoomData data;
 
-	WaveEngineParams weParams;
-	BorderParams[] borders;
-	ObjectParams[] enemies;
-	ObjectParams[] things;
-	string[][] configs;
+	public Vector2 size { get => new Vector2(data.width,data.height); }
+	public float timeScale { get => data.timeScale; }
+	public float deltaTime { get => Time.deltaTime * data.timeScale; }
 
 	public GameObject waveEngineTemplate;
 	public GameObject borderTemplate;
@@ -93,79 +115,18 @@ public class Room : MonoBehaviour {
 		gameObject.BroadcastMessage("Unpause", SendMessageOptions.DontRequireReceiver);
 	}
 
-	public void Parse(string data) {
+	public void ImportData(string text) {
 		// Split data by section delimiter '$'
 		// Then split into lines (delimiter '\n')
 		// And remove all empty lines or commented '#' lines
 		// And trim remaining lines.
-		var words = data.Split('$')                                                 // Split into sections by '$'
-			.Select((section) => section.Split(';')                                // Split into lines by '\n'
-				.Where((line) => !line.Trim().StartsWith("#") && line.Trim() != "") // Remove empty lines and comments '$'
-				.Select((line) => line.Split(':')                                   // Split into words by ':'
-					.Select((word) => word.Trim()).ToArray()).ToArray()).ToArray(); // Trim
-
-		try {
-			size = new Vector2(float.Parse(words[1][0][0]), float.Parse(words[1][0][1]));
-			timeScale = float.Parse(words[1][0][2]);
-		} catch {
-			throw new ArgumentException("Could not parse room section (1) of " + words[0][0][0] + ".");
-		}
-
-		try {
-			weParams = new WaveEngineParams {
-				amplitudeScale = float.Parse(words[2][0][0]),
-				amplitudeThreshold = float.Parse(words[2][0][1]),
-				subThresholdMultiplier = float.Parse(words[2][0][2]),
-				pixelSize = float.Parse(words[2][0][3]),
-				frequency = int.Parse(words[2][0][4]),
-				cScale = float.Parse(words[2][0][5]),
-				dampingScale = float.Parse(words[2][0][6]),
-				sourceFrequencyScale = float.Parse(words[2][0][7])
-			};
-		} catch {
-			throw new ArgumentException("Could not parse wave engine section (2) of " + words[0][0][0] + ".");
-		}
-
-		try {
-			borders = words[3].Select((line, i) => new BorderParams {
-				type = (BorderType)Enum.Parse(typeof(BorderType), line[0], true),
-				thickness = float.Parse(line[1]),
-				door = bool.Parse(line[2]) && doors[i]
-			}).ToArray();
-		} catch {
-			throw new ArgumentException("Could not parse borders section (3) of " + words[0][0][0] + ".");
-		}
-
-		try {
-			enemies = words[4].Select((line, i) => new ObjectParams {
-				template = (GameObject)Resources.Load("Enemy/" + line[0]),
-				position = new Vector2(float.Parse(line[1]), float.Parse(line[2])),
-				scale = new Vector2(float.Parse(line[3]), float.Parse(line[4])),
-				angle = line.Length >= 6 ? float.Parse(line[5]) : 0,
-				label = line.Length >= 7 ? line[6] : null
-			}).ToArray();
-		} catch {
-			throw new ArgumentException("Could not parse enemies section (4) of " + words[0][0][0] + ".");
-		}
-
-		try {
-			things = words[5].Select((line, i) => new ObjectParams {
-				template = (GameObject)Resources.Load("World/" + line[0]),
-				position = new Vector2(float.Parse(line[1]), float.Parse(line[2])),
-				scale = new Vector2(float.Parse(line[3]), float.Parse(line[4])),
-				angle = line.Length >= 6 ? float.Parse(line[5]) : 0,
-				label = line.Length >= 7 ? line[6] : null
-			}).ToArray();
-		} catch {
-			throw new ArgumentException("Could not parse world section (5) of " + words[0][0][0] + ".");
-		}
-
-		try {
-			configs = words[6];
-		} catch {
-			throw new ArgumentException("Could not configs world section (5) of " + words[0][0][0] + ".");
-		}
-
+		data = JsonUtility.FromJson<RoomData>(text);
+		for (int i = 0; i < 4; i++)
+			data.borders[i].door = data.borders[i].door && doors[i];
+		foreach (ObjectData enemy in data.enemies)
+			enemy.template = (GameObject)Resources.Load("Enemy/" + enemy.templateName);
+		foreach (ObjectData thing in data.things)
+			thing.template = (GameObject)Resources.Load("Things/" + thing.templateName);
 	}
 
 	public void ReloadRoom() {
@@ -180,31 +141,30 @@ public class Room : MonoBehaviour {
 		// Instance wave engine and plane
 		waveEngine = Instantiate(waveEngineTemplate, transform).GetComponent<WaveEngine>();
 		waveEngine.transform.localPosition = Vector3.forward;
-		waveEngine.LoadParams(weParams, size);
+		waveEngine.param = data.weParams;
+		waveEngine.transform.localScale = new Vector3(data.width, data.height, 1);
 		waveEngine.Initialize();
 
 		// Instance room borders
 		for (int i = 0; i < 4; i++)
-			Instantiate(borderTemplate, transform).GetComponent<Border>().Draw(borders[i], i);
+			Instantiate(borderTemplate, transform).GetComponent<Border>().Draw(data.borders[i], i);
 
 		// Instance enemies
-		foreach (ObjectParams enemy in enemies) {
+		foreach (ObjectData enemy in data.enemies) {
 			GameObject instance = Instantiate(enemy.template, enemy.position + (Vector2)transform.position, Quaternion.Euler(0, 0, enemy.angle) * transform.rotation, transform);
 			instance.transform.localScale = new Vector3(enemy.scale.x, enemy.scale.y, 1);
 			if (enemy.label != null) named.Add(enemy.label, instance);
 		}
 
 		// Instance things
-		foreach (ObjectParams thing in things) {
+		foreach (ObjectData thing in data.things) {
 			GameObject instance = Instantiate(thing.template, thing.position + (Vector2)transform.position, Quaternion.Euler(0, 0, thing.angle) * transform.rotation, transform);
 			instance.transform.localScale = new Vector3(thing.scale.x, thing.scale.y, 1);
 			if (thing.label != null) named.Add(thing.label, instance);
 		}
 
 		// Execute configs
-		foreach (string[] config in configs) {
-			string[] halves = config[0].Split('.');
-			((Configurable)named[halves[0]].GetComponent(halves[1])).Configure(config);
+		foreach (ConfigData config in data.configs) {((Configurable)named[config.label].GetComponent(config.component)).Configure(config.args);
 		}
 
 		if (active == this) {
@@ -215,12 +175,12 @@ public class Room : MonoBehaviour {
 	}
 
 	public void Awake() {
-		if (path == "")
+		if (dataPath == "")
 			return;
-		string data = Resources.Load<TextAsset>("Rooms/" + path).text;
-		if (data == null)
+		string text = Resources.Load<TextAsset>("Rooms/" + dataPath).text;
+		if (text == null)
 			return;
-		Parse(data);
+		ImportData(text);
 		ReloadRoom();
 	}
 

@@ -90,10 +90,7 @@
     <Compile Include="Assets\Pulsars\SinePulsar.cs" />
     <Compile Include="Assets\Pulsars\SizePulsar.cs" />
     <Compile Include="Assets\WaveEngine\WaveEngine.cs" />
-    <None Include="Assets\Resources\Rooms\Room3.txt" />
-    <None Include="Assets\Resources\Rooms\Room2.txt" />
     <None Include="Assets\WaveEngine\SystemRender.shader" />
-    <None Include="Assets\Resources\Rooms\Room1.txt" />
     <None Include="Assets\WaveEngine\WaveCompute.compute" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/jefferson/Dropbox/Wavelet/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

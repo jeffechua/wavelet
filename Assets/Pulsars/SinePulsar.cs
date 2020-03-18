@@ -11,7 +11,7 @@ public class SinePulsar : BasePulsar {
 	}
 
 	protected override void StartPulse(float t) {
-		material.color = new Color(intensity, 0.5f / pulseLength / room.waveEngine.sourceFrequencyScale, -((0.5f * pulseStartTime / pulseLength) % 1) + (polarity ? 0.5f : 0f));
+		material.color = new Color(intensity, 0.5f / pulseLength / room.waveEngine.param.sourceFrequencyScale, -((0.5f * pulseStartTime / pulseLength) % 1) + (polarity ? 0.5f : 0f));
 	}
 
 	protected override void EndPulse(float t) {

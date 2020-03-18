@@ -63,7 +63,7 @@ public class OrbiterEnemy : RoomObject {
 			aimPos = futurePos;
 			*/
 			Vector2 v = Player.instance.GetComponent<Rigidbody2D>().velocity;
-			float c = room.waveEngine.cScale;
+			float c = room.waveEngine.param.cScale;
 			float c1 = v.sqrMagnitude - c*c;
 			float c2 = 2 * Vector2.Dot(v, relativeAimPos);
 			float c3 = relativeAimPos.sqrMagnitude;
@@ -111,7 +111,7 @@ public class OrbiterEnemy : RoomObject {
 					direction = newAxis * (Vector2.Angle(newAxis, tangentialComponent) > 90 ? -1 : 1);
 				}
 			}
-			motivity.Motivate(rb, direction);
+			motivity.Motivate(rb, direction, room.timeScale);
 
 		}
 

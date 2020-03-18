@@ -1,0 +1,37 @@
+﻿{
+    "name": "Bragg",
+    "width": 12,
+    "height": 12,
+    "timeScale": 1,
+    "weParams": {},
+    "borders": [
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": false
+        },
+        {
+            "type": 2,
+            "thickness": 0.5,
+            "door": true
+        }
+    ],
+    "enemies": [
+        {
+            "templateName": "Bragg"
+        }
+    ],
+    "things": [   ],
+    "configs": [
+    ]
+}

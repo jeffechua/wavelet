@@ -15,21 +15,23 @@ public class Bragg : RoomObject {
 	float targetAtomicSeparation;
 	float timeToNextResize;
 
-	ParticleSystem ps;
+	public ParticleSystem mechanical;
+	public ParticleSystem graphical;
 
 	void Start() {
-		ps = GetComponent<ParticleSystem>();
 		Reparticle();
 	}
 
 	void Reparticle() {
-		ps.Clear();
+		mechanical.Clear();
+		graphical.Clear();
 		for (int x = 0; x < sideAtomCount; x++) {
 			for (int y = 0; y < sideAtomCount; y++) {
 				Vector3 gridCoord = new Vector3(x, y) - Vector3.one * (sideAtomCount - 1) / 2;
 				ParticleSystem.EmitParams p = new ParticleSystem.EmitParams();
 				p.position = Vector3.Scale(gridCoord, transform.localScale) * atomicSeparation;
-				ps.Emit(p, 1);
+				mechanical.Emit(p, 1);
+				graphical.Emit(p, 1);
 			}
 		}
 	}
