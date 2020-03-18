@@ -885,6 +885,8 @@ MonoBehaviour:
   autoShoot: 1
   autoMove: 1
   moveWhileShooting: 0
+  turnWhileShooting: 0
+  aimAhead: 1
   pulsar: {fileID: 1830853051049581042}
 --- !u!114 &3184987136949932031
 MonoBehaviour:
@@ -918,6 +920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+  damageIntegral: 0
 --- !u!114 &1830853051049581042
 MonoBehaviour:
   m_ObjectHideFlags: 0

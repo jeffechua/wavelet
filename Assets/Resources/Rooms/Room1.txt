@@ -28,8 +28,8 @@ $# Enemies;
 
 $# World;
 # Name						: x  : y  : xscale : yscale : angle : label ;
- MovableBlock               :  2 : 0  : 2      : 1      ;
- MovableGlass               : -2 : 0  : 2      : 1      ;
+ MovableBlockRect           :  2 : 0  : 2      : 1      ;
+ MovableGlassWedge          : -2 : 0  : 2      : 2      ;
 
 $# Config;
 # Label      : Arguments;

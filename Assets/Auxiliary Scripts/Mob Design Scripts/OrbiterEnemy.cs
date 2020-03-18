@@ -14,6 +14,8 @@ public class OrbiterEnemy : RoomObject {
 	public bool autoShoot;
 	public bool autoMove;
     public bool moveWhileShooting;
+	public bool turnWhileShooting;
+	public bool aimAhead;
 
 	bool redirecting;
 	bool shooting;
@@ -21,9 +23,10 @@ public class OrbiterEnemy : RoomObject {
 
 	public BasePulsar pulsar;
 
-	RaycastHit2D lineOfSight; // it's a RaycastHit2D from the player towards self and not a geometric line of sight, but 
-							  // line of sight logic is what it's being used for.
+	RaycastHit2D lineOfSight;
 	bool hasLineOfSight;
+	Vector2 aimPos;
+	Vector2 relativeAimPos;
 
 	Rigidbody2D rb;
 
@@ -43,11 +46,34 @@ public class OrbiterEnemy : RoomObject {
 		lastShotTime = -10000;
 	}
 
-	// Update is called once per frame
+
 	void Update() {
 
-		Vector3 playerPos = Player.instance.transform.position;
-		lineOfSight = Physics2D.Raycast(transform.position, playerPos - transform.position, Mathf.Infinity, LayerMask.GetMask("View Blocker"));
+		aimPos = Player.instance.transform.position;
+		relativeAimPos = aimPos - (Vector2)transform.position;
+
+		if (aimAhead) {
+			/*
+			Vector2 futurePos = aimPos;
+			for (int i = 0; i < 10; i++) {
+				Vector2 relativeFuturePos = futurePos - (Vector2)transform.position;
+				float timeGap = relativeFuturePos.magnitude / room.waveEngine.cScale + pulsar.pulseLength / 2;
+				futurePos = aimPos + Player.instance.GetComponent<Rigidbody2D>().velocity * timeGap;
+			}
+			aimPos = futurePos;
+			*/
+			Vector2 v = Player.instance.GetComponent<Rigidbody2D>().velocity;
+			float c = room.waveEngine.cScale;
+			float c1 = v.sqrMagnitude - c*c;
+			float c2 = 2 * Vector2.Dot(v, relativeAimPos);
+			float c3 = relativeAimPos.sqrMagnitude;
+			float t = (-c2 - Mathf.Sqrt(c2 * c2 - 4 * c1 * c3)) / 2 / c1;
+			float netTime = t + pulsar.pulseLength / 2;
+			aimPos = aimPos + v * netTime;
+			relativeAimPos = aimPos - (Vector2)transform.position;
+		}
+
+		lineOfSight = Physics2D.Raycast(transform.position, relativeAimPos.normalized, relativeAimPos.magnitude, LayerMask.GetMask("View Blocker"));
 		hasLineOfSight = !lineOfSight.collider;
 
 		// Movement
@@ -62,11 +88,13 @@ public class OrbiterEnemy : RoomObject {
 
 	void FixedUpdate() {
 
-		if (autoMove && (!shooting || moveWhileShooting) ) {
+		if (!autoMove)
+			return;
 
-			Vector2 playerward = Player.instance.transform.position - transform.position;
-			float radiusError = playerward.magnitude - preferredOrbitalRadius;
-			playerward = playerward.normalized;
+		if (!shooting || moveWhileShooting) {
+
+			float radiusError = relativeAimPos.magnitude - preferredOrbitalRadius;
+			Vector2 playerward = relativeAimPos.normalized;
 
 			Vector2 radialComponent = playerward * radiusError * (hasLineOfSight ? 1 : 0.5f);
 			Vector2 tangentialComponent = Vector2.Perpendicular(playerward) * orbiticity;
@@ -85,7 +113,11 @@ public class OrbiterEnemy : RoomObject {
 			}
 			motivity.Motivate(rb, direction);
 
-			float targetAngle = Vector2.SignedAngle(Vector2.down, playerward);
+		}
+
+		if (!shooting || turnWhileShooting) {
+
+			float targetAngle = Vector2.SignedAngle(Vector2.down, relativeAimPos);
 			if (redirecting) {
 				float currentAngle = Vector2.SignedAngle(Vector2.down, -transform.up);
 				float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, room.deltaTime * 10);
@@ -94,6 +126,7 @@ public class OrbiterEnemy : RoomObject {
 			} else {
 				transform.rotation = Quaternion.Euler(0, 0, targetAngle);
 			}
+
 		}
 
 	}

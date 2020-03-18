@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7380250767335675835, guid: 1b26539aa582e4fb29604571202e85ba,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7668262320207569198, guid: 1b26539aa582e4fb29604571202e85ba,
         type: 3}
       propertyPath: polarity

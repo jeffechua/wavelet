@@ -28,6 +28,7 @@ $# Enemies ;
 
 $# World ;
 # Name                 : x  : y  : xscale : yscale : angle : label ;
+ Well                 : 0  : 0  : 12      : 12      ;
 
 $# Config ;
 # Label      : Arguments ;
