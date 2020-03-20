@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class Bragg : RoomObject {
+public class Bragg : RoomObjectBehaviour {
 
 	public float angularVelocity;
 	public int sideAtomCount;

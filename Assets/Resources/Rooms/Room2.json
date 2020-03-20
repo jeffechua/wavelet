@@ -28,7 +28,7 @@
     ],
     "enemies": [
         {
-            "templateName": "Grater",
+            "templateName": "OrbitalGunLensed R10",
             "x": 4,
             "y": 4
         },
@@ -50,11 +50,11 @@
     ],
     "things": [
         {
-            "templateName": "Well",
+            "templateName": "Float",
             "x": 0,
             "y": 0,
-            "xScale": 12,
-            "yScale": 12
+            "xScale": 0.3,
+            "yScale": 0.3
         }
     ],
     "configs": []

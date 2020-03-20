@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HP : RoomObject {
+public class HP : RoomObjectBehaviour {
 
 	public float maxHealth;
 	public float health;
 	public bool dead;
-	public DamageHitbox hitbox;
+	public Hitbox hitbox;
 
 	public bool destroyOnDeath;
 	public List<Component> disableOnDeath;
@@ -26,7 +26,7 @@ public class HP : RoomObject {
 	// Update is called once per frame
 	void Update() {
 		if (room && !dead)
-			health -= hitbox.damageIntegral * room.deltaTime;
+			health -= hitbox.damageDensity * room.deltaTime;
 
 		if (health < 0 && !dead) {
 			dead = true;

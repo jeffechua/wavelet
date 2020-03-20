@@ -3,7 +3,7 @@ using System;
 
 public enum PulsarState { Inactive, PrePulse, MidPulse }
 
-public class BasePulsar : RoomObject {
+public class BasePulsar : RoomObjectBehaviour {
 	public float pulseLength;
 	public bool manualActivate;
 	public bool autoActivate;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Border : RoomObject {
+public class Border : RoomObjectBehaviour {
 
 	public LineRenderer innerGraphical;
 	public LineRenderer innerMechanical;

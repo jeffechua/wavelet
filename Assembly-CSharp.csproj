@@ -63,15 +63,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Auxiliary Scripts\Mob Base Scripts\DamageHitbox.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Mob Base Scripts\HP.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Mob Base Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Auxiliary Scripts\Mob Base Scripts\Hitbox.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Mob Design Scripts\LaggedTrailer.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Mob Design Scripts\LockableTrailer.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Mob Design Scripts\OrbiterEnemy.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Player.cs" />
     <Compile Include="Assets\Auxiliary Scripts\Utilities.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\EnablementProxy.cs" />
+    <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\Float.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\Grating.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\Lens.cs" />
     <Compile Include="Assets\Auxiliary Scripts\World Design Scripts\LineSegmenter.cs" />

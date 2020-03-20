@@ -13,8 +13,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_LinearDrag: 3
+  m_AngularDrag: 3
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -36,7 +36,7 @@ PrefabInstance:
     - target: {fileID: 5173488155947466236, guid: f7b9dbece98b741bab340d2b9db1a10c,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5173488155947466237, guid: f7b9dbece98b741bab340d2b9db1a10c,
         type: 3}

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class OrbiterEnemy : RoomObject {
+public class OrbiterEnemy : RoomObjectBehaviour {
 
 	public float preferredPersonalSpace;
 	public float preferredOrbitalRadius;
@@ -23,7 +24,7 @@ public class OrbiterEnemy : RoomObject {
 
 	public BasePulsar pulsar;
 
-	RaycastHit2D lineOfSight;
+	RaycastHit2D[] lineOfSight;
 	bool hasLineOfSight;
 	Vector2 aimPos;
 	Vector2 relativeAimPos;
@@ -53,15 +54,6 @@ public class OrbiterEnemy : RoomObject {
 		relativeAimPos = aimPos - (Vector2)transform.position;
 
 		if (aimAhead) {
-			/*
-			Vector2 futurePos = aimPos;
-			for (int i = 0; i < 10; i++) {
-				Vector2 relativeFuturePos = futurePos - (Vector2)transform.position;
-				float timeGap = relativeFuturePos.magnitude / room.waveEngine.cScale + pulsar.pulseLength / 2;
-				futurePos = aimPos + Player.instance.GetComponent<Rigidbody2D>().velocity * timeGap;
-			}
-			aimPos = futurePos;
-			*/
 			Vector2 v = Player.instance.GetComponent<Rigidbody2D>().velocity;
 			float c = room.waveEngine.param.cScale;
 			float c1 = v.sqrMagnitude - c*c;
@@ -73,8 +65,8 @@ public class OrbiterEnemy : RoomObject {
 			relativeAimPos = aimPos - (Vector2)transform.position;
 		}
 
-		lineOfSight = Physics2D.Raycast(transform.position, relativeAimPos.normalized, relativeAimPos.magnitude, LayerMask.GetMask("View Blocker"));
-		hasLineOfSight = !lineOfSight.collider;
+		lineOfSight = Physics2D.RaycastAll(transform.position, -transform.up, relativeAimPos.magnitude);
+		hasLineOfSight = !lineOfSight.Any((hit) => hit.collider.gameObject.CompareTag("View Blocking"));
 
 		// Movement
 
@@ -120,7 +112,7 @@ public class OrbiterEnemy : RoomObject {
 			float targetAngle = Vector2.SignedAngle(Vector2.down, relativeAimPos);
 			if (redirecting) {
 				float currentAngle = Vector2.SignedAngle(Vector2.down, -transform.up);
-				float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, room.deltaTime * 10);
+				float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, room.deltaTime * 270);
 				transform.rotation = Quaternion.Euler(0, 0, newAngle);
 				if (Mathf.Abs(newAngle - targetAngle) < 1) redirecting = false;
 			} else {

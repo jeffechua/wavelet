@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Photoswitch : RoomObject, Configurable {
+public class Photoswitch : RoomObjectBehaviour, Configurable {
 
 	public float threshold;
 	public Component[] targets;
 	public bool[] defaultEnablementState;
 	public bool activated;
-	DamageHitbox hb;
+	Hitbox hb;
 
 	void Start() {
-		hb = GetComponent<DamageHitbox>();
+		hb = GetComponent<Hitbox>();
 	}
 
 	public void Configure(string[] args) {
@@ -31,11 +31,11 @@ public class Photoswitch : RoomObject, Configurable {
 	}
 
 	void FixedUpdate() {
-		if (hb.damageIntegral > threshold && !activated) {
+		if (hb.damageDensity > threshold && !activated) {
 			activated = true;
 			for (int i = 0; i < targets.Length; i++)
 				Utilities.TrySetEnabled(targets[i], !defaultEnablementState[i]);
-		} else if (hb.damageIntegral < threshold && activated) {
+		} else if (hb.damageDensity < threshold && activated) {
 			activated = false;
 			for (int i = 0; i < targets.Length; i++)
 				Utilities.TrySetEnabled(targets[i], defaultEnablementState[i]);

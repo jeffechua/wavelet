@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class LaggedTrailer : RoomObject {
+public class LaggedTrailer : RoomObjectBehaviour {
 
 	public float delay;
 

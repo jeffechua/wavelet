@@ -31,7 +31,7 @@ public class WaveEngineParams { // Intensive properties of the simulation
 	public float sourceFrequencyScale = 60;
 }
 
-public class WaveEngine : RoomObject {
+public class WaveEngine : RoomObjectBehaviour {
 
 	public static WaveEngine active;
 

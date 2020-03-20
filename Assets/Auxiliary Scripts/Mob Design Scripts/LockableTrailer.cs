@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LockableTrailer : RoomObject {
+public class LockableTrailer : RoomObjectBehaviour {
 
 	public BasePulsar controller;
 

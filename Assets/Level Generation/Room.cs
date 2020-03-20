@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 
-public abstract class RoomObject : MonoBehaviour {
+public abstract class RoomObjectBehaviour : MonoBehaviour {
 	Room _room;
 	protected Room room {
 		get {
@@ -86,7 +86,7 @@ public class Room : MonoBehaviour {
 	public string dataPath;
 	public RoomData data;
 
-	public Vector2 size { get => new Vector2(data.width,data.height); }
+	public Vector2 size { get => new Vector2(data.width, data.height); }
 	public float timeScale { get => data.timeScale; }
 	public float deltaTime { get => Time.deltaTime * data.timeScale; }
 
@@ -164,7 +164,8 @@ public class Room : MonoBehaviour {
 		}
 
 		// Execute configs
-		foreach (ConfigData config in data.configs) {((Configurable)named[config.label].GetComponent(config.component)).Configure(config.args);
+		foreach (ConfigData config in data.configs) {
+			((Configurable)named[config.label].GetComponent(config.component)).Configure(config.args);
 		}
 
 		if (active == this) {
@@ -205,7 +206,7 @@ public class Room : MonoBehaviour {
 			UnpauseRoom();
 			waveEngine.SetActive();
 			Player.instance.GetComponent<HP>().OverrideRoom(this); // probably don't need to do this every frame
-			Player.instance.GetComponent<DamageHitbox>().OverrideRoom(this); // probably don't need to do this every frame
+			Player.instance.GetComponent<Hitbox>().OverrideRoom(this); // probably don't need to do this every frame
 		} else if (!containsPlayer && active == this) {
 			active.PauseRoom();
 			active = null;
