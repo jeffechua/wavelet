@@ -6,13 +6,13 @@
     "weParams": {},
     "borders": [
         {
-            "type": 2,
-            "thickness": 0.5,
+            "type": 0,
+            "thickness": 0.05,
             "door": true
         },
         {
-            "type": 2,
-            "thickness": 0.5,
+            "type": 0,
+            "thickness": 0.05,
             "door": true
         },
         {
@@ -28,7 +28,7 @@
     ],
     "objects": [
         {
-            "templateName": "Enemy/OrbitalGunLensed R10",
+            "templateName": "Enemy/OrbitalGunLensed R9",
             "x": 4,
             "y": 4
         },
@@ -43,7 +43,7 @@
             "y": 4
         },
         {
-            "templateName": "Enemy/OrbitalGunLensed R10",
+            "templateName": "Enemy/OrbitalGunLensed R9",
             "x": -4,
             "y": -4
         },

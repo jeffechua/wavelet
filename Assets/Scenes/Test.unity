@@ -567,16 +567,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5199798470842122102, guid: f5121ba97f68c49458ea055ed3797cec,
-        type: 3}
-      propertyPath: kineticity.force
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5199798470842122102, guid: f5121ba97f68c49458ea055ed3797cec,
-        type: 3}
-      propertyPath: motivity.force
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5199798470842122103, guid: f5121ba97f68c49458ea055ed3797cec,
         type: 3}
       propertyPath: m_Name

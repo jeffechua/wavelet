@@ -38,28 +38,28 @@
             "y": -4
         },
         {
-            "templateName": "Enemy/OrbitalGunLensed HalfF R10",
+            "templateName": "Enemy/OrbitalGun R6",
             "x": -4,
             "y": 4
         },
         {
-            "templateName": "Enemy/OrbitalGunLensed R10",
+            "templateName": "Enemy/OrbitalGunLensed R9",
             "x": -4,
             "y": -4
         },
         {
-            "templateName": "World/MovableReflector",
+            "templateName": "World/Glass/MovableDenseGlassWedge",
+            "x": -2,
+            "y": 0,
+            "xScale": 3,
+            "yScale": 3
+        },
+        {
+            "templateName": "World/Glass/MovableGlassRect",
             "x": 2,
             "y": 0,
             "xScale": 2,
-            "yScale": 2
-        },
-        {
-            "templateName": "World/MovableGlassWedge",
-            "x": -2,
-            "y": 0,
-            "xScale": 4,
-            "yScale": 4
+            "yScale": 1
         }
     ]
 }

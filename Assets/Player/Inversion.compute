@@ -1,0 +1,19 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Main
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2DArray<float> System;
+uint centerX;
+uint centerY;
+uint radius;
+
+[numthreads(8,8,1)]
+void Main (uint3 id : SV_DispatchThreadID)
+{
+	uint x = centerX-radius+id.x;
+	uint y = centerY-radius+id.y;
+	if((x-centerX)*(x-centerX) + (y-centerY)*(y-centerY) < radius*radius) {
+		System[uint3(x,y,0)] = -System[uint3(x,y,0)];
+	}
+}

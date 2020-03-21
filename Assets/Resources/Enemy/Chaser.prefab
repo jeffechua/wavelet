@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d27df6e48a7428d98cc290edbb19bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseLength: 0.5
+  pulseLength: 0.6
   manualActivate: 0
   autoActivate: 0
   activationLag: 0
