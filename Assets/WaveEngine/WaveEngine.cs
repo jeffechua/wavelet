@@ -51,7 +51,7 @@ public class WaveEngine : RoomObjectBehaviour {
 	int width, height; // in simulation pixels
 
 	// Dependent time properties
-	int FrameFrequency { get => Mathf.RoundToInt(param.frequency * Time.fixedDeltaTime * (room ? room.timeScale : 1)); }
+	int FrameFrequency { get => Mathf.RoundToInt(param.frequency * room.deltaTime); }
 	float Dt { get => 1.0f / param.frequency; } // conversion factor between one shader space time unit and a room second.
 
 	// Conversions to values for shader calculations.

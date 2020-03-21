@@ -29,14 +29,14 @@ public class LockableTrailer : RoomObjectBehaviour {
 		};
 		controller.OnPulseEnd += delegate {
 			locked = false;
-			unlockTime = room.waveEngine.t;
+			unlockTime = waveEngine.t;
 		};
 		transform.SetParent(parent.parent);
 	}
 
 	// Update is called once per frame
 	void FixedUpdate() {
-		if (!locked && room.waveEngine.t - unlockTime > afterlockDelay) {
+		if (!locked && waveEngine.t - unlockTime > afterlockDelay) {
 			targetPos = parent.position;
 			targetRot = parent.rotation;
 		}

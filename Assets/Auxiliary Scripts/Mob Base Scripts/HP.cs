@@ -25,7 +25,7 @@ public class HP : RoomObjectBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (room && !dead)
+		if (!dead)
 			health -= hitbox.damageDensity * room.deltaTime;
 
 		if (health < 0 && !dead) {

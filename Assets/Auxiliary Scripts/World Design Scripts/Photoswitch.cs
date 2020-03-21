@@ -15,17 +15,12 @@ public class Photoswitch : RoomObjectBehaviour, Configurable {
 		hb = GetComponent<Hitbox>();
 	}
 
-	public void Configure(string[] args) {
+	public override void Configure(string[] args) {
 		targets = new Component[args.Length];
 		defaultEnablementState = new bool[args.Length];
 		for (int i = 0; i < args.Length; i++) {
-			// Format: root.child[...].child.component.defaultEnablementState
-			string[] halves = args[i].Split('.');
-			Transform obj = room.named[halves[0]].transform;
-			for (int j = 1; j < halves.Length - 2; j++)
-				obj = obj.Find(halves[j]);
-			targets[i] = obj.gameObject.GetComponent(halves[halves.Length - 2]);
-			defaultEnablementState[i] = bool.Parse(halves[halves.Length - 1]);
+			targets[i] = ((Room)room).ParseNamedReference(args[i], 1, out string[] def);
+			defaultEnablementState[i] = bool.Parse(def[0]);
 			Utilities.TrySetEnabled(targets[i], defaultEnablementState[i]);
 		}
 	}

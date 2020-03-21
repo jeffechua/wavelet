@@ -218,6 +218,11 @@ PrefabInstance:
       propertyPath: subPulsars.Array.data[5]
       value: 
       objectReference: {fileID: 7870279601573650114}
+    - target: {fileID: 3184987136949932031, guid: a4ad35d65a09d44a4af25a77cf0369da,
+        type: 3}
+      propertyPath: maxHealth
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 5085120223264149951, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: m_RootOrder

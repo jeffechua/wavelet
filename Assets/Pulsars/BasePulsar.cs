@@ -31,7 +31,7 @@ public class BasePulsar : RoomObjectBehaviour {
 
 	public void Pulse() {
 		if (state != PulsarState.Inactive) return;
-		pulseStartTime = room.waveEngine.t + activationLag;
+		pulseStartTime = waveEngine.t + activationLag;
 		state = PulsarState.PrePulse;
 	}
 
@@ -44,7 +44,7 @@ public class BasePulsar : RoomObjectBehaviour {
 		}
 
 		// Normalized time past activation
-		float t = pulseLength == 0 ? 0 : (room.waveEngine.t - pulseStartTime) / pulseLength;
+		float t = pulseLength == 0 ? 0 : (waveEngine.t - pulseStartTime) / pulseLength;
 
 		if (autoActivate && state == PulsarState.Inactive) Pulse();
 

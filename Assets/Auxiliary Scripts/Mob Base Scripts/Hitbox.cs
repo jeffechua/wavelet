@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class Hitbox : RoomObjectBehaviour {
 
 	public float radius; // secretly actually relative radius to width
-	public int pxRadius { get => Mathf.RoundToInt(radius * transform.localScale.x / room.waveEngine.param.pixelSize); }
+	public int pxRadius { get => Mathf.RoundToInt(radius * transform.localScale.x / waveEngine.param.pixelSize); }
 	public int pxDiameter { get => pxRadius * 2 + 1; }
 	public bool computeDamage;
 	public bool computeGradient;
@@ -27,15 +27,15 @@ public class Hitbox : RoomObjectBehaviour {
 
 	void LaunchEvaluationRequest(System.Action callback = null) {
 
-		if (!room)
+		if (!waveEngine)
 			return;
 
-		Vector2Int pxPosition = Vector2Int.RoundToInt((transform.position - room.waveEngine.transform.position +
-			room.waveEngine.transform.localScale / 2) / room.waveEngine.param.pixelSize);
+		Vector2Int pxPosition = Vector2Int.RoundToInt((transform.position - waveEngine.transform.position +
+			waveEngine.transform.localScale / 2) / waveEngine.param.pixelSize);
 
 		// Take the intersect of the capture rect and the actual readable texture rect
 		RectInt captureRect = new RectInt(pxPosition - new Vector2Int(pxRadius, pxRadius), new Vector2Int(pxDiameter, pxDiameter));
-		RectInt boundingRect = new RectInt(0, 0, room.waveEngine.systemTexture.width, room.waveEngine.systemTexture.height);
+		RectInt boundingRect = new RectInt(0, 0, waveEngine.systemTexture.width, waveEngine.systemTexture.height);
 		Vector2Int min = Vector2Int.Max(captureRect.min, boundingRect.min);
 		Vector2Int max = Vector2Int.Min(captureRect.max, boundingRect.max);
 		RectInt rect = new RectInt(min, max - min);
@@ -44,7 +44,7 @@ public class Hitbox : RoomObjectBehaviour {
 		if (rect.width <= 0 || rect.height <= 0) {
 			damageIntegralRaw = 0;
 		} else {
-			currentRequest = AsyncGPUReadback.Request(room.waveEngine.systemTexture, 0, rect.xMin, rect.width, rect.yMin, rect.height, 0, 1,
+			currentRequest = AsyncGPUReadback.Request(waveEngine.systemTexture, 0, rect.xMin, rect.width, rect.yMin, rect.height, 0, 1,
 				delegate (AsyncGPUReadbackRequest request) {
 					if (this == null)
 						return;
@@ -58,7 +58,7 @@ public class Hitbox : RoomObjectBehaviour {
 
 	void PerformEvaluations(NativeArray<float> data, Vector2Int dims) {
 		if (computeDamage) {
-			damageIntegralRaw = data.Sum((f) => Mathf.Abs(f) * room.waveEngine.param.amplitudeScale > room.waveEngine.param.amplitudeThreshold ? 1 : 0);
+			damageIntegralRaw = data.Sum((f) => Mathf.Abs(f) * waveEngine.param.amplitudeScale > waveEngine.param.amplitudeThreshold ? 1 : 0);
 			damageDensity = damageIntegralRaw / pxDiameter / pxDiameter;
 		}
 		if (computeGradient) {
@@ -69,7 +69,7 @@ public class Hitbox : RoomObjectBehaviour {
 				gradientIntegralRaw += data[i] * new Vector2(x, y);
 			}
 			gradientRaw = gradientIntegralRaw / Mathf.Pow(pxDiameter, 4) * 12;
-			gradient = gradientRaw / room.waveEngine.param.pixelSize;
+			gradient = gradientRaw / waveEngine.param.pixelSize;
 		}
 	}
 

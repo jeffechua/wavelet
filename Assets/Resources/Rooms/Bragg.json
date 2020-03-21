@@ -26,12 +26,9 @@
             "door": true
         }
     ],
-    "enemies": [
+    "objects": [
         {
-            "templateName": "Bragg"
+            "templateName": "Boss/Bragg"
         }
-    ],
-    "things": [   ],
-    "configs": [
     ]
 }

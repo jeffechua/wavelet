@@ -26,36 +26,33 @@
             "door": true
         }
     ],
-    "enemies": [
+    "objects": [
         {
-            "templateName": "OrbitalGunLensed R10",
+            "templateName": "Enemy/OrbitalGunLensed R10",
             "x": 4,
             "y": 4
         },
         {
-            "templateName": "Chaser -1",
+            "templateName": "Enemy/Chaser -1",
             "x": 4,
             "y": -4
         },
         {
-            "templateName": "OrbitalPulsar",
+            "templateName": "Enemy/OrbitalPulsar",
             "x": -4,
             "y": 4
         },
         {
-            "templateName": "OrbitalGunLensed R10",
+            "templateName": "Enemy/OrbitalGunLensed R10",
             "x": -4,
             "y": -4
-        }
-    ],
-    "things": [
+        },
         {
-            "templateName": "Float",
+            "templateName": "World/Float",
             "x": 0,
             "y": 0,
             "xScale": 0.3,
             "yScale": 0.3
         }
-    ],
-    "configs": []
+    ]
 }

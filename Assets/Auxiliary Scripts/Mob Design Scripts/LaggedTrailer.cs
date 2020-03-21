@@ -26,7 +26,7 @@ public class LaggedTrailer : RoomObjectBehaviour {
 	void FixedUpdate() {
 		posQueue.Enqueue(parent.position);
 		angleQueue.Enqueue(parent.rotation);
-		if (room.waveEngine.t > delay) {
+		if (waveEngine.t > delay) {
 			transform.position = posQueue.Dequeue();
 			transform.rotation = angleQueue.Dequeue();
 			transform.Translate(offset);

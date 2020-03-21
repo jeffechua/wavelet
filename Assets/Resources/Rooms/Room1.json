@@ -26,43 +26,40 @@
             "door": true
         }
     ],
-    "enemies": [
+    "objects": [
         {
-            "templateName": "Grater",
+            "templateName": "Enemy/Grater",
             "x": 4,
             "y": 4
         },
         {
-            "templateName": "OrbitalGun R6",
+            "templateName": "Enemy/OrbitalGun R6",
             "x": 4,
             "y": -4
         },
         {
-            "templateName": "OrbitalGunLensed HalfF R10",
+            "templateName": "Enemy/OrbitalGunLensed HalfF R10",
             "x": -4,
             "y": 4
         },
         {
-            "templateName": "OrbitalGunLensed R10",
+            "templateName": "Enemy/OrbitalGunLensed R10",
             "x": -4,
             "y": -4
-        }
-    ],
-    "things": [
+        },
         {
-            "templateName": "MovableBlockRect",
+            "templateName": "World/MovableReflector",
             "x": 2,
             "y": 0,
             "xScale": 2,
-            "yScale": 1
+            "yScale": 2
         },
         {
-            "templateName": "MovableGlassWedge",
+            "templateName": "World/MovableGlassWedge",
             "x": -2,
             "y": 0,
-            "xScale": 2,
-            "yScale": 2
+            "xScale": 4,
+            "yScale": 4
         }
-    ],
-    "configs": []
+    ]
 }

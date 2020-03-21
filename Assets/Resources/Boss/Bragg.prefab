@@ -48,7 +48,7 @@ MonoBehaviour:
   angularVelocity: 10
   sideAtomCount: 8
   atomicSeparation: 0.25
-  atomicSeparationBounds: {x: 0.1, y: 0.25}
+  atomicSeparationBounds: {x: 0.15, y: 0.25}
   timeBetweenResizeBounds: {x: 3, y: 5}
   mechanical: {fileID: 6436797698706202909}
   graphical: {fileID: 634465661889362315}

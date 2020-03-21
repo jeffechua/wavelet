@@ -26,51 +26,49 @@
             "door": true
         }
     ],
-    "enemies": [],
-    "things": [
+    "objects": [
         {
-            "templateName": "Photoswitch",
-            "label": "switch"
+            "templateName": "World/Photoswitch",
+            "label": "switch",
+            "configs": [
+                {
+                    "receptor": "Photoswitch",
+                    "args": [
+                        "beamS.EnablementProxy.true",
+                        "beamE.EnablementProxy.true",
+                        "beamN.EnablementProxy.true",
+                        "beamW.EnablementProxy.true"
+                    ]
+                }
+            ]
         },
         {
-            "templateName": "FixedBeam",
+            "templateName": "World/FixedBeam",
             "x": 3,
             "y": 6,
             "angle": 0,
             "label": "beamS"
         },
         {
-            "templateName": "FixedBeam",
+            "templateName": "World/FixedBeam",
             "x": -6,
             "y": 3,
             "angle": 90,
             "label": "beamE"
         },
         {
-            "templateName": "FixedBeam",
+            "templateName": "World/FixedBeam",
             "x": -3,
             "y": -6,
             "angle": 180,
             "label": "beamN"
         },
         {
-            "templateName": "FixedBeam",
+            "templateName": "World/FixedBeam",
             "x": 6,
             "y": -3,
             "angle": 270,
             "label": "beamW"
-        }
-    ],
-    "configs": [
-        {
-            "label": "switch",
-            "component": "Photoswitch",
-            "args": [
-                "beamS.EnablementProxy.true",
-                "beamE.EnablementProxy.true",
-                "beamN.EnablementProxy.true",
-                "beamW.EnablementProxy.true"
-            ]
         }
     ]
 }

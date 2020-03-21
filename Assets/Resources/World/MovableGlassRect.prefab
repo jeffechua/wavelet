@@ -12,7 +12,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.2
+  m_Mass: 0.1
   m_LinearDrag: 3
   m_AngularDrag: 3
   m_GravityScale: 0
@@ -92,6 +92,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5173488156345333260, guid: f7b9dbece98b741bab340d2b9db1a10c,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.11764706
       objectReference: {fileID: 0}
     - target: {fileID: 8181390258171340353, guid: f7b9dbece98b741bab340d2b9db1a10c,
         type: 3}
