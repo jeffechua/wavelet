@@ -46,7 +46,8 @@ public class WaveEngine : RoomObjectBehaviour {
 	// Working and rendering assets
 	public Camera mediumCamera, sourcesCamera;
 	public RenderTexture systemTexture, mediumTexture, sourcesTexture, systemDisplayTexture; // Do not assign
-
+	MeshRenderer renderer;
+	
 	// Dependent space properties
 	int width, height; // in simulation pixels
 
@@ -70,6 +71,8 @@ public class WaveEngine : RoomObjectBehaviour {
 
 
 	void Awake () {
+		renderer = GetComponent<MeshRenderer>();
+		renderer.sortingLayerName = "WavePlane";
 		if (autoInitialize) {
 			Initialize();
 			SetActive();
@@ -130,7 +133,7 @@ public class WaveEngine : RoomObjectBehaviour {
 		// Set up display texture
 		systemDisplayTexture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGBFloat);
 		systemDisplayTexture.Create();
-		GetComponent<MeshRenderer>().material.SetTexture("_MainTex", systemDisplayTexture);
+		renderer.material.SetTexture("_MainTex", systemDisplayTexture);
 
 	}
 
@@ -148,9 +151,9 @@ public class WaveEngine : RoomObjectBehaviour {
 		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
 		waveCompute.SetFloat("dampingScale", ShaderSpace_dampingScale);
 		waveCompute.SetFloat("frequencyScale", ShaderSpace_sourceFrequencyScale);
-		GetComponent<MeshRenderer>().material.SetFloat("_IntensityScale", param.amplitudeScale);
-		GetComponent<MeshRenderer>().material.SetFloat("_Threshold", param.amplitudeThreshold);
-		GetComponent<MeshRenderer>().material.SetFloat("_STMult", param.subThresholdMultiplier);
+		renderer.material.SetFloat("_IntensityScale", param.amplitudeScale);
+		renderer.material.SetFloat("_Threshold", param.amplitudeThreshold);
+		renderer.material.SetFloat("_STMult", param.subThresholdMultiplier);
 
 		// Simulate
 		for (int i = 0; i < FrameFrequency; i++) {

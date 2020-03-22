@@ -42,6 +42,12 @@ TagManager:
   - name: Mechanical
     uniqueID: 3579440513
     locked: 0
+  - name: BehindWavePlane
+    uniqueID: 3989894501
+    locked: 0
+  - name: WavePlane
+    uniqueID: 2020700219
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

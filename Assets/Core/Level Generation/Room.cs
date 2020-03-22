@@ -114,7 +114,7 @@ public class Room : MonoBehaviour, Roomlike {
 	public RoomData data;
 
 	public Vector2 size { get => new Vector2(data.width, data.height); }
-	public float timeScale { get => data.timeScale; }
+	public float timeScale { get => data.timeScale; set => data.timeScale = value; }
 	public float deltaTime { get => Time.deltaTime * data.timeScale; }
 
 	public GameObject waveEngineTemplate;

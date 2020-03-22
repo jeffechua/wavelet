@@ -28,22 +28,22 @@
     ],
     "objects": [
         {
-            "templateName": "Enemy/Grater",
+            "templateName": "Enemy/Triclops",
             "x": 4,
             "y": 4
         },
         {
-            "templateName": "Enemy/OrbitalGun R6",
+            "templateName": "Enemy/Gunner",
             "x": 4,
             "y": -4
         },
         {
-            "templateName": "Enemy/OrbitalGun R6",
+            "templateName": "Enemy/Gunner",
             "x": -4,
             "y": 4
         },
         {
-            "templateName": "Enemy/OrbitalGunLensed R9",
+            "templateName": "Enemy/Sniper",
             "x": -4,
             "y": -4
         },

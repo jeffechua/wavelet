@@ -70,6 +70,7 @@
     <Compile Include="Assets\Core\Level Generation\CameraManager.cs" />
     <Compile Include="Assets\Core\Level Generation\Room.cs" />
     <Compile Include="Assets\Core\WaveEngine\WaveEngine.cs" />
+    <Compile Include="Assets\Player\GlassTrail.cs" />
     <Compile Include="Assets\Player\Inverter.cs" />
     <Compile Include="Assets\Player\Player.cs" />
     <Compile Include="Assets\Player\Telekinesis.cs" />

@@ -28,22 +28,28 @@
     ],
     "objects": [
         {
-            "templateName": "Enemy/OrbitalGunLensed R9",
+            "templateName": "Enemy/Sniper",
             "x": 4,
             "y": 4
         },
         {
-            "templateName": "Enemy/Chaser -1",
+            "templateName": "Enemy/Chaser",
             "x": 4,
-            "y": -4
+            "y": -4,
+            "configs": [
+                {
+                    "receptor": "Mechanical.SinePulsar",
+                    "args": [ "-" ]
+                }
+            ]
         },
         {
-            "templateName": "Enemy/OrbitalPulsar",
+            "templateName": "Enemy/Orbiter",
             "x": -4,
             "y": 4
         },
         {
-            "templateName": "Enemy/OrbitalGunLensed R9",
+            "templateName": "Enemy/Sniper",
             "x": -4,
             "y": -4
         },

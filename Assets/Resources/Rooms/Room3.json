@@ -30,6 +30,8 @@
         {
             "templateName": "World/Photoswitch",
             "label": "switch",
+            "xScale": 0.6,
+            "yScale": 0.6,
             "configs": [
                 {
                     "receptor": "Photoswitch",
