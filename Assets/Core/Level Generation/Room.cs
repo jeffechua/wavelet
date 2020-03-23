@@ -39,15 +39,25 @@ public enum BorderType { Closed = 0, Free = 1, Absorb = 2 }
 
 [Serializable]
 public class BorderData {
-	public BorderType type;
-	public float thickness;
-	public bool door;
+	public BorderType type = BorderType.Absorb;
+	public float thickness = 0.5f;
+	public bool door = true;
+	public static BorderData operator & (BorderData border, bool andDoor) {
+		return new BorderData {
+			type = border.type,
+			thickness = border.thickness,
+			door = border.door & andDoor
+		};
+	}
 }
 
 [Serializable]
 public class ObjectData {
+
 	public string templateName;
-	public GameObject template;
+
+	GameObject _template;
+	public GameObject template { get => _template ?? (_template = (GameObject)Resources.Load(templateName)); }
 	public GameObject instance;
 
 	public float x = 0;
@@ -80,13 +90,13 @@ public struct ConfigData {
 
 [Serializable]
 public class RoomData {
-	public string name;
-	public float width;
-	public float height;
-	public float timeScale;
+	public string name = "Empty";
+	public float width = 12;
+	public float height = 12;
+	public float timeScale = 1;
 	public WaveEngineParams weParams;
-	public BorderData[] borders;
-	public ObjectData[] objects;
+	public BorderData[] borders = new BorderData[4];
+	public ObjectData[] objects = new ObjectData[0];
 }
 
 public interface Roomlike {
@@ -108,9 +118,12 @@ public class Room : MonoBehaviour, Roomlike {
 
 	public static Room active;
 
-	public bool[] doors;
+	public bool[] doors = new bool[] { false, false, false, false };
 
-	public string dataPath;
+	public string importPath;
+	public string exportPath = "~/Test";
+	public bool import;
+	public bool export;
 	public RoomData data;
 
 	public Vector2 size { get => new Vector2(data.width, data.height); }
@@ -144,19 +157,16 @@ public class Room : MonoBehaviour, Roomlike {
 	}
 
 	public void ImportData(string text) {
-		data = JsonUtility.FromJson<RoomData>(text);
 		for (int i = 0; i < 4; i++)
 			data.borders[i].door = data.borders[i].door && doors[i];
-		foreach (ObjectData obj in data.objects) {
-			obj.template = (GameObject)Resources.Load(obj.templateName);
-		}
 	}
 
-	public void ReloadRoom() {
+	public void ReloadRoom(bool dontDestroy = false) {
 
 		// Destroy all instantiated objects (except WavePlane)
-		for (int i = 0; i < transform.childCount; i++)
-			Destroy(transform.GetChild(i).gameObject);
+		if (!dontDestroy)
+			for (int i = 0; i < transform.childCount; i++)
+				Destroy(transform.GetChild(i).gameObject);
 
 		// Clear named dictionary
 		named.Clear();
@@ -170,14 +180,14 @@ public class Room : MonoBehaviour, Roomlike {
 
 		// Instance room borders
 		for (int i = 0; i < 4; i++)
-			Instantiate(borderTemplate, transform).GetComponent<Border>().Draw(data.borders[i], i);
+			Instantiate(borderTemplate, transform).GetComponent<Border>().Draw(data.borders[i] & doors[i], i);
 
 
 		// Instance enemies
 		foreach (ObjectData obj in data.objects) {
 			obj.instance = Instantiate(obj.template, obj.position + (Vector2)transform.position, Quaternion.Euler(0, 0, obj.angle) * transform.rotation, transform);
 			obj.instance.transform.localScale = new Vector3(obj.scale.x, obj.scale.y, 1);
-			if (obj.label != null) named.Add(obj.label, obj.instance);
+			if (obj.label != null && obj.label != "") named.Add(obj.label, obj.instance);
 		}
 
 		// Confingure enemies. Must do this after all enemies instance.
@@ -205,14 +215,23 @@ public class Room : MonoBehaviour, Roomlike {
 		return obj.gameObject.GetComponent(parts[parts.Length - clipEnd - 1]);
 	}
 
+	public void Import () {
+		string text = Resources.Load<TextAsset>("Rooms/" + importPath).text;
+		if (text != null)
+			data = JsonUtility.FromJson<RoomData>(text);
+	}
+
+	public void Export() {
+		string text = JsonUtility.ToJson(data);
+		string path = exportPath.StartsWith("~") ? exportPath.Replace("~", "Assets/Resources/Rooms") : exportPath;
+		System.IO.File.WriteAllText(path, text);
+	}
+
 	public void Awake() {
-		if (dataPath == "")
-			return;
-		string text = Resources.Load<TextAsset>("Rooms/" + dataPath).text;
-		if (text == null)
-			return;
-		ImportData(text);
-		ReloadRoom();
+		if (importPath != "") {
+			Import();
+		}
+		ReloadRoom(importPath == "");
 	}
 
 	private void Update() {
@@ -224,7 +243,18 @@ public class Room : MonoBehaviour, Roomlike {
 				ResetRoom();
 		}
 
-		// Couple player hitbox if overlapping
+		if (import) {
+			import = false;
+			Import();
+		}
+		if (export) {
+			export = false;
+			Export();
+		}
+			
+
+		// Manage activeness
+
 		if (Player.instance == null)
 			return;
 

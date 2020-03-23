@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doors: 00000000
-  dataPath: 
+  importPath: 
   data:
-    name: 
-    width: 0
-    height: 0
-    timeScale: 0
+    name: Empty
+    width: 12
+    height: 12
+    timeScale: 1
     weParams:
       amplitudeScale: 5
       amplitudeThreshold: 0.5
@@ -59,12 +59,21 @@ MonoBehaviour:
       cScale: 7
       dampingScale: 75
       sourceFrequencyScale: 60
-    borders: []
-    enemies: []
-    things: []
-    configs: []
+    borders:
+    - type: 2
+      thickness: 0.5
+      door: 1
+    - type: 2
+      thickness: 0.5
+      door: 1
+    - type: 2
+      thickness: 0.5
+      door: 1
+    - type: 2
+      thickness: 0.5
+      door: 1
+    objects: []
   waveEngineTemplate: {fileID: 5703889053411111336, guid: ffabced8df1b24d5cad80bbd2f370423,
     type: 3}
   borderTemplate: {fileID: 4005915617901174254, guid: 39091e96580f64171b5f5cb134e0e771,
     type: 3}
-  waveEngine: {fileID: 0}

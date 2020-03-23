@@ -30,4 +30,25 @@ public static class Utilities {
 		float T = 1 - t;
 		return p[0] * T * T * T + 3 * p[1] * T * T * t + 3 * p[2] * T * t * t + p[3] * t * t * t;
 	}
+	public static float PathLength(TrailRenderer tr) {
+		float l = 0;
+		for (int i = 1; i < tr.positionCount; i++) {
+			l += Vector2.Distance(tr.GetPosition(i), tr.GetPosition(i-1));
+		}
+		return l;
+	}
+	public static List<Vector2> GetPositionsToPathLength (TrailRenderer tr, float cap) {
+		float l = 0;
+		List<Vector2> points = new List<Vector2> { tr.GetPosition(0)};
+		for (int i = 1; i < tr.positionCount; i++) {
+			l += Vector2.Distance(tr.GetPosition(i), tr.GetPosition(i - 1));
+			if (l < cap) {
+				points.Add(tr.GetPosition(i));
+			} else {
+				points.Add(Vector2.MoveTowards(tr.GetPosition(i), tr.GetPosition(i - 1), l - cap));
+				return points;
+			}
+		}
+		return points;
+	}
 }

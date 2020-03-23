@@ -3,7 +3,11 @@ guid: 067f9974e535345eeb7efc24ad82028d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - waveEngineTemplate: {fileID: 5703889053411111336, guid: ffabced8df1b24d5cad80bbd2f370423,
+      type: 3}
+  - borderTemplate: {fileID: 4005915617901174254, guid: 39091e96580f64171b5f5cb134e0e771,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 341043047}
   afterlockDelay: 1
-  trailSpeed: 2
+  trailSpeed: 5
 --- !u!114 &341043047
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1399,6 +1399,16 @@ PrefabInstance:
       propertyPath: numSlits
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1176851565611476320, guid: be018c6fa9cea422ea8e1dc360af464b,
+        type: 3}
+      propertyPath: length
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176851565611476320, guid: be018c6fa9cea422ea8e1dc360af464b,
+        type: 3}
+      propertyPath: thickness
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1176851565611476321, guid: be018c6fa9cea422ea8e1dc360af464b,
         type: 3}
       propertyPath: m_Name
