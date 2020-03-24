@@ -36,11 +36,11 @@ public class BezierBrush : RoomObjectBehaviour {
 		if (!Room.active)
 			return;
 		slowedRoom = Room.active;
-		slowedRoom.timeScale /= _slowFactor;
+		//slowedRoom.timeScale /= _slowFactor;
 	}
 
 	void Unslow() {
-		slowedRoom.timeScale *= _slowFactor;
+		//slowedRoom.timeScale *= _slowFactor;
 		slowedRoom = null;
 	}
 

@@ -382,9 +382,9 @@ MonoBehaviour:
   mechanical: {fileID: 1116205045249230435}
   graphical: {fileID: 3815945710990529057}
   maxLength: 3
-  lifetime: 3
+  lifetime: 1
   diameter: 0.5
-  slowFactor: 3
+  slowFactor: 2
 --- !u!1 &1445880413980052280
 GameObject:
   m_ObjectHideFlags: 0

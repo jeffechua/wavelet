@@ -255,6 +255,11 @@ PrefabInstance:
       propertyPath: doors.Array.data[0]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7951542702176380192, guid: 87b6c506b51514193bad7e89545f1cdd,
+        type: 3}
+      propertyPath: importPath
+      value: Room2
+      objectReference: {fileID: 0}
     - target: {fileID: 7951542702176380193, guid: 87b6c506b51514193bad7e89545f1cdd,
         type: 3}
       propertyPath: m_Name
@@ -349,6 +354,11 @@ PrefabInstance:
       propertyPath: doors.Array.data[0]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7951542702176380192, guid: 87b6c506b51514193bad7e89545f1cdd,
+        type: 3}
+      propertyPath: importPath
+      value: Bragg
+      objectReference: {fileID: 0}
     - target: {fileID: 7951542702176380193, guid: 87b6c506b51514193bad7e89545f1cdd,
         type: 3}
       propertyPath: m_Name
@@ -441,6 +451,11 @@ PrefabInstance:
     - target: {fileID: 7951542702176380192, guid: 87b6c506b51514193bad7e89545f1cdd,
         type: 3}
       propertyPath: dataPath
+      value: Room3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951542702176380192, guid: 87b6c506b51514193bad7e89545f1cdd,
+        type: 3}
+      propertyPath: importPath
       value: Room3
       objectReference: {fileID: 0}
     - target: {fileID: 7951542702176380193, guid: 87b6c506b51514193bad7e89545f1cdd,
@@ -604,6 +619,11 @@ PrefabInstance:
     - target: {fileID: 7951542702176380192, guid: 87b6c506b51514193bad7e89545f1cdd,
         type: 3}
       propertyPath: dataPath
+      value: Room1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951542702176380192, guid: 87b6c506b51514193bad7e89545f1cdd,
+        type: 3}
+      propertyPath: importPath
       value: Room1
       objectReference: {fileID: 0}
     - target: {fileID: 7951542702176380193, guid: 87b6c506b51514193bad7e89545f1cdd,

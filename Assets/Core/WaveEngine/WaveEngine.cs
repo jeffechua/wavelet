@@ -20,7 +20,8 @@ using System;
 
 
 [Serializable]
-public class WaveEngineParams { // Intensive properties of the simulation
+public class SimulationParams { // Intensive properties of the simulation
+	public float timeScale = 1;
 	public float amplitudeScale = 5;
 	public float amplitudeThreshold = 0.5f;
 	public float subThresholdMultiplier = 0.5f;
@@ -29,6 +30,9 @@ public class WaveEngineParams { // Intensive properties of the simulation
 	public float cScale = 7;
 	public float dampingScale = 75;
 	public float sourceFrequencyScale = 60;
+	public Color ambientMedium = Color.cyan;
+
+	public float deltaTime { get => Time.deltaTime * timeScale; }
 }
 
 public class WaveEngine : RoomObjectBehaviour {
@@ -38,7 +42,7 @@ public class WaveEngine : RoomObjectBehaviour {
 	public bool autoInitialize;
 
 	// All intensive parameters of the simulation
-	public WaveEngineParams param;
+	public SimulationParams param;
 
 	// Main compute shader
 	public ComputeShader waveCompute;
@@ -46,22 +50,22 @@ public class WaveEngine : RoomObjectBehaviour {
 	// Working and rendering assets
 	public Camera mediumCamera, sourcesCamera;
 	public RenderTexture systemTexture, mediumTexture, sourcesTexture, systemDisplayTexture; // Do not assign
-	MeshRenderer renderer;
+	new MeshRenderer renderer;
 	
 	// Dependent space properties
 	int width, height; // in simulation pixels
 
 	// Dependent time properties
 	int FrameFrequency { get => Mathf.RoundToInt(param.frequency * room.deltaTime); }
-	float Dt { get => 1.0f / param.frequency; } // conversion factor between one shader space time unit and a room second.
 
 	// Conversions to values for shader calculations.
 	int _shaderSpace_t;
 	public int shaderSpace_t { get => _shaderSpace_t; }
-	public float t { get => _shaderSpace_t * Dt; }
-	float ShaderSpace_cScale { get => param.cScale / param.pixelSize * Dt; }
-	float ShaderSpace_dampingScale { get => param.dampingScale * Dt; }
-	float ShaderSpace_sourceFrequencyScale { get => param.sourceFrequencyScale * Dt * 2 * Mathf.PI; }
+	public float t { get => _shaderSpace_t * ShaderSpace_timeScale; }
+	float ShaderSpace_timeScale { get => 1.0f / param.frequency; } // conversion factor between one shader space time unit and a room second.
+	float ShaderSpace_cScale { get => param.cScale / param.pixelSize * ShaderSpace_timeScale; }
+	float ShaderSpace_dampingScale { get => param.dampingScale * ShaderSpace_timeScale; }
+	float ShaderSpace_sourceFrequencyScale { get => param.sourceFrequencyScale * ShaderSpace_timeScale * 2 * Mathf.PI; }
 
 	// Compute shader data
 	int resetKernel, dispKernel, veloKernel, testKernel;
@@ -148,12 +152,14 @@ public class WaveEngine : RoomObjectBehaviour {
 			return;
 
 		// Set some simulation and rendering parameters
+		// TODO: make this not every frame
 		waveCompute.SetFloat("c2Scale", ShaderSpace_cScale * ShaderSpace_cScale);
 		waveCompute.SetFloat("dampingScale", ShaderSpace_dampingScale);
 		waveCompute.SetFloat("frequencyScale", ShaderSpace_sourceFrequencyScale);
 		renderer.material.SetFloat("_IntensityScale", param.amplitudeScale);
 		renderer.material.SetFloat("_Threshold", param.amplitudeThreshold);
 		renderer.material.SetFloat("_STMult", param.subThresholdMultiplier);
+		mediumCamera.backgroundColor = param.ambientMedium;
 
 		// Simulate
 		for (int i = 0; i < FrameFrequency; i++) {

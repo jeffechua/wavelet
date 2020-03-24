@@ -41,7 +41,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.003921569, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoInitialize: 0
   param:
+    timeScale: 1
     amplitudeScale: 5
     amplitudeThreshold: 0.5
     subThresholdMultiplier: 0.5
@@ -252,6 +253,7 @@ MonoBehaviour:
     cScale: 7
     dampingScale: 75
     sourceFrequencyScale: 60
+    ambientMedium: {r: 0, g: 1, b: 1, a: 1}
   waveCompute: {fileID: 7200000, guid: 8c18c058cb61b4e668d11c6769ddff2f, type: 3}
   mediumCamera: {fileID: 6654595137822564255}
   sourcesCamera: {fileID: 7364323637519259432}

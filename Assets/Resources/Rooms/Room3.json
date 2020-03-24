@@ -20,31 +20,31 @@
         },
         {
             "templateName": "World/FixedBeam",
-            "x": 3,
-            "y": 6,
-            "angle": 0,
-            "label": "beamS"
-        },
-        {
-            "templateName": "World/FixedBeam",
-            "x": -6,
-            "y": 3,
-            "angle": 90,
-            "label": "beamE"
-        },
-        {
-            "templateName": "World/FixedBeam",
             "x": -3,
             "y": -6,
-            "angle": 180,
+            "angle": 0,
             "label": "beamN"
         },
         {
             "templateName": "World/FixedBeam",
             "x": 6,
             "y": -3,
-            "angle": 270,
+            "angle": 90,
             "label": "beamW"
+        },
+        {
+            "templateName": "World/FixedBeam",
+            "x": 3,
+            "y": 6,
+            "angle": 180,
+            "label": "beamS"
+        },
+        {
+            "templateName": "World/FixedBeam",
+            "x": -6,
+            "y": 3,
+            "angle": 270,
+            "label": "beamE"
         }
     ]
 }

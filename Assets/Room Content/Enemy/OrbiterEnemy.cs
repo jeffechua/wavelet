@@ -109,9 +109,9 @@ public class OrbiterEnemy : RoomObjectBehaviour {
 
 		if (!shooting || turnWhileShooting) {
 
-			float targetAngle = Vector2.SignedAngle(Vector2.down, relativeAimPos);
+			float targetAngle = Vector2.SignedAngle(Vector2.up, relativeAimPos);
 			if (redirecting) {
-				float currentAngle = Vector2.SignedAngle(Vector2.down, -transform.up);
+				float currentAngle = Vector2.SignedAngle(Vector2.up, transform.up);
 				float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, room.deltaTime * 270);
 				transform.rotation = Quaternion.Euler(0, 0, newAngle);
 				if (Mathf.Abs(newAngle - targetAngle) < 1) redirecting = false;
