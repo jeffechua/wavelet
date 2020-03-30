@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8424d345fcd254c94ac391bd62b2cea8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - capture: {instanceID: 0}
+  - preview: {instanceID: 0}
+  - redMapper: {fileID: 2100000, guid: 811cf4ad160e0490b8b3fee2f4f01302, type: 2}
+  - blueMapper: {fileID: 2100000, guid: 29ed010ea0bca4ba6af88eacd995ae44, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

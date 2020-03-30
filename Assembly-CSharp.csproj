@@ -75,6 +75,8 @@
     <Compile Include="Assets\Player\Player.cs" />
     <Compile Include="Assets\Player\Telekinesis.cs" />
     <Compile Include="Assets\Room Content\Boss\Bragg\Bragg.cs" />
+    <Compile Include="Assets\Room Content\Boss\Fresnel\FresnelCapture.cs" />
+    <Compile Include="Assets\Room Content\Boss\Fresnel\FresnelReplay.cs" />
     <Compile Include="Assets\Room Content\Enemy\LaggedTrailer.cs" />
     <Compile Include="Assets\Room Content\Enemy\LockableTrailer.cs" />
     <Compile Include="Assets\Room Content\Enemy\OrbiterEnemy.cs" />
@@ -95,9 +97,11 @@
     <Compile Include="Assets\Room Content\World\Pulsars\SizePulsar.cs" />
     <Compile Include="Assets\Utilities.cs" />
     <None Include="Assets\Player\Inversion.compute" />
+    <None Include="Assets\Room Content\Boss\Fresnel\FresnelReplay.shader" />
     <None Include="Assets\Core\WaveEngine\SystemRender.shader" />
     <None Include="Assets\Core\WaveEngine\WaveCompute.compute" />
     <None Include="Assets\Room Content\World\Materials\MiniMask.shader" />
+    <None Include="Assets\Room Content\Boss\Fresnel\ChannelMapper.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/jefferson/Dropbox/Wavelet/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -6,9 +6,11 @@ using UnityEngine.Rendering;
 
 public class Hitbox : RoomObjectBehaviour {
 
-	public float radius; // secretly actually relative radius to width
-	public int pxRadius { get => Mathf.RoundToInt(radius * transform.localScale.x / waveEngine.param.pixelSize); }
-	public int pxDiameter { get => pxRadius * 2 + 1; }
+	public float thresholdOverride = -1;
+	float threshold { get => thresholdOverride == -1 ? waveEngine.param.amplitudeThreshold : thresholdOverride; }
+	public Vector2 radius; // secretly actually relative radius to width
+	public Vector2Int pxRadius { get => Vector2Int.RoundToInt(Vector2.Scale(radius, transform.localScale) / waveEngine.param.pixelSize); }
+	public Vector2Int pxDiameter { get => pxRadius * 2 + Vector2Int.one; }
 	public bool computeDamage;
 	public bool computeGradient;
 	public float damageIntegralRaw; // area covered of intensity above threshold, in units of pixels
@@ -33,7 +35,7 @@ public class Hitbox : RoomObjectBehaviour {
 		Vector2Int pxPosition = waveEngine.WorldToTexturePoint(transform.position);
 
 		// Take the intersect of the capture rect and the actual readable texture rect
-		RectInt captureRect = new RectInt(pxPosition - new Vector2Int(pxRadius, pxRadius), new Vector2Int(pxDiameter, pxDiameter));
+		RectInt captureRect = new RectInt(pxPosition - pxRadius, pxDiameter);
 		RectInt boundingRect = new RectInt(0, 0, waveEngine.systemTexture.width, waveEngine.systemTexture.height);
 		Vector2Int min = Vector2Int.Max(captureRect.min, boundingRect.min);
 		Vector2Int max = Vector2Int.Min(captureRect.max, boundingRect.max);
@@ -57,8 +59,8 @@ public class Hitbox : RoomObjectBehaviour {
 
 	void PerformEvaluations(NativeArray<float> data, Vector2Int dims) {
 		if (computeDamage) {
-			damageIntegralRaw = data.Sum((f) => Mathf.Abs(f) * waveEngine.param.amplitudeScale > waveEngine.param.amplitudeThreshold ? 1 : 0);
-			damageDensity = damageIntegralRaw / pxDiameter / pxDiameter;
+			damageIntegralRaw = data.Sum((f) => Mathf.Abs(f) * waveEngine.param.amplitudeScale > threshold ? 1 : 0);
+			damageDensity = damageIntegralRaw / pxDiameter.x / pxDiameter.y;
 		}
 		if (computeGradient) {
 			gradientIntegralRaw = Vector2.zero;
@@ -67,7 +69,7 @@ public class Hitbox : RoomObjectBehaviour {
 				int y = i / dims.x - dims.y/2;
 				gradientIntegralRaw += data[i] * new Vector2(x, y);
 			}
-			gradientRaw = gradientIntegralRaw / Mathf.Pow(pxDiameter, 4) * 12;
+			gradientRaw = gradientIntegralRaw / Mathf.Pow(pxDiameter.x*pxDiameter.y, 2) * 12;
 			gradient = gradientRaw / waveEngine.param.pixelSize;
 		}
 	}

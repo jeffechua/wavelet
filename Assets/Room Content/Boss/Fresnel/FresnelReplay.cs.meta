@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6b4d6c0acd30b490b9e6fee8ebb80f25
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - displacementReplay: {instanceID: 0}
+  - velocityReplay: {instanceID: 0}
+  - replayWidget: {fileID: 5586851052744766908, guid: 71db3cddac5024ffd8f02a5829327848,
+      type: 3}
+  - dampers: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

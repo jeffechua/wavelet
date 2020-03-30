@@ -41,7 +41,7 @@ public class BorderData {
 	public BorderType type = BorderType.Absorb;
 	public float thickness = 0.5f;
 	public bool door = true;
-	public static BorderData operator & (BorderData border, bool andDoor) {
+	public static BorderData operator &(BorderData border, bool andDoor) {
 		return new BorderData {
 			type = border.type,
 			thickness = border.thickness,
@@ -214,7 +214,7 @@ public class Room : MonoBehaviour, Roomlike {
 		return obj.gameObject.GetComponent(parts[parts.Length - clipEnd - 1]);
 	}
 
-	public void Import () {
+	public void Import() {
 		string text = Resources.Load<TextAsset>("Rooms/" + importPath).text;
 		if (text != null)
 			data = JsonUtility.FromJson<RoomData>(text);
@@ -229,6 +229,8 @@ public class Room : MonoBehaviour, Roomlike {
 	public void Awake() {
 		if (importPath != "") {
 			Import();
+		} else {
+			active = this;
 		}
 		ReloadRoom(importPath == "");
 	}
@@ -250,7 +252,7 @@ public class Room : MonoBehaviour, Roomlike {
 			export = false;
 			Export();
 		}
-			
+
 
 		// Manage activeness
 
