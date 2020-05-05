@@ -1,16 +1,34 @@
 ﻿{
     "name": "Bragg",
     "simParams": {
-        "amplitudeThreshold" : 0.7 
+        "amplitudeThreshold": 0.6,
+        "ambientDamping": 0.003922
     },
-    "objects": [
+    "borders": [
         {
-            "templateName": "Boss/Bragg",
-            "angle" : -90
+            "type": 0,
+            "thickness": 0,
+            "door": false
         },
         {
-            "templateName": "Boss/Bragg",
-            "angle" : 90
+            "type": 0,
+            "thickness": 0,
+            "door": false
+        },
+        {
+            "type": 0,
+            "thickness": 0,
+            "door": true
+        },
+        {
+            "type": 0,
+            "thickness": 0,
+            "door": false
+        }
+    ],
+    "objects" : [
+        {
+            "templateName" : "Boss/Bragg"
         }
     ]
 }

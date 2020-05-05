@@ -30,7 +30,8 @@ public class SimulationParams { // Intensive properties of the simulation
 	public float cScale = 7;
 	public float dampingScale = 75;
 	public float sourceFrequencyScale = 60;
-	public Color ambientMedium = Color.cyan;
+	public float ambientDamping = 0;
+	public float ambientRfIndex = 1;
 
 	public float deltaTime { get => Time.deltaTime * timeScale; }
 }
@@ -159,7 +160,7 @@ public class WaveEngine : RoomObjectBehaviour {
 		renderer.material.SetFloat("_IntensityScale", param.amplitudeScale);
 		renderer.material.SetFloat("_Threshold", param.amplitudeThreshold);
 		renderer.material.SetFloat("_STMult", param.subThresholdMultiplier);
-		mediumCamera.backgroundColor = param.ambientMedium;
+		mediumCamera.backgroundColor = new Color(param.ambientDamping, param.ambientRfIndex, 1);
 
 		// Simulate
 		for (int i = 0; i < FrameFrequency; i++) {

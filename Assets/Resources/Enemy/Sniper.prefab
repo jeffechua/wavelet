@@ -116,6 +116,16 @@ PrefabInstance:
       propertyPath: subPulsars.Array.data[6]
       value: 
       objectReference: {fileID: 1052163849}
+    - target: {fileID: 3184987136949932031, guid: a4ad35d65a09d44a4af25a77cf0369da,
+        type: 3}
+      propertyPath: damageThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3184987136949932031, guid: a4ad35d65a09d44a4af25a77cf0369da,
+        type: 3}
+      propertyPath: maxHealth
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5085120223264149951, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: m_RootOrder

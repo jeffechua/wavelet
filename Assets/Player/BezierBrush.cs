@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class BezierBrush : RoomObjectBehaviour {
+public class BezierBrush : MonoBehaviour {
 	public TrailRenderer guide;
 	public LineRenderer mechanical;
 	public LineRenderer graphical;
@@ -16,7 +16,6 @@ public class BezierBrush : RoomObjectBehaviour {
 
 	Color mColor0;
 	Color gColor0;
-	Room slowedRoom;
 	bool drawing;
 	float lifetimeLeft;
 
@@ -29,21 +28,25 @@ public class BezierBrush : RoomObjectBehaviour {
 	}
 
 	void Slow() {
-		if (slowedRoom) {
-			Unslow();
-		}
 		_slowFactor = slowFactor;
 		if (!Room.active)
 			return;
-		slowedRoom = Room.active;
-		//slowedRoom.timeScale /= _slowFactor;
+		Room.active.data.simParams.timeScale /= _slowFactor;
+		Room.OnExitRoom += OnExitRoom;
+		Room.OnEnterRoom += OnEnterRoom;
 	}
 
 	void Unslow() {
-		//slowedRoom.timeScale *= _slowFactor;
-		slowedRoom = null;
+		if (!Room.active)
+			return;
+		Room.OnExitRoom -= OnExitRoom;
+		Room.OnEnterRoom -= OnEnterRoom;
+		Room.active.data.simParams.timeScale *= _slowFactor;
 	}
 
+	void OnExitRoom(Room exited) => exited.data.simParams.timeScale *= _slowFactor;
+	void OnEnterRoom(Room entered) => entered.data.simParams.timeScale /= _slowFactor;
+	
 	void Update() {
 
 		transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward;
@@ -64,7 +67,7 @@ public class BezierBrush : RoomObjectBehaviour {
 		// Fading
 		lifetimeLeft -= Time.deltaTime;
 		Color c = graphical.material.color;
-		graphical.material.color = new Color(gColor0.r, gColor0.g, gColor0.b, (1 - Mathf.Pow(Mathf.Clamp01(1 - lifetimeLeft/lifetime), 3))*gColor0.a);
+		graphical.material.color = new Color(gColor0.r, gColor0.g, gColor0.b, (1 - Mathf.Pow(Mathf.Clamp01(1 - lifetimeLeft / lifetime), 3)) * gColor0.a);
 		c = mechanical.material.color;
 		mechanical.material.color = new Color(mColor0.r, mColor0.g, mColor0.b, lifetimeLeft > 0 ? mColor0.a : 0);
 	}

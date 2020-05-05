@@ -116,6 +116,8 @@ public class PhantomRoom : Roomlike {
 public class Room : MonoBehaviour, Roomlike {
 
 	public static Room active;
+	public static Action<Room> OnExitRoom = delegate { };
+	public static Action<Room> OnEnterRoom = delegate { };
 
 	public bool[] doors = new bool[] { false, false, false, false };
 
@@ -261,14 +263,16 @@ public class Room : MonoBehaviour, Roomlike {
 
 		bool containsPlayer = rect.Contains(Player.instance.transform.position);
 
-		if (containsPlayer && active != this) {
-			if (active != null) active.PauseRoom();
+		if (containsPlayer & active == null) {
 			active = this;
 			UnpauseRoom();
 			waveEngine.SetActive();
-		} else if (!containsPlayer && active == this) {
-			active.PauseRoom();
+			OnEnterRoom(this);
+		}
+		if (!containsPlayer && active == this) {
+			PauseRoom();
 			active = null;
+			OnExitRoom(this);
 		}
 
 	}

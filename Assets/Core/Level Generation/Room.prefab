@@ -45,12 +45,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doors: 00000000
   importPath: 
+  exportPath: ~/Test
+  import: 0
+  export: 0
   data:
     name: Empty
     width: 12
     height: 12
-    timeScale: 1
-    weParams:
+    simParams:
+      timeScale: 1
       amplitudeScale: 5
       amplitudeThreshold: 0.5
       subThresholdMultiplier: 0.5
@@ -59,6 +62,8 @@ MonoBehaviour:
       cScale: 7
       dampingScale: 75
       sourceFrequencyScale: 60
+      ambientDamping: 0
+      ambientRfIndex: 1
     borders:
     - type: 2
       thickness: 0.5
