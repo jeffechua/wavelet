@@ -15,8 +15,12 @@ public class SinePulsar : BasePulsar {
 	public override void Configure(string[] args) {
 		if (args.Contains("-"))
 			polarity = true;
+		if (args.Contains("+"))
+			polarity = false;
 		if (args.Contains("fullwave"))
 			fullwave = true;
+		if (args.Contains("halfwave"))
+			fullwave = false;
 	}
 
 	protected override void StartPulse(float t) {

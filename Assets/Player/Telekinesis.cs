@@ -65,13 +65,13 @@ public class Telekinesis : RoomObjectBehaviour {
 
 		// Player input
 		timeSinceDragStart += Time.deltaTime;
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(1)) {
 			if (!manipulated)
 				TryGrip();
 			else
 				Ungrip();
 		}
-		if(Input.GetMouseButtonUp(0) && timeSinceDragStart>0.3f) {
+		if(Input.GetMouseButtonUp(1) && timeSinceDragStart>0.3f) {
 			Ungrip();
 		}
 

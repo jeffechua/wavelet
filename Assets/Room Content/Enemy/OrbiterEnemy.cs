@@ -10,7 +10,7 @@ public class OrbiterEnemy : RoomObjectBehaviour {
 	public Motivity motivity;
 	public float speed;
 	public float orbiticity;
-	public float shootDelay;
+	public float shootCooldown;
 
 	public bool autoShoot;
 	public bool autoMove;
@@ -72,7 +72,7 @@ public class OrbiterEnemy : RoomObjectBehaviour {
 
 		if (autoShoot && !shooting)
 			if (hasLineOfSight)
-				if (room.waveEngine.t - lastShotTime > shootDelay)
+				if (room.waveEngine.t - lastShotTime > shootCooldown)
 					pulsar.Pulse();
 
 

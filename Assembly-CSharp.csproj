@@ -73,6 +73,7 @@
     <Compile Include="Assets\Player\BezierBrush.cs" />
     <Compile Include="Assets\Player\Inverter.cs" />
     <Compile Include="Assets\Player\Player.cs" />
+    <Compile Include="Assets\Player\PlayerGun.cs" />
     <Compile Include="Assets\Player\Telekinesis.cs" />
     <Compile Include="Assets\Room Content\Boss\Bragg\Bragg.cs" />
     <Compile Include="Assets\Room Content\Boss\Fresnel\FresnelCapture.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Room Content\World\Pulsars\SineAmplitudePulsar.cs" />
     <Compile Include="Assets\Room Content\World\Pulsars\SinePulsar.cs" />
     <Compile Include="Assets\Room Content\World\Pulsars\SizePulsar.cs" />
+    <Compile Include="Assets\Room Content\World\TransformLerp.cs" />
     <Compile Include="Assets\Utilities.cs" />
     <None Include="Assets\Player\Inversion.compute" />
     <None Include="Assets\Room Content\Boss\Fresnel\FresnelReplay.shader" />

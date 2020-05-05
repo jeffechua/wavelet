@@ -43,6 +43,9 @@ public class BasePulsar : RoomObjectBehaviour {
 			manualActivate = false;
 		}
 
+		if (!waveEngine)
+			return;
+
 		// Normalized time past activation
 		float t = pulseLength == 0 ? 0 : (waveEngine.t - pulseStartTime) / pulseLength;
 

@@ -115,13 +115,13 @@ public class WaveEngine : RoomObjectBehaviour {
 		systemTexture.enableRandomWrite = true;
 		systemTexture.Create();
 
-		mediumTexture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGBFloat);
+		mediumTexture = new RenderTexture(width, height, 24, RenderTextureFormat.ARGBFloat);
 		mediumTexture.filterMode = FilterMode.Point;
 		mediumTexture.Create();
 		mediumCamera.targetTexture = mediumTexture;
 		mediumCamera.orthographicSize = transform.localScale.y / 2;
 
-		sourcesTexture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGBFloat);
+		sourcesTexture = new RenderTexture(width, height, 24, RenderTextureFormat.ARGBFloat);
 		sourcesTexture.filterMode = FilterMode.Point;
 		sourcesTexture.Create();
 		sourcesCamera.targetTexture = sourcesTexture;

@@ -8,12 +8,12 @@ public class FresnelCapture : RoomObjectBehaviour {
 	public Hitbox[] hitboxes;
 	RenderTexture intermediate1;
 	RenderTexture intermediate2;
-	public Texture2D capture;
+	public static Texture2D capture;
 	public UnityEngine.UI.RawImage preview;
 	public UnityEngine.UI.Button primeButton;
 	public Material redMapper;
 	public Material blueMapper;
-	bool primed;
+	public static bool primed;
 
 	void Capture() {
 		RenderTexture system = waveEngine.systemTexture;
@@ -43,6 +43,8 @@ public class FresnelCapture : RoomObjectBehaviour {
 		((Room)room).ResetRoom();
 		capture.LoadRawTextureData(new byte[capture.width * capture.height * 32 * 4]);
 		capture.Apply();
+		Graphics.Blit(capture, intermediate1);
+		Graphics.Blit(capture, intermediate2);
 		primeButton.interactable = false;
 		StartCoroutine(PrimeSoon());
 	}

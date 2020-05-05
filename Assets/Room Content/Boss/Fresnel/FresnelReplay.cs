@@ -11,6 +11,7 @@ public class FresnelReplay : RoomObjectBehaviour {
 	public GameObject replayWidget;
 	public Stack<GameObject> widgets = new Stack<GameObject>();
 	public GameObject dampers;
+	public float dist = 1;
 	public float renderTime;
 	float t;
 
@@ -35,9 +36,14 @@ public class FresnelReplay : RoomObjectBehaviour {
 	}
 
 	public void Replay(int i) {
-		((Room)room).ResetRoom();
 		dampers.SetActive(false);
-		Texture2D replayed = i == -1 ? GetComponent<FresnelCapture>().capture : holograms[i];
+		t = Mathf.Infinity;
+		StartCoroutine(ReplaySoon(i));
+	}
+
+	IEnumerator ReplaySoon(int i) {
+		yield return new WaitForSeconds(0.5f);
+		Texture2D replayed = i == -1 ? FresnelCapture.capture : holograms[i];
 		Graphics.Blit(replayed, waveEngine.systemTexture, displacementReplay, -1, 0);
 		Graphics.Blit(replayed, waveEngine.systemTexture, velocityReplay, -1, 1);
 		t = renderTime;
@@ -50,12 +56,12 @@ public class FresnelReplay : RoomObjectBehaviour {
 		//float slopeDist = flatDist / 2;
 		//renderTime = flatDist / (waveEngine.param.cScale * slowFactor) +
 		//			 slopeDist * Mathf.Log(1.0f / slowFactor) / waveEngine.param.cScale / (1 - slowFactor);
-		renderTime = 1 / waveEngine.param.cScale / slowFactor;
+		renderTime = dist / waveEngine.param.cScale / slowFactor;
 	}
 
 	void Update() {
 		t -= Time.deltaTime;
-		if (t < 0 && t > -renderTime) {
+		if (t < 0 && !FresnelCapture.primed) {
 			if (!dampers.activeSelf)
 				dampers.SetActive(true);
 		} else if (dampers.activeSelf)

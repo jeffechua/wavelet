@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186726789273399123}
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.225, y: 0.2, z: 1}
+  m_LocalPosition: {x: 0, y: 0.025, z: 0}
+  m_LocalScale: {x: 0.225, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 4558121591054265323}
   m_RootOrder: 4
@@ -717,7 +717,7 @@ MonoBehaviour:
     currentSpeed: 0
   speed: 2
   orbiticity: 1
-  shootDelay: 2
+  shootCooldown: 2
   autoShoot: 1
   autoMove: 1
   moveWhileShooting: 0
@@ -755,6 +755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fa79226ef6c4c6088591390d0eeec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thresholdOverride: -1
   radius: {x: 0.2, y: 0.2}
   computeDamage: 1
   computeGradient: 0

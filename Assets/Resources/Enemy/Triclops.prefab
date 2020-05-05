@@ -422,7 +422,7 @@ MonoBehaviour:
     currentSpeed: 0
   speed: 1
   orbiticity: 0.5
-  shootDelay: 5
+  shootCooldown: 5
   autoShoot: 1
   autoMove: 1
   moveWhileShooting: 0
@@ -460,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fa79226ef6c4c6088591390d0eeec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thresholdOverride: -1
   radius: {x: 0.5, y: 0.5}
   computeDamage: 1
   computeGradient: 0
@@ -797,7 +798,7 @@ MonoBehaviour:
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 13107
-    ctime2: 52428
+    ctime2: 32768
     ctime3: 65535
     ctime4: 0
     ctime5: 0
@@ -1226,8 +1227,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7796718632908174240}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.4499998, z: 0}
-  m_LocalScale: {x: 0.10000002, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 0.2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 888454037275921117}
   m_RootOrder: 5
@@ -1413,6 +1414,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grating
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176851565611476321, guid: be018c6fa9cea422ea8e1dc360af464b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1176851565611476326, guid: be018c6fa9cea422ea8e1dc360af464b,
         type: 3}

@@ -121,11 +121,6 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 4501636677991235142, guid: a4ad35d65a09d44a4af25a77cf0369da,
-        type: 3}
-      propertyPath: maxSize.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5085120223264149951, guid: a4ad35d65a09d44a4af25a77cf0369da,
         type: 3}
       propertyPath: m_RootOrder

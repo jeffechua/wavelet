@@ -108,8 +108,8 @@ public interface Roomlike {
 public class PhantomRoom : Roomlike {
 	public WaveEngine waveEngine { get => WaveEngine.active; }
 	public Vector2 size { get => waveEngine.transform.localScale; }
-	public float timeScale { get => waveEngine.param.timeScale; }
-	public float deltaTime { get => waveEngine.param.deltaTime; }
+	public float timeScale { get => waveEngine ? waveEngine.param.timeScale : 1; }
+	public float deltaTime { get => waveEngine ? waveEngine.param.deltaTime : Time.deltaTime; } // waveEngine.param.deltaTime is a property = waveEngine.param.timeScale * Time.deltaTime
 	public static PhantomRoom active = new PhantomRoom();
 }
 
