@@ -1,5 +1,8 @@
 ﻿{
     "name": "Room 3",
+    "simParams": {
+        "amplitudeThreshold": 0.7
+    },
     "objects": [
         {
             "templateName": "World/Photoswitch",

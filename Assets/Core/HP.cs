@@ -6,8 +6,12 @@ public class HP : RoomObjectBehaviour {
 
 	public float maxHealth;
 	public float health;
+	public float damageThreshold;
 	public bool dead;
 	public Hitbox hitbox;
+
+	public SpriteRenderer[] tintSubjects;
+	bool currentlyTinted;
 
 	public bool destroyOnDeath;
 	public List<Component> disableOnDeath;
@@ -25,8 +29,18 @@ public class HP : RoomObjectBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (!dead)
-			health -= hitbox.damageDensity * room.deltaTime;
+		if (!dead && hitbox.damageDensity > damageThreshold) {
+			health -= room.deltaTime;
+			if (!currentlyTinted) {
+				foreach (SpriteRenderer subj in tintSubjects)
+					subj.color = new Color(1, 0.5f, 0.5f);
+				currentlyTinted = true;
+			}
+		} else if (currentlyTinted) {
+			foreach (SpriteRenderer subj in tintSubjects)
+				subj.color = Color.white;
+			currentlyTinted = false;
+		}
 
 		if (health < 0 && !dead) {
 			dead = true;

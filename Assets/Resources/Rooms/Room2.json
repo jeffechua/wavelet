@@ -7,20 +7,7 @@
             "y": 4
         },
         {
-            "templateName": "Enemy/Chaser",
-            "x": 4,
-            "y": -4,
-            "configs": [
-                {
-                    "receptor": "Mechanical.SinePulsar",
-                    "args": [ "-" ]
-                }
-            ]
-        },
-        {
-            "templateName": "Enemy/Orbiter",
-            "x": -4,
-            "y": 4
+            "templateName": "Enemy/Ripple Node"
         },
         {
             "templateName": "Enemy/Sniper",
@@ -29,8 +16,8 @@
         },
         {
             "templateName": "World/Float",
-            "x": 0,
-            "y": 0,
+            "x": 3,
+            "y": -3,
             "xScale": 0.3,
             "yScale": 0.3
         }

@@ -441,10 +441,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12ad3ae463514dd18e474202ef8569d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0.2
+  maxHealth: 3
   health: 0
+  damageThreshold: 0
   dead: 0
   hitbox: {fileID: 1038201012730111312}
+  tintSubjects:
+  - {fileID: 888454035897951391}
+  - {fileID: 888454035938674559}
+  - {fileID: 888454036952323499}
+  - {fileID: 888454037578904123}
   destroyOnDeath: 0
   disableOnDeath:
   - {fileID: 888454036270166289}
@@ -876,7 +882,7 @@ MonoBehaviour:
   - {fileID: 888454035858696873}
   - {fileID: 888454035823350925}
   - {fileID: 2333118600598413238}
-  - {fileID: 7254900303621386358}
+  - {fileID: 1038201012730111312}
   defaultEnabled: 000000000001
 --- !u!1 &888454037578904125
 GameObject:

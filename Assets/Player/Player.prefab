@@ -1184,10 +1184,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12ad3ae463514dd18e474202ef8569d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 5
   health: 0
+  damageThreshold: 0
   dead: 0
   hitbox: {fileID: 5199798470842121357}
+  tintSubjects:
+  - {fileID: 8557156870653283729}
   destroyOnDeath: 0
   disableOnDeath:
   - {fileID: 5199798470842122102}

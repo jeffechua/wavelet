@@ -1,12 +1,16 @@
 ﻿{
     "name": "Bragg",
+    "simParams": {
+        "amplitudeThreshold" : 0.7 
+    },
     "objects": [
         {
-            "templateName": "Boss/Bragg"
+            "templateName": "Boss/Bragg",
+            "angle" : -90
         },
         {
             "templateName": "Boss/Bragg",
-            "angle": 180
+            "angle" : 90
         }
     ]
 }

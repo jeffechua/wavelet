@@ -27,6 +27,14 @@ public class Hitbox : RoomObjectBehaviour {
 		}
 	}
 
+	private void OnDisable() {
+		damageDensity = 0;
+		damageIntegralRaw = 0;
+		gradient = Vector2.zero;
+		gradientRaw = Vector2.zero;
+		gradientIntegralRaw = Vector2.zero;
+	}
+
 	void LaunchEvaluationRequest(System.Action callback = null) {
 
 		if (!waveEngine)
