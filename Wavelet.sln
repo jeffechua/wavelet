@@ -38,5 +38,10 @@ Global
 		$3.NewLineForCatch = False
 		$3.NewLineForFinally = False
 		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 80
+		$4.TabsToSpaces = True
+		$4.scope = text/unityshader
+		$0.StandardHeader = $5
 	EndGlobalSection
 EndGlobal

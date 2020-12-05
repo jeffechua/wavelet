@@ -253,7 +253,8 @@ MonoBehaviour:
     cScale: 7
     dampingScale: 75
     sourceFrequencyScale: 60
-    ambientMedium: {r: 0, g: 1, b: 1, a: 1}
+    ambientDamping: 0
+    ambientRfIndex: 0
   waveCompute: {fileID: 7200000, guid: 8c18c058cb61b4e668d11c6769ddff2f, type: 3}
   mediumCamera: {fileID: 6654595137822564255}
   sourcesCamera: {fileID: 7364323637519259432}
